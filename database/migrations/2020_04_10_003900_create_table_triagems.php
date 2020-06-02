@@ -15,7 +15,7 @@ class CreateTableTriagems extends Migration
     {
         Schema::create('triagems', function (Blueprint $table) {
             $table->id();
-            $table->text('descricao');
+            $table->text('descricao')->nullable();
             $table->float('saturacao',8,2)->nullable();
             $table->float('glasgow',8,2)->nullable();
             $table->float('tax',8,2)->nullable();
@@ -23,8 +23,8 @@ class CreateTableTriagems extends Migration
             $table->float('fc',8,2)->nullable();
             $table->float('peso',8,2)->nullable();
             $table->string('pa',7)->nullable();
-            $table->unsignedBigInteger('enfermeiro');
-            $table->unsignedBigInteger('classificacao');
+            $table->unsignedBigInteger('enfermeiro')->nullable();
+            $table->unsignedBigInteger('classificacao')->nullable();
             
             $table->foreign('enfermeiro')->references('id')->on('users');
             $table->foreign('classificacao')->references('id')->on('classificacaos');

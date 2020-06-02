@@ -24,7 +24,7 @@ class NovaRecepcao implements ShouldBroadcast
     {
         $this->atendimentos = Atendimento::join('pacientes','atendimentos.paciente','=','pacientes.id')
         ->select("atendimentos.*","pacientes.nome as paciente","pacientes.bairro as bairro","pacientes.mae","pacientes.nascimento")
-        ->whereNull('atendimentos.triagem')
+        ->whereIn('atendimentos.status',[1,2])
         ->paginate(20);
     }
 

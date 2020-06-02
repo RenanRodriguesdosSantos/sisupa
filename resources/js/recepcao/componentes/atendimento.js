@@ -3,6 +3,7 @@ import axios from 'axios';
 import Pagination from 'react-js-pagination';
 import Edit from '../../imagens/edit.png';
 import Selecionar from '../../imagens/accept.png';
+import {redirect, salvo, preencha, selecionePaciente} from '../../components/mensagens';
 
 export default class Atendimento extends Component{
     constructor(props){
@@ -27,7 +28,7 @@ export default class Atendimento extends Component{
 
         axios.get("/user")
         .then(response => {this.setState({user: response.data})})
-        .catch((e) => this.redirectToHome(e));
+        .catch((e) =>{redirect(e)});
 
         $(document).ready(function(){
             $('.nome').mask('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',{translation: {
@@ -66,14 +67,16 @@ export default class Atendimento extends Component{
             paciente.uf = valor;
             this.setState({paciente: paciente});
             axios.get(this.api + "municipios/"+ valor)
-            .then((response) => {this.setState({municipios: response.data})});
+            .then((response) => {this.setState({municipios: response.data})})
+            .catch(e => {redirect(e)});
         }
         else{
             paciente.ufn = valor;
             paciente.naturalidade = "";
             this.setState({paciente: paciente});
             axios.get(this.api + "municipios/"+ valor)
-            .then((response) => {this.setState({naturalidades: response.data})});
+            .then((response) => {this.setState({naturalidades: response.data})})
+            .catch(e => {redirect(e)});
         }
     }
 
@@ -84,13 +87,14 @@ export default class Atendimento extends Component{
             mae: !this.state.paciente.mae?"_":this.state.paciente.mae,
             nascimento: this.state.paciente.nascimento
         }
-
-        $("#tabela").addClass("d-none");
-        $("#spinner").removeClass("d-none");
+        $(document).ready(function(){
+            $("#tabela").addClass("d-none");
+            $("#spinner").removeClass("d-none");
+        });
 
         axios.get(this.api + "paciente/"+ pacientes.nome + "/" + pacientes.mae + "/" + pacientes.nascimento + "?page="+pageNumber)
         .then(response => this.closeLoading(response))
-        .catch((e) => this.redirectToHome(e));
+        .catch(e => {redirect(e)});
 
     }
 
@@ -102,12 +106,14 @@ export default class Atendimento extends Component{
                 mae: !this.state.paciente.mae?"_":this.state.paciente.mae,
                 nascimento: this.state.paciente.nascimento
             }
-            $("#tabela").addClass("d-none");
-            $("#spinner").removeClass("d-none");
+            $(document).ready(function(){
+                $("#tabela").addClass("d-none");
+                $("#spinner").removeClass("d-none");
+            })
             
             axios.get(this.api + "paciente/" + pacientes.nome + "/" + pacientes.mae + "/" + pacientes.nascimento)
             .then(response => this.closeLoading(response))
-            .catch(e => this.redirectToHome(e));
+            .catch(e => {redirect(e)});
         }
     }
 
@@ -118,8 +124,10 @@ export default class Atendimento extends Component{
                 itemsCountPerPage: response.data.per_page,
                 totalItemsCount: response.data.total
         });
-        $("#tabela").removeClass("d-none");
-        $("#spinner").addClass('d-none');
+        $(document).ready(function() {
+            $("#tabela").removeClass("d-none");
+            $("#spinner").addClass('d-none');
+        })
     }
 
     selecionar(e, row){
@@ -144,29 +152,24 @@ export default class Atendimento extends Component{
         }
         
         if(!atendimento.paciente){
-            alert("Selecione um Paciente.");
+            selecionePaciente();
         }
         else{
             if(!this.state.atendimento.id){
                 axios.post(this.api + 'atendimento/store',atendimento)
-                .catch((e) => this.redirectToHome(e));
+                .then((e) => salvo())
+                .catch((e) => { redirect(e)});
             }
             else{
                 axios.put(this.api + 'atendimento/update/'+this.state.atendimento.id,atendimento)
-                .catch(e => (this.redirectToHome(e)));
+                .then((e) => salvo())
+                .catch((e) => { redirect(e)});
             }
             this.cancelar(e);
         }
     }
 
-    redirectToHome(e){
-        if (e.response || e.request) {
-            alert("OCORREU UM ERRO DE CONEXÃO \n Você será redirecionado à página HOME!\nStatus do Erro" + e.response.status );
-            window.location.replace("/");
-        } 
-    }
-
-    //set os campos da tela de atendimento de acordo com paciente salvo ou modificado
+    //seta os campos da tela de atendimento de acordo com paciente salvo ou modificado
     setarCampos(paciente){
         var atendimento = this.state.atendimento;
         atendimento.nome = paciente.nome;
@@ -178,11 +181,13 @@ export default class Atendimento extends Component{
     //cadastar novo paciente
     cadastrar(e){
         e.preventDefault();
-        $('#headerModal').text('Cadastro de Paciente');
-        $('#bodyBuscar').addClass('d-none');
-        $('#bodyCadastrar').removeClass('d-none');
-        $('#btnCadastrar').addClass('d-none');
-        $('#btnSalvar').removeClass('d-none');
+        $(document).ready(function() {
+            $('#headerModal').text('Cadastro de Paciente');
+            $('#bodyBuscar').addClass('d-none');
+            $('#bodyCadastrar').removeClass('d-none');
+            $('#btnCadastrar').addClass('d-none');
+            $('#btnSalvar').removeClass('d-none');
+        })
         this.listar();
     }
 
@@ -190,11 +195,13 @@ export default class Atendimento extends Component{
         e.preventDefault();
 
         this.setState({pacientes: []});
-        $('#bodyCadastrar').addClass('d-none');
-        $('#bodyBuscar').removeClass('d-none');
-        $('#btnCadastrar').removeClass('d-none');
-        $('#btnSalvar').addClass('d-none');
-        $('#headerModal').text('Selecionar Paciente');
+        $(document).ready(function() {
+            $('#bodyCadastrar').addClass('d-none');
+            $('#bodyBuscar').removeClass('d-none');
+            $('#btnCadastrar').removeClass('d-none');
+            $('#btnSalvar').addClass('d-none');
+            $('#headerModal').text('Selecionar Paciente');
+        })
 
         if(e.target.id == "cancelar"){
             var atendimento = this.state.atendimento;
@@ -210,11 +217,11 @@ export default class Atendimento extends Component{
     listar(){ // Busca no Banco de dados os dados para ComboBox
         axios.get(this.api + "municipios/"+"MG")
         .then((response)=> {this.setState({municipios: response.data, naturalidades: response.data})})
-        .catch((e) => this.redirectToHome(e));
+        .catch((e) => { redirect(e)});
 
         axios.get(this.api + 'etnias')
         .then((response) => {this.setState({etnias: response.data})})
-        .catch((e) => this.redirectToHome(e));
+        .catch((e) => { redirect(e)});
     }
 
     salvar(e){
@@ -248,62 +255,51 @@ export default class Atendimento extends Component{
         }
 
         if(!paciente.nome){
-            alert("O campo nome deve ser preenchido");
-            $("[name='nome']").focus();
+            preencha("nome","#name");
         }
         else if(!paciente.mae){
-            alert("O campo nome da mãe deve ser preenchido");
-            $("[name='mae']").focus();
+            preencha("mãe","#mae");
         }
         else if(!paciente.nascimento){
-            alert("O campo nascimento deve ser preenchido");
-            $("[name='nascimento']").focus();
+            preencha("nascimento","#nascimento");
         }
-        else if(!paciente.sexo){
-            alert("O campo sexo deve ser preenchido");
-            $("#sexo").focus();
-        }
-        else if(!paciente.sexo){
-            alert("O campo sexo deve ser preenchido");
-            $("#sexo").focus();
+        else if(!paciente.sexo || !paciente.sexo == 0){
+            preencha("sexo","#sexo");
         }
         else if(!prenchido.etnia){
-            alert("O campo etnia deve ser preenchido");
-            $("#etnia").focus();
+            preencha("etnia","#etnia");
         }
         else if(!prenchido.naturalidade){
-            alert("O campo naturalidade deve ser preenchido");
-            $("#naturalidade").focus();
+            preencha("naturalidade","#naturalidade");
         }
         else if(!paciente.logradouro){
-            alert("O campo logradouro deve ser preenchido");
-            $("#logradouro").focus();
+            preencha("logradouro","#logradouro");
         }
         else if(!paciente.numero){
-            alert("O campo número de residência deve ser preenchido");
-            $("#numero").focus();
+            preencha("número da residência","#numero");
         }
         else if(!paciente.bairro){
-            alert("O campo bairro deve ser preenchido");
-            $("#bairro").focus();
+            preencha("bairro","#bairro");
         }
         else if(!prenchido.municipio){
-            alert("O campo município deve ser preenchido");
-            $("#municipio").focus();
+            preencha("município","#municipio");
         }
         else{
             if(!this.state.paciente.id){
                 var atendimento = this.state.atendimento;
                 axios.post(this.api + 'paciente/store',paciente)
-                .then(response => atendimento.paciente = response.data)
-                .catch((e) => this.redirectToHome(e));
+                .then(response => { salvo();atendimento.paciente = response.data})
+                .catch((e) => { redirect(e)});
                 this.setState({atendimento: atendimento});
             }
             else{
                 axios.put(this.api + 'paciente/update/'+this.state.paciente.id,paciente)
-                .catch((e) => this.redirectToHome(e));
+                .then(e => {salvo();})
+                .catch((e) => { redirect(e)});
             }
-            $('#paciente').modal('toggle');
+            $(document).ready(function() {
+                $('#paciente').modal('toggle');
+            })
             this.fecharModal(e);
         }
     }
@@ -318,15 +314,15 @@ export default class Atendimento extends Component{
     editarPaciente(row){
         axios.get(this.api + "municipios/"+ row.uf)
         .then((response)=> {this.setState({municipios: response.data})})
-        .catch((e) => this.redirectToHome(e));
+        .catch((e) => { redirect(e)});
 
         axios.get(this.api + "municipios/"+ row.ufn)
         .then((response)=> {this.setState({naturalidades: response.data})})
-        .catch((e) => this.redirectToHome(e));
+        .catch((e) => { redirect(e)});
 
         axios.get(this.api + 'etnias')
         .then((response) => {this.setState({etnias: response.data})})
-        .catch((e) => this.redirectToHome(e));
+        .catch((e) => { redirect(e)});
 
         var paciente = this.state.paciente;
         paciente.id = row.id;
@@ -354,11 +350,13 @@ export default class Atendimento extends Component{
         this.setState({atendimento: atendimento});
 
         this.setState({paciente: paciente});
-        $('#headerModal').text('Cadastro de Paciente');
-        $('#bodyBuscar').addClass('d-none');
-        $('#bodyCadastrar').removeClass('d-none');
-        $('#btnCadastrar').addClass('d-none');
-        $('#btnSalvar').removeClass('d-none');
+        $(document).ready(function() {
+            $('#headerModal').text('Cadastro de Paciente');
+            $('#bodyBuscar').addClass('d-none');
+            $('#bodyCadastrar').removeClass('d-none');
+            $('#btnCadastrar').addClass('d-none');
+            $('#btnSalvar').removeClass('d-none');
+        });
     }
     //////// ========== ======= ============ ======== ========  ===========////////
     render(){
@@ -392,7 +390,7 @@ export default class Atendimento extends Component{
                                 <div className="form-group row ">
                                     <div className="col-sm-12 text-center">
                                         
-                                            <button onClick={(e) => this.buscar(e)} data-toggle="modal" data-target="#paciente" className="btn btn-primary col-6"> BUSCAR </button>
+                                            <button id="btnBuscarPaciente" onClick={(e) => this.buscar(e)} data-toggle="modal" data-target="#paciente" className="btn btn-success col-6"> BUSCAR </button>
                                         
                                     </div>
                                 </div>
@@ -454,7 +452,7 @@ export default class Atendimento extends Component{
                                                     <input onChange={this.handleChange} value={this.state.paciente.mae} type="text" className="form-control text-uppercase nome" id="mae" placeholder="Nome da mãe"/>
                                                 </div>
                                                 <div className="col-sm-3">
-                                                    <button onClick={(e) => this.buscar(e)} className="btn btn-primary col-sm-12 mt-1 m-md-0" > Buscar </button>
+                                                    <button onClick={(e) => this.buscar(e)} className="btn btn-success col-sm-12 mt-1 m-md-0" > Buscar </button>
                                                 </div>
                                             </div>
                                         </form>
@@ -541,7 +539,7 @@ export default class Atendimento extends Component{
                                                 <label htmlFor="sexo" className="col-sm-1 col-form-label"> Sexo: </label>
                                                 <div className="col-sm-4">
                                                     <select onChange={this.handleChange} value={this.state.paciente.sexo} className="form-control text-uppercase" id="sexo" placeholder="Sexo">
-                                                        <option value="0"></option>
+                                                        <option value="0">Selecione</option>
                                                         <option value="F">Feminino</option>
                                                         <option value="M">Masculino</option>
                                                     </select>
@@ -679,7 +677,7 @@ export default class Atendimento extends Component{
                                 </div>
                             </div>
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" id="cancelar" onClick={e => this.fecharModal(e)} data-dismiss="modal">Cancelar</button>
+                                    <button type="button" className="btn btn-warning" id="cancelar" onClick={e => this.fecharModal(e)} data-dismiss="modal">Cancelar</button>
                                     <button id="btnCadastrar" type="button" className="btn btn-primary" onClick={e => this.cadastrar(e)}>Cadastrar</button>
                                     <button id="btnSalvar" type="button" className="btn btn-primary d-none" onClick={e => this.salvar(e)}>Salvar</button>
                                 </div>
@@ -690,8 +688,8 @@ export default class Atendimento extends Component{
                 <br/>
                 <div className="row">
                     <div  className="col-md-12 text-right mt-1">
-                        <button className="btn col-md-2 btn-primary" onClick={e => this.incluir(e)} > Salvar </button>&nbsp;
                         <button className="btn col-md-2 btn-warning" onClick={e => this.cancelar(e)}>Cancelar</button>&nbsp;
+                        <button className="btn col-md-2 btn-primary" onClick={e => this.incluir(e)} > Salvar </button>&nbsp;
                     </div>
                 </div>
                 <br/>

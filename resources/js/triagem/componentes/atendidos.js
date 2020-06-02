@@ -3,6 +3,7 @@ import axios from 'axios';
 import Pagination from 'react-js-pagination';
 import Aceitar from '../../imagens/edit.png';
 import { Link } from 'react-router-dom';
+import {redirect} from '../../components/mensagens';
 
 export default class Atendidos extends Component{
     constructor(){
@@ -15,6 +16,11 @@ export default class Atendidos extends Component{
             totalItemsCount:0,
         };
 
+        $(document).ready(function () {
+            $("#spinner").removeClass("d-none");
+            $("#tabela").addClass("d-none");
+        });
+
         this.api = "/triagem/";
         axios.get(this.api + 'atendimentos/dados/lista/atendidos')
         .then(response => {
@@ -24,17 +30,21 @@ export default class Atendidos extends Component{
                 itemsCountPerPage: response.data.per_page,
                 totalItemsCount: response.data.total
             })
-            $("#tabela").removeClass("d-none");
-            $("#spinner").addClass("d-none");
+            $(document).ready(function () {
+                $("#tabela").removeClass("d-none");
+                $("#spinner").addClass("d-none");
+            })
         })
-        .catch((e) => this.redirectToHome(e));
+        .catch(e =>{ redirect(e)});
     }
 
     handlePageChange(pageNumber){
-        $("#spinner").removeClass("d-none");
-        $("#tabela").addClass("d-none");
+        $(document).ready(function () {
+            $("#spinner").removeClass("d-none");
+            $("#tabela").addClass("d-none");
+        });
 
-        axios.get(this.api + 'atendimentos/dados/lista/atendidos'+pageNumber)
+        axios.get(this.api + 'atendimentos/dados/lista/atendidos?page='+pageNumber)
         .then((response)=>{
             this.setState({
                 atendimentos: response.data.data,
@@ -42,23 +52,43 @@ export default class Atendidos extends Component{
                 itemsCountPerPage: response.data.per_page,
                 totalItemsCount: response.data.total
             });
-            $("#spinner").addClass("d-none");
-            $("#tabela").removeClass("d-none");
+            $(document).ready(function() {
+                $("#spinner").addClass("d-none");
+                $("#tabela").removeClass("d-none");
+            })
         })
-        .catch((e) => this.redirectToHome(e));
+        .catch(e =>{ redirect(e)});
     }
 
-    redirectToHome(e){
-        if (e.response || e.request) {
-            alert("OCORREU UM ERRO DE CONEXÃO \n Você será redirecionado à página HOME!\nStatus do Erro" + e.response.status );
-            window.location.replace("/");
-        } 
+    getCor(cor){
+        switch (cor) {
+            case 1:
+                    return "Vermelho"
+                break;
+            case 2:
+                    return "Laranja"
+                break;
+            case 3:
+                    return "Amarelo"
+                break;
+            case 4:
+                    return "Verde"
+                break;
+            case 5:
+                    return "Azul"
+                break;
+        }
     }
 
     render(){
         return(
             <div>
                 <h2 className="text-center">Lista de Pacientes para a Triagem</h2>
+                <center>
+                    <div className="spinner-border d-none" id="spinner" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </center>
                 <div className="col-md-12 d-none" id="tabela">
                     <div className="table-responsive" >
                         <table className="table table-striped">
@@ -82,7 +112,7 @@ export default class Atendidos extends Component{
                                         <td> {new Date(row.nascimento).toLocaleDateString()} </td>
                                         <td> {row.bairro} </td>
                                         <td> {new Date(row.created_at).toLocaleTimeString()}</td>
-                                        <td> VERMELHO </td>
+                                        <td> {this.getCor(row.cor)} </td>
                                         <td><Link  to={"/triagem/atendimento/" + row.id} className="btn btn-primary"><img src={Aceitar}/></Link></td>
                                     </tr>
                                     )}

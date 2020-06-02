@@ -22,6 +22,7 @@ class RecepcaoController extends Controller
         $atendimento = new Atendimento();
         $atendimento->paciente = $request->paciente;
         $atendimento->recepcao = $recepcao->id;
+        $atendimento->status = 1;
         $atendimento->save();
 
         event(new NovaRecepcao());

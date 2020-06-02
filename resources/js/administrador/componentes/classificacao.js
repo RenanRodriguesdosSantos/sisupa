@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import axios from 'axios';
+import { redirect, preencha, salvo } from '../../components/mensagens';
 
 export default class Classificacao extends Component{
     constructor(){
@@ -75,15 +76,18 @@ export default class Classificacao extends Component{
 
     preencher(){
         axios.get(this.url + "fluxograma")
-        .then(response => {this.setState({fluxogramas: response.data})});
+        .then(response => {this.setState({fluxogramas: response.data})})
+        .catch(e => redirect(e));
+
         axios.get(this.url + "discriminador")
-        .then(response => {this.setState({discriminadores: response.data})});
+        .then(response => {this.setState({discriminadores: response.data})})
+        .catch(e => redirect(e));
     }
 
     salvarFluxograma(e){
         e.preventDefault();
         if(!this.state.fluxograma){
-            alert("Preencha o campo Fluxograma");
+            preencha("fluxograma","#fluxograma");
         }
         else{
             var fluxograma = {
@@ -92,16 +96,22 @@ export default class Classificacao extends Component{
             if(!this.state.idFluxograma){
                 axios.post(this.url + "fluxograma/store",fluxograma)
                 .then(e => {
+                    salvo();
                     axios.get(this.url + "fluxograma")
-                    .then(response => {this.setState({fluxogramas: response.data})});
-                });
+                    .then(response => {this.setState({fluxogramas: response.data})})
+                    .catch(e => redirect(e));
+                })
+                .catch(e => redirect(e));
             }
             else{
                 axios.put(this.url + "fluxograma/update/"+ this.state.idFluxograma,fluxograma)
                 .then(e => {
+                    salvo();
                     axios.get(this.url + "fluxograma")
-                    .then(response => {this.setState({fluxogramas: response.data})});
-                });
+                    .then(response => {this.setState({fluxogramas: response.data})})
+                    .catch(e => redirect(e));
+                })
+                .catch(e => redirect(e));
             }
             this.setState({fluxograma: "", idFluxograma: ""});
         }
@@ -111,7 +121,7 @@ export default class Classificacao extends Component{
         e.preventDefault();
         
         if(!this.state.discriminador){
-            alert("Preencha o campo Discriminador");
+            preencha("discriminador","#discriminador");
         }
         else{
             var discriminador = {
@@ -120,16 +130,22 @@ export default class Classificacao extends Component{
             if(!this.state.idDiscriminador){
                 axios.post(this.url + "discriminador/store",discriminador)
                 .then(e => {  
+                    salvo();
                     axios.get(this.url + "discriminador")
-                    .then(response => {this.setState({discriminadores: response.data})});
-                });
+                    .then(response => {this.setState({discriminadores: response.data})})
+                    .catch(e => redirect(e));
+                })
+                .catch(e => redirect(e));
             }
             else{
                 axios.put(this.url + "discriminador/update/" + this.state.idDiscriminador ,discriminador)
                 .then(e => {  
+                    salvo();
                     axios.get(this.url + "discriminador")
-                    .then(response => {this.setState({discriminadores: response.data})});
-                });
+                    .then(response => {this.setState({discriminadores: response.data})})
+                    .catch(e => redirect(e));
+                })
+                .catch(e => redirect(e));
             }
             this.setState({discriminador: "", idDiscriminador: ""});
         }
@@ -160,11 +176,13 @@ export default class Classificacao extends Component{
         }
     
         if(typeof fluxogramaDiscriminador.fluxograma === "number" && typeof fluxogramaDiscriminador.discriminador === "number"){
-            axios.post(this.url + "classificacao/store",fluxogramaDiscriminador);
+            axios.post(this.url + "classificacao/store",fluxogramaDiscriminador)
+            .then(e => {salvo()})
+            .catch(e => redirect(e));
             this.setState({fluxogramaD: "", discriminadorF: ""});
         }
         else{
-            alert("Selecione um Fluxograma e um Discriminador")
+            preencha(" fluxograma e o campo discriminador da classificação","#fluxogramaD");
         }
     }
     render(){

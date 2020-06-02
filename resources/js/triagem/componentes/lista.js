@@ -3,6 +3,7 @@ import axios from 'axios';
 import Pagination from 'react-js-pagination';
 import Aceitar from '../../imagens/accept.png';
 import { Link } from 'react-router-dom';
+import { redirect } from '../../components/mensagens';
 
 export default class Lista extends Component{
     constructor(){
@@ -14,6 +15,11 @@ export default class Lista extends Component{
             totalItemsCount:0,
         };
 
+        $(document).ready(function() {
+            $("#spinner").removeClass("d-none");
+            $("#tabela").addClass("d-none");
+        });
+
         this.api = "/triagem/";
         axios.get(this.api + 'atendimentos/dados/lista')
         .then(response => {
@@ -23,10 +29,12 @@ export default class Lista extends Component{
                 itemsCountPerPage: response.data.per_page,
                 totalItemsCount: response.data.total
             })
-            $("#tabela").removeClass("d-none");
-            $("#spinner").addClass("d-none");
+            $(document).ready(function() {
+                $("#tabela").removeClass("d-none");
+                $("#spinner").addClass("d-none");
+            })
         })
-        .catch((e) => this.redirectToHome(e));
+        .catch((e) => redirect(e));
 
         Echo.private('triagem')
         .listen('NovaRecepcao', (response) => {
@@ -40,10 +48,12 @@ export default class Lista extends Component{
     }
 
     handlePageChange(pageNumber){
-        $("#spinner").removeClass("d-none");
-        $("#tabela").addClass("d-none");
+        $(document).ready(function() {
+            $("#spinner").removeClass("d-none");
+            $("#tabela").addClass("d-none");
+        });
 
-        axios.get(this.api + 'atendimentos/dados/lista'+pageNumber)
+        axios.get(this.api + 'atendimentos/dados/lista?page='+pageNumber)
         .then((response)=>{
             this.setState({
                 atendimentos: response.data.data,
@@ -51,23 +61,23 @@ export default class Lista extends Component{
                 itemsCountPerPage: response.data.per_page,
                 totalItemsCount: response.data.total
             });
-            $("#spinner").addClass("d-none");
-            $("#tabela").removeClass("d-none");
+            $(document).ready(function() {
+                $("#spinner").addClass("d-none");
+                $("#tabela").removeClass("d-none");
+            });
         })
-        .catch((e) => this.redirectToHome(e));
-    }
-
-    redirectToHome(e){
-        if (e.response || e.request) {
-            alert("OCORREU UM ERRO DE CONEXÃO \n Você será redirecionado à página HOME!\nStatus do Erro" + e.response.status );
-            window.location.replace("/");
-        } 
+        .catch((e) => redirect(e));
     }
 
     render(){
         return(
             <div>
                 <h2 className="text-center">Lista de Pacientes para a Triagem</h2>
+                <center>
+                    <div className="spinner-border d-none" id="spinner" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </center>
                 <div className="col-md-12 d-none" id="tabela">
                     <div className="table-responsive" >
                         <table className="table table-striped">

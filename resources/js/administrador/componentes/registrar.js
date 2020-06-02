@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import axios from 'axios';
+import {redirect,salvo, preencha, senhasDif} from '../../components/mensagens';
 
 export default class Registrar extends Component{
     constructor(){
@@ -50,31 +51,33 @@ export default class Registrar extends Component{
         e.preventDefault();
         var user = this.state.user;
         if(!user.name){
-            alert("Informe um nome de usuário.");
-            $("nome").focus();
-        }
-        else if(!user.email){
-            alert("Informe um email de usuário.");
-            $("email").focus();
+           preencha("nome","#name"); 
         }
         else if(!user.tipo || user.tipo == 0){
-            alert("Informe um tipo de usuário.");
-            $("tipo").focus();
+            preencha("tipo de usuário","#tipo");  
+        }
+        else if((user.tipo == 3 || user.tipo == 4 || user.tipo == 5) && !user.conselho){
+            preencha("conselho","#conselho");
+        }
+        else if(!user.email){
+           preencha("e-mail","#email");
         }
         else if(!user.password){
-            alert("Informe uma senha.");
-            $("tipo").focus();
+            preencha("senha","#password");
         } 
         else if(user.password != user.confirmar){
-            alert("Senhas diferentes");
-            $("tipo").focus();
+            senhasDif();
         }
         else{
             if(!user.id){
-                axios.post(this.api + "registrarUsuario",user);
+                axios.post(this.api + "registrarUsuario",user)
+                .then(e => {salvo()})
+                .catch(e => {redirect(e)});
             }
             else{
-                axios.put(this.api + "atualizarUsuario/"+user.id,user);
+                axios.put(this.api + "atualizarUsuario/"+user.id,user)
+                .then(e => {salvo()})
+                .catch(e => {redirect(e)});
             }
             this.setState({user: {id: "", name: "", email: "", password: "", confirmar: "", tipo: "", conselho: ""}})
         }
@@ -84,8 +87,13 @@ export default class Registrar extends Component{
         axios.get(this.api + "getUsuarios")
         .then(response => {
             this.setState({users: response.data});
-            $("#user").removeClass('d-none');
+        })
+        .catch(e => {redirect(e)});
+
+        $(document).ready(() => {
+            $("#user").toggleClass('d-none');
         });
+        this.setState({user: {id: "", name: "", email: "", password: "", confirmar: "", tipo: "", conselho: ""}})
     }
     render(){
         return(
@@ -126,6 +134,7 @@ export default class Registrar extends Component{
                                 <option value='2'>RECEPCIONISTA</option>
                                 <option value='3'>ENFERMEIRO</option>
                                 <option value='4'>MÉDICO</option>
+                                <option value='5'>TÉCNICO DE ENFERMAGEM</option>
                             </select>
                         </div>
                     </div>

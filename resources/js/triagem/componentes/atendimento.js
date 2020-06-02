@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import axios from 'axios';
+import { redirect, continuarAtender, preencha, salvo } from '../../components/mensagens';
 
 export default class Atendimento extends Component{
     constructor(props){
@@ -24,14 +25,30 @@ export default class Atendimento extends Component{
             $('#tax').mask("##.00");
             $('.float').mask("##0.00", {reverse: true});
         });
-
+        
         this.api = "/triagem/";
         this.handleChange = this.handleChange.bind(this);
         this.preencherFluxograma();
+
+        axios.get("/user")
+        .then(response => {
+            var atendimento = this.state.atendimento;
+            atendimento.enfermeiro = response.data.id;
+            this.setState({atendimento: atendimento})
+        })
+        .catch(e => {redirect(e)});
+
         axios.get(this.api + "atendimento/dados/" + this.state.atendimento.id)
         .then(response => {
-            this.setState({paciente: response.data.nome});
-            if(response.data.triagem){
+            var atendimento = this.state.atendimento;
+            atendimento.triagem = response.data.triagem;
+            this.setState({paciente: response.data.nome, atendimento: atendimento});
+
+            if(response.data.status == 2){
+                continuarAtender("triagem");
+            }
+
+            else if(response.data.status == 3){
                 axios.get(this.api + "atendimento/edit/"+response.data.triagem)
                 .then(response => {
                     var atendimento = this.state.atendimento;
@@ -44,7 +61,6 @@ export default class Atendimento extends Component{
                     atendimento.glasgow = !response.data.glasgow?"":response.data.glasgow;
                     atendimento.peso = !response.data.peso?"":response.data.peso;
                     atendimento.classificacao = response.data.classificacao;
-                    atendimento.triagem = response.data.triagem;
 
                     this.setState({atendimento: atendimento});
 
@@ -54,7 +70,9 @@ export default class Atendimento extends Component{
                         atendimento.fluxograma = response.data.classificacao.nomeFluxograma;
                         atendimento.discriminador = response.data.classificacao.nomeDiscriminador;
                         this.setState({atendimento: atendimento, "discriminador" : response.data.discriminadores})
-                        $('#discriminador').prop('disabled',false);
+                        $(document).ready(function() {
+                            $('#discriminador').prop('disabled',false);
+                        });
                         switch(response.data.classificacao.cor){
                             case 1: 
                                 this.setState({cor: '#ff0000',classificacao: "VERMELHO"})
@@ -72,17 +90,13 @@ export default class Atendimento extends Component{
                                 this.setState({cor: '#0000FF',classificacao: "AZUL"})
                                 break;
                         }
-                    });
+                    })
+                    .catch(e => {redirect(e)});
                 });
             }
-        });
+        })
+        .catch(e =>{ redirect(e)});
 
-        axios.get("/user")
-        .then(response => {
-            var atendimento = this.state.atendimento;
-            atendimento.enfermeiro = response.data.id;
-            this.setState({atendimento: atendimento})
-        });
     }
     
     handleChange(e){
@@ -96,13 +110,15 @@ export default class Atendimento extends Component{
     preencherFluxograma(){ // Busca no Banco os dados para preenchimento do ComboBox Fluxograma;
         axios.get(this.api + "fluxograma")
         .then(response => {this.setState({fluxograma: response.data})})
-        .catch((e) => this.redirectToHome(e));
+        .catch(e =>{ redirect(e)});
     }
 
     //obtem o código do fluxograma e preenche o combobox do discriminador
     fluxograma(e){
-        $('#discriminador').prop('disabled',true);
-        $('#discriminador').val('');
+        $(document).ready(function() {
+            $('#discriminador').prop('disabled',true);
+            $('#discriminador').val('');
+        });
         this.setState({classificacao: 'Cor', cor: '#ffffff'});
         var fluxograma = e.target.value;
         var atendimento = this.state.atendimento;
@@ -120,9 +136,11 @@ export default class Atendimento extends Component{
             axios.get(this.api + "discriminador/"+fluxograma)
             .then((response) => {
                 this.setState({discriminador: response.data});
-                $('#discriminador').prop('disabled',false);
+                $(document).ready(function(){
+                    $('#discriminador').prop('disabled',false);
+                });
             })
-            .catch((e) => this.redirectToHome(e));;
+            .catch(e =>{ redirect(e)});
         }
     }
 
@@ -165,19 +183,18 @@ export default class Atendimento extends Component{
     salvar(e){
         e.preventDefault();
         if(!this.state.atendimento.descricao){
-            alert("Informe uma descrição da Queixa do Paciente.")
+            preencha("descrição","#descricao")
         }
         else if(!this.state.atendimento.classificacao){
-            alert("Selecione um Fluxograma e um Descriminador");
+            preencha("fluxograma e o campo discrimindaor","#fluxograma");
         }
         else{
-            if(!this.state.atendimento.triagem){
-                axios.post(this.api + "atendimento/store",this.state.atendimento)
-            }
-            else{
-                axios.post(this.api + "atendimento/update",this.state.atendimento)
-            }
-            window.location.replace("/triagem/lista");
+            axios.put(this.api + "atendimento/store/" + this.state.atendimento.triagem,this.state.atendimento)
+            .then((response)=>{
+                salvo();
+                window.location.replace("/triagem/lista");
+            })
+            .catch(e =>{ redirect(e)});
         }
     }
 
@@ -273,8 +290,8 @@ export default class Atendimento extends Component{
                         </div>
                         <div className="form-group row">
                             <div  className="col-md-12 text-center mt-1">
-                                <button className="btn col-md-3 btn-primary" onClick={e => this.salvar(e)} > Salvar </button>&nbsp;
                                 <button className="btn col-md-3 btn-warning">Cancelar</button>&nbsp;
+                                <button className="btn col-md-3 btn-primary" onClick={e => this.salvar(e)} > Salvar </button>&nbsp;
                             </div>
                         </div>
                     </div>

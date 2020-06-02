@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes(['register' => false]);
+//Auth::routes(['register' => false]);
 
 Auth::routes();
 Route::get('/',function(){
@@ -31,7 +31,9 @@ Route::get('/',function(){
             case 4:
                 return redirect('/consulta');
                 break;
-            
+            case 5:
+                return redirect('/ambulatorio');
+                break;
         }
     }
     else{
@@ -46,6 +48,13 @@ Route::get('/sair',function(){
 Route::get("/user",function(){   
     return Auth::user();
 });
+/*
+ Route::get("/novoUser",function(){
+     return view("administrador");
+ });
+ Route::post('administrador/registrarUsuario','UserController@novoUsuario');
+  
+ */
 
 //////// ROTAS DO MÓDULO ADMINISTRADOR ////////
     Route::middleware(['auth','admin'])->prefix('/administrador')->group(function(){
@@ -53,6 +62,7 @@ Route::get("/user",function(){
             Route::get("/","Administrador@index")->name('administrador');
             Route::get("/registrar","Administrador@index");
             Route::get("/classificacao","Administrador@index");
+            Route::get("/materiais","Administrador@index");
         //_________________DATAS__________________//
             Route::post('/registrarUsuario','UserController@novoUsuario');
             Route::get('/getUsuarios','UserController@getUsuarios');
@@ -64,6 +74,12 @@ Route::get("/user",function(){
             Route::post('/discriminador/store','DiscriminadorController@store');
             Route::put('/discriminador/update/{id}','DiscriminadorController@update');
             Route::post('/classificacao/store','ClassificacaoController@store');
+            Route::post('/material/store','MaterialController@store');
+            Route::get('/materiais/dados','MaterialController@index');
+            Route::post('/medicamento/store','MedicamentoController@store');
+            Route::get('/medicamentos/dados','MedicamentoController@index');
+            Route::put('/material/update/{id}','MaterialController@update');
+            Route::put('/medicamento/update/{id}','MedicamentoController@update');
 
     });
 ///////================================////////
@@ -95,12 +111,11 @@ Route::get("/user",function(){
             Route::get("/atendimento/{atendimento}","Triagem@index");
         //_________________DATAS__________________//
             Route::get('/atendimentos/dados/lista','AtendimentoController@listaTriagem');
+            Route::get("/atendimento/dados/{id}","AtendimentoController@getDadosTriagem");
             Route::get('/atendimentos/dados/lista/atendidos','AtendimentoController@listaTriagemAtendidos');
-            Route::post('/atendimento/store','TriagemController@store');
             Route::put('/atendimento/store/{id}','TriagemController@update');
             Route::get('/atendimento/edit/{id}','TriagemController@edit');
             Route::get('/atendimento/classificacao/edit/{id}','ClassificacaoController@showComDiscriminadores');
-            Route::get('/atendimento/dados/{id}','AtendimentoController@getAtendimento');
             Route::get('/fluxograma','FluxogramaController@index');
             Route::get('/discriminador/{fluxograma}','ClassificacaoController@show');
     });
@@ -112,7 +127,44 @@ Route::get("/user",function(){
             Route::get("/","Consulta@index");
             Route::get("/lista","Consulta@index");
             Route::get("/atendimento/{atendimento}","Consulta@index");
+            Route::get('/atendidos','Consulta@index');
         //_________________DATAS__________________//
             Route::get("/atendimentos/dados/lista","AtendimentoController@listaConsulta");
+            Route::get("/atendimento/dados/{id}","AtendimentoController@getDadosConsula");
+            Route::get("/atendimento/edit/{id}","ConsultaController@edit");
+            Route::put("/atendimento/store/{id}","ConsultaController@update");
+            Route::post("/atestado/store/","AtestadoController@store");
+            Route::get("/atestado/edit/{consulta}","AtestadoController@edit");
+            Route::get("/prescricao/lista/{consulta}","PrescricaoController@lista");
+            Route::post("/prescricao/store","PrescricaoController@store");
+            Route::get("/receita/lista/{consulta}","ReceitaController@lista");
+            Route::post("/receita/store","ReceitaController@store");
+            Route::put("/receita/update/{id}","ReceitaController@update");
+            Route::get("/encaminhamento/lista/{consulta}","EncaminhamentoController@lista");
+            Route::post("/encaminhamento/store","EncaminhamentoController@store");
+            Route::put("/encaminhamento/update/{id}","EncaminhamentoController@update");
+            Route::get('/atendimento/classificacao/dados/{id}','ClassificacaoController@showComDiscriminadores');
+            Route::get('/atendimento/triagem/dados/{id}','TriagemController@edit');
+            Route::get('/exames/show','ExameController@index');
+            Route::post('/exames/store','ExameController@storeExameConsulta');
+            Route::post('/examesimagem/store','ExameController@storeExameImagemConsulta');
+            Route::post('/outrosexames/store','ExameController@storeOutrosExamesConsulta');
+            Route::put('/outrosexames/update','ExameController@updateOutrosExamesConsulta');
+            Route::get('/exames/edit/{consulta}','ExameController@selecionados');
+            Route::get('/examesimagem/edit/{consulta}','ExameController@selecionadosImagem');
+            Route::get('/outrosexames/edit/{consulta}','ExameController@selecionadosOutros');
+            Route::get('/atendimentos/dados/lista/atendidos','AtendimentoController@listaConsultaAtendidos');
+            Route::get('/medicamentos/lista','MedicamentoController@index');
+
+
+    });
+///////================================////////;
+///////   ROTAS DO MÓDULO AMBULATÓRIO  ////////;
+    Route::middleware(['auth','ambulatorio'])->prefix('/ambulatorio')->group(function(){
+        //_________________VIEWS__________________//
+            Route::get("/","Ambulatorio@index");
+            Route::get("/lista","Ambulatorio@index");
+        //_________________DATAS__________________//
+            Route::get("/atendimentos/dados/lista","")
     });
 ///////================================////////;

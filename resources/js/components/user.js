@@ -3,9 +3,9 @@ import Image from '../imagens/usuarioEnfermagem.png';
 export default class User extends Component{
     constructor(){
         super();
-        this.state = {user: [], senhaAntiga: "", novaSenha: "", confirmar: ""};
+        this.state = {user: [], senhaAntiga: "", novaSenha: "", confirmar: "", userId: ""};
         axios.get("/user")
-        .then(response => {this.setState({user: response.data})});
+        .then(response => {this.setState({user: response.data, userId: response.data.id})});
         this.handleChange = this.handleChange.bind(this);
     }
     
@@ -48,6 +48,7 @@ export default class User extends Component{
     render(){
         return(
             <div className="col-md-2">
+                <input type="text" id="userId" onChange={this.handleChange} value={this.state.userId} className="d-none"/>
                 <div className="dropdown">
                     <button className="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {this.state.user.name}

@@ -38,7 +38,7 @@ class TriagemController extends Controller
         return Triagem::find($id);
     }
     
-    public function update($id){
+    public function update(Request $request, $id){
         $triagem = Triagem::find($id);
         $triagem->descricao = $request->descricao;
         $triagem->saturacao = $request->saturacao;
@@ -51,6 +51,10 @@ class TriagemController extends Controller
         $triagem->classificacao = $request->classificacao;
         $triagem->enfermeiro = $request->enfermeiro;
         $triagem->save();
+
+        $atendimento = Atendimento::where("triagem","=",$id)->first();
+        $atendimento->status = 3;
+        $atendimento->save();
 
         event(new NovaTriagem());
     }

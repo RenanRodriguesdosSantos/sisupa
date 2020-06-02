@@ -17,3 +17,4 @@ require('./administrador/index');
 require('./recepcao/index');
 require('./triagem/index');
 require('./medico/index');
+require('./ambulatorio/index');

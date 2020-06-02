@@ -28,7 +28,7 @@ class CreateTablePacientess extends Migration
             $table->string('bairro');
             $table->string('logradouro');
             $table->string('numero');
-            $table->string('complemento');
+            $table->string('complemento')->nullable();
             $table->unsignedBigInteger('naturalidade');
             $table->unsignedBigInteger('municipio');
             $table->unsignedBigInteger('etnia');

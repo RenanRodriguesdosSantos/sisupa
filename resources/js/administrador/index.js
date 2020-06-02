@@ -6,6 +6,7 @@ import Home from '../components/home';
 import Footer from '../components/footer';
 import Registrar from './componentes/registrar';
 import Classificacao from './componentes/classificacao';
+import Materiais from './componentes/materiais';
 
 function Administrador() {
     return (
@@ -18,6 +19,7 @@ function Administrador() {
                             <Route exact path="/administrador" component={Home}/>
                             <Route exact path="/administrador/registrar" component={Registrar}/>
                             <Route exact path="/administrador/classificacao" component={Classificacao}/>
+                            <Route exact path="/administrador/materiais" component={Materiais}/>
                         </div>
                     </div>
                 </div>

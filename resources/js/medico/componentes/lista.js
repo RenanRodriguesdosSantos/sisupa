@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 import Tabela from './tabela';
+import { redirect } from '../../components/mensagens';
 
 export default class Lista extends Component{
     constructor(){
@@ -18,7 +19,7 @@ export default class Lista extends Component{
         .then(response => {
             this.triagem(response.data);
         })
-        .catch((e) => this.redirectToHome(e));
+        .catch((e) => redirect(e));
 
         Echo.private('consulta')
         .listen('NovaTriagem', (response) => {
@@ -26,15 +27,7 @@ export default class Lista extends Component{
         });
     }
 
-    redirectToHome(e){
-        if (e.response || e.request) {
-            alert("OCORREU UM ERRO DE CONEXÃO \n Você será redirecionado à página HOME!\nStatus do Erro" + e.response.status );
-            window.location.replace("/");
-        } 
-    }
-
     triagem(atendimentos){
-        console.log(atendimentos)
         this.setState({vermelho: [], laranja: [], amarelo: [], verde: [], azul: []});
         atendimentos.map(
             row => {

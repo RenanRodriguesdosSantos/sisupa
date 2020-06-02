@@ -26,7 +26,7 @@ class NovaTriagem implements ShouldBroadcast
         ->join('triagems','atendimentos.triagem','=','triagems.id')
         ->join('classificacaos','triagems.classificacao','=','classificacaos.id')
         ->select("atendimentos.*","pacientes.nome as paciente","pacientes.bairro as bairro","pacientes.mae","pacientes.nascimento","classificacaos.cor")
-        ->whereNotNull('atendimentos.triagem')->whereNull('atendimentos.consulta')
+        ->whereIn('atendimentos.status',[3,4])
         ->get()->toJson();
     }
 

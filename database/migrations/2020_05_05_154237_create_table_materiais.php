@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableConsultas extends Migration
+class CreateTableMateriais extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateTableConsultas extends Migration
      */
     public function up()
     {
-        Schema::create('consultas', function (Blueprint $table) {
+        Schema::create('materiais', function (Blueprint $table) {
             $table->id();
+            $table->string('nome');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateTableConsultas extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('consultas');
+        Schema::dropIfExists('materiais');
     }
 }

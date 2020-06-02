@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Atendimento;
+use App\Consulta;
+use App\Triagem;
 
 class AtendimentoController extends Controller
 {
@@ -43,14 +45,16 @@ class AtendimentoController extends Controller
     public function listaTriagem(){
         return Atendimento::join('pacientes','atendimentos.paciente','=','pacientes.id')
         ->select("atendimentos.*","pacientes.nome as paciente","pacientes.bairro as bairro","pacientes.mae","pacientes.nascimento")
-        ->whereNull('atendimentos.triagem')
+        ->whereIn('atendimentos.status',[1,2])
         ->paginate(20);
     }
 
     public function listaTriagemAtendidos(){
         return Atendimento::join('pacientes','atendimentos.paciente','=','pacientes.id')
-        ->select("atendimentos.*","pacientes.nome as paciente","pacientes.bairro as bairro","pacientes.mae","pacientes.nascimento")
-        ->whereNotNull('atendimentos.triagem')->whereNull('atendimentos.consulta')
+        ->join("triagems","atendimentos.triagem","=","triagems.id")
+        ->join("classificacaos","triagems.classificacao","=","classificacaos.id")
+        ->select("atendimentos.*","pacientes.nome as paciente","pacientes.bairro as bairro","pacientes.mae","pacientes.nascimento","classificacaos.cor")
+        ->where('atendimentos.status',"=",3)
         ->paginate(20);
     }
 
@@ -63,7 +67,43 @@ class AtendimentoController extends Controller
         ->join('triagems','atendimentos.triagem','=','triagems.id')
         ->join('classificacaos','triagems.classificacao','=','classificacaos.id')
         ->select("atendimentos.*","pacientes.nome as paciente","pacientes.bairro as bairro","pacientes.mae","pacientes.nascimento","classificacaos.cor")
-        ->whereNotNull('atendimentos.triagem')->whereNull('atendimentos.consulta')
+        ->whereIn('atendimentos.status',[3,4])
         ->get();
     }
+
+    public function getDadosTriagem($id){
+        $atendimento = Atendimento::join("pacientes","atendimentos.paciente","=","pacientes.id")->select("atendimentos.*","pacientes.nome as nome")->find($id);
+
+        if($atendimento->status == '1'){
+            $triagem = new Triagem();
+            $triagem->save();
+            $atendimento->triagem = $triagem->id;
+            $atendimento->status = 2;
+            $atendimento->save();
+            $atendimento->status = 1;
+        }
+        return $atendimento;
+    }
+
+    public function getDadosConsula($id){
+        $atendimento = Atendimento::join("pacientes","atendimentos.paciente","=","pacientes.id")->select("atendimentos.*","pacientes.nome as nome")->find($id);
+
+        if($atendimento->status == 3){
+            $consulta = new Consulta();
+            $consulta->save();
+            $atendimento->consulta = $consulta->id;
+            $atendimento->status = 4;
+            $atendimento->save();
+            $atendimento->status = 3;
+        }
+        return $atendimento;
+    }
+
+    public function listaConsultaAtendidos(){
+        return Atendimento::join('pacientes','atendimentos.paciente','=','pacientes.id')
+        ->select("atendimentos.*","pacientes.nome as paciente","pacientes.bairro as bairro","pacientes.mae","pacientes.nascimento")
+        ->where('atendimentos.status',"=",5)
+        ->paginate(20);
+    }
+
 }

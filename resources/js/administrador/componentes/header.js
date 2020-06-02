@@ -15,13 +15,16 @@ export default class Header extends Component{
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item active">
-                                <Link className="nav-link" to="/recepcao/home"><div id="home">Home</div><span className="sr-only">(current)</span></Link>
+                                <Link className="nav-link" to="/administrador"><div id="home">Home</div><span className="sr-only">(current)</span></Link>
                             </li>
                             <li className="nav-item active">
                                 <Link className="nav-link" to="/administrador/registrar" ><div id="home">Usuário</div><span className="sr-only">(current)</span></Link>
                             </li>
                             <li className="nav-item active">
                                 <Link className="nav-link" to="/administrador/classificacao"><div id="home">Classificação</div><span className="sr-only">(current)</span></Link>
+                            </li>
+                            <li className="nav-item active">
+                                <Link className="nav-link" to="/administrador/materiais"><div id="home">Materiais</div><span className="sr-only">(current)</span></Link>
                             </li>
                             <li className="nav-item active">
                                 <Link className="nav-link" to="/ajuda"><div id="home">Ajuda</div><span className="sr-only">(current)</span></Link>
