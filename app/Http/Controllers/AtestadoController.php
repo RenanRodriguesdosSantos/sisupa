@@ -17,13 +17,15 @@ class AtestadoController extends Controller
         $atestado = new Atestado();
         $atestado->tempoAtestado = $request->tempoAtestado;
         $atestado->tipoAtividadesAtestado = $request->tipoAtividadesAtestado;
-        //$atestado->cid = $request->cid;
+        $atestado->cid = $request->cid;
+       // $atestado->apartir = $request->apartir;
         $atestado->medico = $request->medico;
         $atestado->save();
 
         $consulta = Consulta::find($request->consulta);
         $consulta->atestado = $atestado->id;
         $consulta->save();
+        return $atestado->created_at;
     }
 
     public function edit($consulta){
@@ -37,8 +39,10 @@ class AtestadoController extends Controller
         $atestado = Atestado::find($id);
         $atestado->tempoAtestado = $request->tempoAtestado;
         $atestado->tipoAtividadesAtestado = $request->tipoAtividadesAtestado;
-        //$atestado->cid = $request->cid;
+        $atestado->cid = $request->cid;
+       // $atestado->apartir = $request->apartir;
         $atestado->medico = $request->medico;
         $atestado->save();
+        return $atestado->created_at;
     }
 }

@@ -8,6 +8,7 @@ import axios from 'axios';
 import Triagem from './triagem';
 import Encaminhamento from './encaminhamento';
 import OutrosExames from './outrosexames';
+import {Link} from 'react-router-dom';
 import {continuarAtender, redirect, salvo} from "../../components/mensagens";
 
 export default class Atendimento extends Component{
@@ -15,7 +16,7 @@ export default class Atendimento extends Component{
         super(props);
         this.state ={
             paciente: "",
-            atendimento: {id: this.props.match.params.atendimento, consulta: "", sintomas: "", consulta: "", diagnostico: "", cid: "", medico: "",triagem: ""}
+            atendimento: {id: this.props.match.params.atendimento, consulta: "", resultados: "", sintomas: "", condulta: "", diagnostico: "", cid: "", medico: "",triagem: ""}
         };
         $(document).ready(function(){
             $("#header").addClass("d-none");
@@ -32,11 +33,13 @@ export default class Atendimento extends Component{
         })
         .catch((e) => redirect(e));
 
+
         axios.get(this.api + "atendimento/dados/"+this.state.atendimento.id)
         .then(response => {
             var atendimento = this.state.atendimento;
             atendimento.consulta = response.data.consulta; 
             atendimento.triagem = response.data.triagem;
+            atendimento.created_at = response.data.created_at;
             this.setState({atendimento: atendimento, paciente: response.data.nome});
             
             if(response.data.status == 4){
@@ -55,6 +58,7 @@ export default class Atendimento extends Component{
                     atendimento.cid = !response.data.cid?"":response.data.cid;
                     atendimento.encaminhamento = !response.data.encaminhamento?"":response.data.encaminhamento;
                     this.setState({atendimento: atendimento});
+                    this.habilitarButtons();
                 })
                 .catch(e => redirect(e));
             }
@@ -74,6 +78,18 @@ export default class Atendimento extends Component{
         axios.put(this.api + "atendimento/store/" + this.state.atendimento.consulta,this.state.atendimento)
         .then((response) => {
             salvo();
+            this.habilitarButtons();
+        });
+    }
+
+    habilitarButtons(){
+        $(document).ready(function () {
+            $("#btn-prescricao").attr("disabled", false);
+            $("#btn-imagem").attr("disabled", false);
+            $("#btn-receita").attr("disabled", false);
+            $("#btn-lab").attr("disabled", false);
+            $("#btn-encaminhamento").attr("disabled", false);
+            $("#btn-atestado").attr("disabled", false);
         });
     }
 
@@ -94,9 +110,9 @@ export default class Atendimento extends Component{
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label htmlFor="provadiagnostico" className="col-md-12 col-form-label"> Principais Resultados de Provas Diagnósticas: </label>
+                            <label htmlFor="resultados" className="col-md-12 col-form-label"> Principais Resultados de Provas Diagnósticas: </label>
                             <div className="col-md-12">
-                                <textarea rows="3" onChange={this.handleChange}  value={this.state.atendimento.provadiagnostico} className="form-control text-uppercase" id="provadiagnostico" placeholder="Principais Resultados de Provas Diagnóstcas"/>
+                                <textarea rows="3" onChange={this.handleChange}  value={this.state.atendimento.resultados} className="form-control text-uppercase" id="resultados" placeholder="Principais Resultados de Provas Diagnóstcas"/>
                             </div>
                         </div>
                         <div className="form-group row">
@@ -134,18 +150,18 @@ export default class Atendimento extends Component{
                             </div>
                         </div>
                         <div className="form-group row">
-                            <div className="col-md-4 p-0 border"><Prescricao consulta={this.state.atendimento.consulta} medico={this.state.atendimento.medico} /></div>
-                            <div className="col-md-4 p-0 border"><Receita consulta={this.state.atendimento.consulta} medico={this.state.atendimento.medico} /></div>
-                            <div className="col-md-4 p-0 border"><Laboratoriais consulta={this.state.atendimento.consulta} medico={this.state.atendimento.medico} /></div>
-                            <div className="col-md-4 p-0 border"><Imagem consulta={this.state.atendimento.consulta} medico={this.state.atendimento.medico} /></div>
-                            <div className="col-md-4 p-0 border"><Atestado consulta={this.state.atendimento.consulta} medico={this.state.atendimento.medico} /></div>
-                            <div className="col-md-4 p-0 border"><Encaminhamento consulta={this.state.atendimento.consulta} medico={this.state.atendimento.medico} /></div>
-                            <div className="col-md-4 p-0 border"><OutrosExames consulta={this.state.atendimento.consulta} medico={this.state.atendimento.medico} /></div>
+                            <div className="col-md-4 p-0 border"><Prescricao consulta={this.state.atendimento.consulta} /></div>
+                            <div className="col-md-4 p-0 border"><Receita consulta={this.state.atendimento.consulta} paciente={this.state.paciente} /></div>
+                            <div className="col-md-4 p-0 border"><Laboratoriais consulta={this.state.atendimento.consulta}  /></div>
+                            <div className="col-md-4 p-0 border"><Imagem consulta={this.state.atendimento.consulta}  /></div>
+                            <div className="col-md-4 p-0 border"><Atestado consulta={this.state.atendimento.consulta} paciente={this.state.paciente} dataConsulta={this.state.atendimento.created_at}/></div>
+                            <div className="col-md-4 p-0 border"><Encaminhamento consulta={this.state.atendimento.consulta} paciente={this.state.paciente} /></div>
+                            <div className="col-md-4 p-0 border"><OutrosExames consulta={this.state.atendimento.consulta}  /></div>
                         </div>
                         <div className="form-group row">
                             <div className="col-md-12 text-center">
-                                <button className="btn btn-warning col-md-5 m-3" onClick={e => cancelar(e)}> Cancelar </button>
-                                <button className="btn btn-primary col-md-5 m-3" onClick={e => this.salvar(e)}> Salvar </button>
+                                <Link to="/consulta/lista" className="btn btn-secondary col-md-5 m-3"> Sair </Link>
+                                <button type="button" className="btn btn-primary col-md-5 m-3" onClick={e => this.salvar(e)}> Salvar </button>
                             </div>
                         </div>
                     </div>

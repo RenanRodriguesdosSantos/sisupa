@@ -80122,6 +80122,458 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/administrador/componentes/cadastros.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/administrador/componentes/cadastros.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Cadastros; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/mensagens */ "./resources/js/components/mensagens.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+var Cadastros = /*#__PURE__*/function (_Component) {
+  _inherits(Cadastros, _Component);
+
+  var _super = _createSuper(Cadastros);
+
+  function Cadastros() {
+    var _this;
+
+    _classCallCheck(this, Cadastros);
+
+    _this = _super.call(this);
+    _this.state = {
+      idMaterial: "",
+      idMedicamento: "",
+      materiais: [],
+      medicamentos: [],
+      material: "",
+      medicamento: "",
+      idExame: "",
+      exame: "",
+      exames: []
+    };
+    _this.url = "/administrador/";
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleSelect = _this.handleSelect.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Cadastros, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      e.preventDefault();
+      var campo = e.target.id;
+      var valor = e.target.value.toUpperCase();
+      this.setState(_defineProperty({}, campo, valor));
+    }
+  }, {
+    key: "handleSelect",
+    value: function handleSelect(e) {
+      e.preventDefault();
+      var campo = e.target.id;
+      var valor = e.target.value;
+      this.setState(_defineProperty({}, campo, valor));
+
+      if (campo == 'idMaterial') {
+        var materiais = this.state.materiais;
+
+        for (var i = 0; i < materiais.length; i++) {
+          if (materiais[i].id == valor) {
+            this.setState({
+              material: materiais[i].nome
+            });
+            break;
+          }
+        }
+      } else if (campo == 'idMedicamento') {
+        var medicamentos = this.state.medicamentos;
+
+        for (var i = 0; i < medicamentos.length; i++) {
+          if (medicamentos[i].id == valor) {
+            this.setState({
+              medicamento: medicamentos[i].nome
+            });
+            break;
+          }
+        }
+      } else {
+        var exames = this.state.exames;
+
+        for (var i = 0; i < exames.length; i++) {
+          if (exames[i].id == valor) {
+            this.setState({
+              exame: exames[i].nome
+            });
+            break;
+          }
+        }
+      }
+    }
+  }, {
+    key: "editarMateriais",
+    value: function editarMateriais(e) {
+      var _this$setState3,
+          _this2 = this;
+
+      e.preventDefault();
+      $("#idMaterial").toggleClass("d-none");
+      this.setState((_this$setState3 = {}, _defineProperty(_this$setState3, 'idMaterial', ""), _defineProperty(_this$setState3, 'material', ""), _this$setState3));
+      axios.get(this.url + "materiais/dados").then(function (response) {
+        _this2.setState({
+          materiais: response.data
+        });
+      })["catch"](function (e) {
+        return redirect(e);
+      });
+    }
+  }, {
+    key: "editarMedicamentos",
+    value: function editarMedicamentos(e) {
+      var _this$setState4,
+          _this3 = this;
+
+      e.preventDefault();
+      $("#idMedicamento").toggleClass('d-none');
+      this.setState((_this$setState4 = {}, _defineProperty(_this$setState4, 'idMedicamento', ""), _defineProperty(_this$setState4, 'medicamento', ""), _this$setState4));
+      axios.get(this.url + "medicamentos/dados").then(function (response) {
+        _this3.setState({
+          medicamentos: response.data
+        });
+      })["catch"](function (e) {
+        return redirect(e);
+      });
+    }
+  }, {
+    key: "editarExames",
+    value: function editarExames(e) {
+      var _this$setState5,
+          _this4 = this;
+
+      e.preventDefault();
+      $("#idExame").toggleClass('d-none');
+      this.setState((_this$setState5 = {}, _defineProperty(_this$setState5, 'idExame', ""), _defineProperty(_this$setState5, 'exame', ""), _this$setState5));
+      axios.get(this.url + "exames/dados").then(function (response) {
+        _this4.setState({
+          exames: response.data
+        });
+      })["catch"](function (e) {
+        return redirect(e);
+      });
+    }
+  }, {
+    key: "salvarMaterial",
+    value: function salvarMaterial(e) {
+      var _this5 = this;
+
+      e.preventDefault();
+
+      if (!this.state.material) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["preencha"])("material", "#material");
+      } else {
+        var material = {
+          nome: this.state.material
+        };
+
+        if (!this.state.idMaterial) {
+          axios.post(this.url + "material/store", material).then(function (e) {
+            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["salvo"])();
+            axios.get(_this5.url + "materiais/dados").then(function (response) {
+              _this5.setState({
+                materiais: response.data
+              });
+            })["catch"](function (e) {
+              return redirect(e);
+            });
+          })["catch"](function (e) {
+            return redirect(e);
+          });
+        } else {
+          axios.put(this.url + "material/update/" + this.state.idMaterial, material).then(function (e) {
+            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["salvo"])();
+            axios.get(_this5.url + "materiais/dados").then(function (response) {
+              _this5.setState({
+                materiais: response.data
+              });
+            })["catch"](function (e) {
+              return redirect(e);
+            });
+          })["catch"](function (e) {
+            return redirect(e);
+          });
+        }
+
+        this.setState({
+          material: "",
+          idMaterial: ""
+        });
+      }
+    }
+  }, {
+    key: "salvarMedicamento",
+    value: function salvarMedicamento(e) {
+      var _this6 = this;
+
+      e.preventDefault();
+
+      if (!this.state.medicamento) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["preencha"])("medicamento", "#medicamento");
+      } else {
+        var medicamento = {
+          nome: this.state.medicamento
+        };
+
+        if (!this.state.idMedicamento) {
+          axios.post(this.url + "medicamento/store", medicamento).then(function (e) {
+            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["salvo"])();
+            axios.get(_this6.url + "medicamentos/dados").then(function (response) {
+              _this6.setState({
+                medicamentos: response.data
+              });
+            })["catch"](function (e) {
+              return redirect(e);
+            });
+          })["catch"](function (e) {
+            return redirect(e);
+          });
+        } else {
+          axios.put(this.url + "medicamento/update/" + this.state.idMedicamento, medicamento).then(function (e) {
+            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["salvo"])();
+            axios.get(_this6.url + "medicamentos/dados").then(function (response) {
+              _this6.setState({
+                medicamentos: response.data
+              });
+            });
+          })["catch"](function (e) {
+            return redirect(e);
+          });
+        }
+
+        this.setState({
+          medicamento: "",
+          idmedicamento: ""
+        });
+      }
+    }
+  }, {
+    key: "salvarExame",
+    value: function salvarExame(e) {
+      var _this7 = this;
+
+      e.preventDefault();
+
+      if (!this.state.exame) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["preencha"])("exame", "#exame");
+      } else {
+        var exame = {
+          nome: this.state.exame
+        };
+
+        if (!this.state.idExame) {
+          axios.post(this.url + "exame/store", exame).then(function (e) {
+            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["salvo"])();
+            axios.get(_this7.url + "exames/dados").then(function (response) {
+              _this7.setState({
+                exames: response.data
+              });
+            })["catch"](function (e) {
+              return redirect(e);
+            });
+          })["catch"](function (e) {
+            return redirect(e);
+          });
+        } else {
+          axios.put(this.url + "exame/update/" + this.state.idExame, exame).then(function (e) {
+            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["salvo"])();
+            axios.get(_this7.url + "exames/dados").then(function (response) {
+              _this7.setState({
+                exames: response.data
+              });
+            });
+          })["catch"](function (e) {
+            return redirect(e);
+          });
+        }
+
+        this.setState({
+          exame: "",
+          idExame: ""
+        });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this8 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cadastro de Medicamentos, Materiais e Exames"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group row "
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-primary col-md-3",
+        onClick: function onClick(e) {
+          return _this8.editarMateriais(e);
+        }
+      }, "Editar Materiais"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-10"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        id: "idMaterial",
+        className: "d-none form-control",
+        onChange: this.handleSelect,
+        value: this.state.idMaterial
+      }, this.state.materiais.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          value: row.id,
+          key: row.id
+        }, row.nome);
+      }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "material",
+        className: "col-md-2 col-form-label"
+      }, " Material: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-8"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onChange: this.handleChange,
+        value: this.state.material,
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "material",
+        placeholder: "Material"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-2 text-right"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-primary col-md-12",
+        onClick: function onClick(e) {
+          return _this8.salvarMaterial(e);
+        }
+      }, "Salvar Material"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group row "
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-primary col-md-3",
+        onClick: function onClick(e) {
+          return _this8.editarMedicamentos(e);
+        }
+      }, "Editar Medicamentos"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-10"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        id: "idMedicamento",
+        className: "d-none form-control",
+        onChange: this.handleSelect,
+        value: this.state.idMedicamento
+      }, this.state.medicamentos.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          value: row.id,
+          key: row.id
+        }, row.nome);
+      }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "medicamento",
+        className: "col-md-2 col-form-label"
+      }, " Medicamento: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-8"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onChange: this.handleChange,
+        value: this.state.medicamento,
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "medicamento",
+        placeholder: "Medicamento"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-2 text-right"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-primary col-md-12",
+        onClick: function onClick(e) {
+          return _this8.salvarMedicamento(e);
+        }
+      }, "Salvar Medicamento"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group row "
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-primary col-md-3",
+        onClick: function onClick(e) {
+          return _this8.editarExames(e);
+        }
+      }, "Editar Exames"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-10"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        id: "idExame",
+        className: "d-none form-control",
+        onChange: this.handleSelect,
+        value: this.state.idExame
+      }, this.state.exames.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          value: row.id,
+          key: row.id
+        }, row.nome);
+      }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "exame",
+        className: "col-md-2 col-form-label"
+      }, " Exame Lab: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-8"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onChange: this.handleChange,
+        value: this.state.exame,
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "exame",
+        placeholder: "Exame Laboratorial"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-2 text-right"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-primary col-md-12",
+        onClick: function onClick(e) {
+          return _this8.salvarExame(e);
+        }
+      }, "Salvar Exame")))));
+    }
+  }]);
+
+  return Cadastros;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
 /***/ "./resources/js/administrador/componentes/classificacao.js":
 /*!*****************************************************************!*\
   !*** ./resources/js/administrador/componentes/classificacao.js ***!
@@ -80707,10 +81159,19 @@ var Header = /*#__PURE__*/function (_Component) {
         className: "nav-item active"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "nav-link",
-        to: "/administrador/materiais"
+        to: "/administrador/cadastros"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "home"
-      }, "Materiais"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, "Cadastros"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "sr-only"
+      }, "(current)"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-item active"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        className: "nav-link",
+        to: "/administrador/relatorios"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "home"
+      }, "Relat\xF3rios"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "sr-only"
       }, "(current)"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "nav-item active"
@@ -80726,339 +81187,6 @@ var Header = /*#__PURE__*/function (_Component) {
   }]);
 
   return Header;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-
-
-/***/ }),
-
-/***/ "./resources/js/administrador/componentes/materiais.js":
-/*!*************************************************************!*\
-  !*** ./resources/js/administrador/componentes/materiais.js ***!
-  \*************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Materiais; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/mensagens */ "./resources/js/components/mensagens.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-
-var Materiais = /*#__PURE__*/function (_Component) {
-  _inherits(Materiais, _Component);
-
-  var _super = _createSuper(Materiais);
-
-  function Materiais() {
-    var _this;
-
-    _classCallCheck(this, Materiais);
-
-    _this = _super.call(this);
-    _this.state = {
-      idMaterial: "",
-      idMedicamento: "",
-      materiais: [],
-      medicamentos: [],
-      material: "",
-      medicamento: ""
-    };
-    _this.url = "/administrador/";
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
-    _this.handleSelect = _this.handleSelect.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-
-  _createClass(Materiais, [{
-    key: "handleChange",
-    value: function handleChange(e) {
-      e.preventDefault();
-      var campo = e.target.id;
-      var valor = e.target.value.toUpperCase();
-      this.setState(_defineProperty({}, campo, valor));
-    }
-  }, {
-    key: "handleSelect",
-    value: function handleSelect(e) {
-      e.preventDefault();
-      var campo = e.target.id;
-      var valor = e.target.value;
-      this.setState(_defineProperty({}, campo, valor));
-
-      if (campo == 'idMaterial') {
-        var materiais = this.state.materiais;
-
-        for (var i = 0; i < materiais.length; i++) {
-          if (materiais[i].id == valor) {
-            this.setState({
-              material: materiais[i].nome
-            });
-            break;
-          }
-        }
-      } else {
-        var medicamentos = this.state.medicamentos;
-
-        for (var i = 0; i < medicamentos.length; i++) {
-          if (medicamentos[i].id == valor) {
-            this.setState({
-              medicamento: medicamentos[i].nome
-            });
-            break;
-          }
-        }
-      }
-    }
-  }, {
-    key: "editarMateriais",
-    value: function editarMateriais(e) {
-      var _this$setState3,
-          _this2 = this;
-
-      e.preventDefault();
-      $("#idMaterial").toggleClass("d-none");
-      this.setState((_this$setState3 = {}, _defineProperty(_this$setState3, 'idMaterial', ""), _defineProperty(_this$setState3, 'material', ""), _this$setState3));
-      axios.get(this.url + "materiais/dados").then(function (response) {
-        _this2.setState({
-          materiais: response.data
-        });
-      })["catch"](function (e) {
-        return redirect(e);
-      });
-    }
-  }, {
-    key: "editarMedicamentos",
-    value: function editarMedicamentos(e) {
-      var _this$setState4,
-          _this3 = this;
-
-      e.preventDefault();
-      $("#idMedicamento").toggleClass('d-none');
-      this.setState((_this$setState4 = {}, _defineProperty(_this$setState4, 'idMedicamento', ""), _defineProperty(_this$setState4, 'medicamento', ""), _this$setState4));
-      axios.get(this.url + "medicamentos/dados").then(function (response) {
-        _this3.setState({
-          medicamentos: response.data
-        });
-      })["catch"](function (e) {
-        return redirect(e);
-      });
-    }
-  }, {
-    key: "salvarMaterial",
-    value: function salvarMaterial(e) {
-      var _this4 = this;
-
-      e.preventDefault();
-
-      if (!this.state.material) {
-        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["preencha"])("material", "#material");
-      } else {
-        var material = {
-          nome: this.state.material
-        };
-
-        if (!this.state.idMaterial) {
-          axios.post(this.url + "material/store", material).then(function (e) {
-            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["salvo"])();
-            axios.get(_this4.url + "materiais/dados").then(function (response) {
-              _this4.setState({
-                materiais: response.data
-              });
-            })["catch"](function (e) {
-              return redirect(e);
-            });
-          })["catch"](function (e) {
-            return redirect(e);
-          });
-        } else {
-          axios.put(this.url + "material/update/" + this.state.idMaterial, material).then(function (e) {
-            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["salvo"])();
-            axios.get(_this4.url + "materiais/dados").then(function (response) {
-              _this4.setState({
-                materiais: response.data
-              });
-            })["catch"](function (e) {
-              return redirect(e);
-            });
-          })["catch"](function (e) {
-            return redirect(e);
-          });
-        }
-
-        this.setState({
-          material: "",
-          idMaterial: ""
-        });
-      }
-    }
-  }, {
-    key: "salvarMedicamento",
-    value: function salvarMedicamento(e) {
-      var _this5 = this;
-
-      e.preventDefault();
-
-      if (!this.state.medicamento) {
-        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["preencha"])("medicamento", "#medicamento");
-      } else {
-        var medicamento = {
-          nome: this.state.medicamento
-        };
-
-        if (!this.state.idmedicamento) {
-          axios.post(this.url + "medicamento/store", medicamento).then(function (e) {
-            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["salvo"])();
-            axios.get(_this5.url + "medicamentos/dados").then(function (response) {
-              _this5.setState({
-                medicamentos: response.data
-              });
-            })["catch"](function (e) {
-              return redirect(e);
-            });
-          })["catch"](function (e) {
-            return redirect(e);
-          });
-        } else {
-          axios.put(this.url + "medicamento/update/" + this.state.idMedicamento, medicamento).then(function (e) {
-            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["salvo"])();
-            axios.get(_this5.url + "medicamentos/dados").then(function (response) {
-              _this5.setState({
-                medicamentos: response.data
-              });
-            });
-          })["catch"](function (e) {
-            return redirect(e);
-          });
-        }
-
-        this.setState({
-          medicamento: "",
-          idmedicamento: ""
-        });
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this6 = this;
-
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cadastro de Medicamentos e Materiais"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form-group row "
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-12 text-center"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn btn-primary col-md-3",
-        onClick: function onClick(e) {
-          return _this6.editarMateriais(e);
-        }
-      }, "Editar Materiais"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-10"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-        id: "idMaterial",
-        className: "d-none form-control",
-        onChange: this.handleSelect,
-        value: this.state.idMaterial
-      }, this.state.materiais.map(function (row) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          value: row.id,
-          key: row.id
-        }, row.nome);
-      }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form-group row"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "material",
-        className: "col-md-2 col-form-label"
-      }, " Material: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-8"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        onChange: this.handleChange,
-        value: this.state.material,
-        type: "text",
-        className: "form-control text-uppercase",
-        id: "material",
-        placeholder: "Material"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-2 text-right"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn btn-primary col-md-12",
-        onClick: function onClick(e) {
-          return _this6.salvarMaterial(e);
-        }
-      }, "Salvar Material"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form-group row "
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-12 text-center"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn btn-primary col-md-3",
-        onClick: function onClick(e) {
-          return _this6.editarMedicamentos(e);
-        }
-      }, "Editar Medicamentos"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-10"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-        id: "idMedicamento",
-        className: "d-none form-control",
-        onChange: this.handleSelect,
-        value: this.state.idMedicamento
-      }, this.state.medicamentos.map(function (row) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          value: row.id,
-          key: row.id
-        }, row.nome);
-      }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form-group row"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "medicamento",
-        className: "col-md-2 col-form-label"
-      }, " Medicamento: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-8"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        onChange: this.handleChange,
-        value: this.state.medicamento,
-        type: "text",
-        className: "form-control text-uppercase",
-        id: "medicamento",
-        placeholder: "Medicamento"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-2 text-right"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn btn-primary col-md-12",
-        onClick: function onClick(e) {
-          return _this6.salvarMedicamento(e);
-        }
-      }, "Salvar Medicamento")))));
-    }
-  }]);
-
-  return Materiais;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
@@ -81400,6 +81528,2752 @@ var Registrar = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./resources/js/administrador/componentes/relatorios.js":
+/*!**************************************************************!*\
+  !*** ./resources/js/administrador/componentes/relatorios.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Relatorios; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _relatorios_ambulatorio__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./relatorios/ambulatorio */ "./resources/js/administrador/componentes/relatorios/ambulatorio.js");
+/* harmony import */ var _relatorios_consulta__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./relatorios/consulta */ "./resources/js/administrador/componentes/relatorios/consulta.js");
+/* harmony import */ var _relatorios_exames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./relatorios/exames */ "./resources/js/administrador/componentes/relatorios/exames.js");
+/* harmony import */ var _relatorios_geral__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./relatorios/geral */ "./resources/js/administrador/componentes/relatorios/geral.js");
+/* harmony import */ var _relatorios_triagem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./relatorios/triagem */ "./resources/js/administrador/componentes/relatorios/triagem.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+
+var Relatorios = /*#__PURE__*/function (_Component) {
+  _inherits(Relatorios, _Component);
+
+  var _super = _createSuper(Relatorios);
+
+  function Relatorios() {
+    _classCallCheck(this, Relatorios);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(Relatorios, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "nav nav-tabs",
+        id: "myTab",
+        role: "tablist"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-item"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "nav-link active",
+        id: "relatorioGeral-tab",
+        "data-toggle": "tab",
+        href: "#relatorioGeral",
+        role: "tab",
+        "aria-controls": "relatorioGeral",
+        "aria-selected": "true"
+      }, "Relat\xF3rio Geral")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-item"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "nav-link",
+        id: "relatorioTriagem-tab",
+        "data-toggle": "tab",
+        href: "#relatorioTriagem",
+        role: "tab",
+        "aria-controls": "relatorioTriagem",
+        "aria-selected": "false"
+      }, "Relat\xF3rio Triagem")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-item"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "nav-link",
+        id: "relatorioConsulta-tab",
+        "data-toggle": "tab",
+        href: "#relatorioConsulta",
+        role: "tab",
+        "aria-controls": "relatorioConsulta",
+        "aria-selected": "false"
+      }, "Relat\xF3rio Consulta")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-item"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "nav-link",
+        id: "relatorioAmbulatorio-tab",
+        "data-toggle": "tab",
+        href: "#relatorioAmbulatorio",
+        role: "tab",
+        "aria-controls": "relatorioAmbulatorio",
+        "aria-selected": "false"
+      }, "Relat\xF3rio Ambulat\xF3rio")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-item"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "nav-link",
+        id: "relatorioExames-tab",
+        "data-toggle": "tab",
+        href: "#relatorioExames",
+        role: "tab",
+        "aria-controls": "relatorioExames",
+        "aria-selected": "false"
+      }, "Relat\xF3rio Exames"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-content mt-md-4",
+        id: "myTabContent"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-pane fade show active",
+        id: "relatorioGeral",
+        role: "tabpanel",
+        "aria-labelledby": "relatorioGeral-tab"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_relatorios_geral__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-pane fade",
+        id: "relatorioTriagem",
+        role: "tabpanel",
+        "aria-labelledby": "relatorioTriagem-tab"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_relatorios_triagem__WEBPACK_IMPORTED_MODULE_5__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-pane fade",
+        id: "relatorioConsulta",
+        role: "tabpanel",
+        "aria-labelledby": "relatorioConsulta-tab"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_relatorios_consulta__WEBPACK_IMPORTED_MODULE_2__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-pane fade",
+        id: "relatorioAmbulatorio",
+        role: "tabpanel",
+        "aria-labelledby": "relatorioAmbulatorio-tab"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_relatorios_ambulatorio__WEBPACK_IMPORTED_MODULE_1__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-pane fade",
+        id: "relatorioExames",
+        role: "tabpanel",
+        "aria-labelledby": "relatorioExames-tab"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_relatorios_exames__WEBPACK_IMPORTED_MODULE_3__["default"], null)))));
+    }
+  }]);
+
+  return Relatorios;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/administrador/componentes/relatorios/ambulatorio.js":
+/*!**************************************************************************!*\
+  !*** ./resources/js/administrador/componentes/relatorios/ambulatorio.js ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Ambulatorio; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_js_pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-js-pagination */ "./node_modules/react-js-pagination/dist/Pagination.js");
+/* harmony import */ var react_js_pagination__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_js_pagination__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/mensagens */ "./resources/js/components/mensagens.js");
+/* harmony import */ var _imagens_upa_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../imagens/upa.png */ "./resources/js/imagens/upa.png");
+/* harmony import */ var _imagens_upa_png__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_imagens_upa_png__WEBPACK_IMPORTED_MODULE_4__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+var Ambulatorio = /*#__PURE__*/function (_Component) {
+  _inherits(Ambulatorio, _Component);
+
+  var _super = _createSuper(Ambulatorio);
+
+  function Ambulatorio() {
+    var _this;
+
+    _classCallCheck(this, Ambulatorio);
+
+    _this = _super.call(this);
+    _this.state = {
+      activePage: 0,
+      itemsCountPerPage: 0,
+      totalItemsCount: 0,
+      filtros: {
+        paciente: "",
+        dataInicial: "",
+        dataFinal: "",
+        medico: "",
+        tecnico: ""
+      },
+      atendimentos: [],
+      prescricao: [],
+      materiais: [],
+      observacao: "",
+      atendimento: {}
+    };
+    _this.url = "/administrador/";
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handlePageChange = _this.handlePageChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Ambulatorio, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      e.preventDefault();
+      var campo = e.target.id;
+      var valor = e.target.value.toUpperCase();
+      var filtros = this.state.filtros;
+      filtros[campo] = valor;
+      this.setState({
+        filtros: filtros
+      });
+    }
+  }, {
+    key: "buscar",
+    value: function buscar(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      $(document).ready(function () {
+        $("#tabelaAmbulatorio").addClass("d-none");
+        $("#spinnerAmbulatorio").removeClass("d-none");
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url + "relatorios/ambulatorio", this.state.filtros).then(function (response) {
+        return _this2.closeLoading(response);
+      })["catch"](function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "handlePageChange",
+    value: function handlePageChange(pageNumber) {
+      var _this3 = this;
+
+      $(document).ready(function () {
+        $("#tabelaAmbulatorio").addClass("d-none");
+        $("#spinnerAmbulatorio").removeClass("d-none");
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url + "relatorios/ambulatorio?page=" + pageNumber, this.state.filtros).then(function (response) {
+        return _this3.closeLoading(response);
+      })["catch"](function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "closeLoading",
+    value: function closeLoading(response) {
+      this.setState({
+        atendimentos: response.data.data,
+        activePage: response.data.current_page,
+        itemsCountPerPage: response.data.per_page,
+        totalItemsCount: response.data.total
+      });
+      $(document).ready(function () {
+        $("#tabelaAmbulatorio").removeClass("d-none");
+        $("#spinnerAmbulatorio").addClass('d-none');
+      });
+    }
+  }, {
+    key: "imprimir",
+    value: function imprimir(e) {
+      e.preventDefault();
+      var atendimentos = this.state.atendimentos;
+      var table = "<table><tr class='center'><td><img id='imagem' src='http://sisupa.com.br/images/upa.png'></td><td colspan='5'><b>PREFEITURA MUNICIPAL DE TEÓFILO OTONI <br> SECRETARIA MUNICIPAL DE SAÚDE <br> Unidade de Pronto Atendimento</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='6'><b>SECRETARIA DE ESTADO DE SAÚDE DE MINAS GERAIS</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='6'><b>PACIENTES ATENDIDOS</b></td></tr>";
+      table = table + "<tr><td colspan='6' bgcolor='C0C0C0'>&nbsp;</td></tr>";
+      table = table + "<tr><td><center><b>Registro</b></center></td><td><center><b>Prescrição</b></center></td><td><center><b>Paciente</b></center></td><td><center><b>Data e Hora</b></center></td><td><center><b>Médico</b></center></td><td><center><b>T. Enfermagem</b></center></td></tr>";
+      atendimentos.map(function (e) {
+        table = table + "<tr><td><center>" + e.id + "</center></td><td>" + e.prescricao + "</td><td>" + e.paciente + "</td><td>" + new Date(e.created_at).toLocaleString() + "</td><td>" + e.medico + "</td>" + "</td><td >" + e.tecnico + "</td><tr>";
+      });
+      table = table + "</table";
+      var style = "<style> table{width: 100%; font: 17px Calibri;} img{max-width: 80px;} table,tr,td {border: solid 2px #000000; border-collapse: collapse;} .center{text-align: center;}</style>";
+      var head = "<head><title>Atendimento </title> " + style + " </head>";
+      var body = "<body>" + table + "<body>";
+      var win = window.open("", "", "height=700,width=700");
+      win.document.write("<html>");
+      win.document.write(head);
+      win.document.write(body);
+      win.document.write("</html>");
+      var img = win.document.getElementById("imagem");
+
+      img.onload = function () {
+        win.print();
+        win.close();
+      };
+    }
+  }, {
+    key: "getPosologia",
+    value: function getPosologia(id) {
+      switch (id) {
+        case 1:
+          return "2 em 2 Horas";
+          break;
+
+        case 2:
+          return "4 em 4 Horas";
+          break;
+
+        case 3:
+          return "6 em 6 Horas";
+          break;
+
+        case 4:
+          return "8 em 8 Horas";
+          break;
+
+        case 5:
+          return "10 em 10 Horas";
+          break;
+
+        case 6:
+          return "12 em 12 Horas";
+          break;
+      }
+    }
+  }, {
+    key: "getApresentacao",
+    value: function getApresentacao(id) {
+      switch (id) {
+        case 1:
+          return "Via Oral";
+          break;
+
+        case 2:
+          return "Via Intravenosa";
+          break;
+
+        case 3:
+          return "Via Intramuscular";
+          break;
+      }
+    }
+  }, {
+    key: "verAmbulatorio",
+    value: function verAmbulatorio(e, row) {
+      var _this4 = this;
+
+      e.preventDefault();
+      $("#spinnerAmbulatorioVer").removeClass("d-none");
+      $("#dadosAmbulatorioVer").addClass("d-none");
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.url + "relatorios/prescricao/dados/" + row.prescricao).then(function (response) {
+        _this4.setState({
+          prescricao: response.data.prescricaos
+        });
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.url + "relatorios/materiais/dados/" + row.prescricao).then(function (response) {
+        var observacao = response.data.prescricao.observacao ? response.data.prescricao.observacao : "";
+
+        _this4.setState({
+          materiais: response.data.materiais,
+          observacao: observacao
+        });
+
+        $("#spinnerAmbulatorioVer").addClass("d-none");
+        $("#dadosAmbulatorioVer").removeClass("d-none");
+      });
+      this.setState({
+        atendimento: row
+      });
+    }
+  }, {
+    key: "imprimirRow",
+    value: function imprimirRow(e) {
+      var _this5 = this;
+
+      e.preventDefault();
+      var atendimento = this.state.atendimento;
+      var table = "<table><tr class='center'><td><img id='imagem' src='http://sisupa.com.br/images/upa.png'></td><td colspan='6'><b>PREFEITURA MUNICIPAL DE TEÓFILO OTONI <br> SECRETARIA MUNICIPAL DE SAÚDE <br> Unidade de Pronto Atendimento</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='7'><b>SECRETARIA DE ESTADO DE SAÚDE DE MINAS GERAIS</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='7'><b>PACIENTES ATENDIDOS - CONSULTA MÉDICA</b></td></tr>";
+      table = table + "<tr><td colspan='7' bgcolor='C0C0C0'>&nbsp;</td></tr>";
+      table += "<tr><td> Registro </td><td colspan='2'>" + atendimento.id + "</td><td>Data e Hora</td><td colspan='3'>" + new Date(atendimento.created_at).toLocaleString() + "</td></tr>";
+      table += "<tr><td>Paciente</td><td colspan='6'>" + atendimento.paciente + "</td></tr>";
+      table += "<tr><td>Medico</td><td colspan='6'>" + atendimento.medico + "</td></tr>";
+      table += "<tr><td class='center' colspan='7'>PRESCRIÇÃO MÉDICA</td></tr>";
+      table = table + "<tr><td><center><b>Quantidade</b></center></td><td colspan='4'><center><b>Prescrição</b></center></td><td><center><b>Posologia</b></center></td><td><center><b>Apresentação</b></center></td></tr>";
+      this.state.prescricao.map(function (row) {
+        table += "<tr><td class='center'>" + row.quantidade + "</td><td colspan='4'>" + row.medicamento + "</td><td>" + _this5.getPosologia(row.posologia) + "</td><td>" + _this5.getApresentacao(row.apresentacao) + "</td></tr>";
+      });
+      table += "<tr><td class='center' colspan='7'>LISTAGEM DE MATERIAIS</td></tr>";
+      this.state.materiais.map(function (row) {
+        table += "<tr><td class='center' colspan='2'>" + row.quantidade + "</td><td colspan='5'>" + row.material + "</td></tr>";
+      });
+      table += "<tr><td class='center' colspan='7'>OBSERVAÇÃO</td></tr>";
+      table += "<tr><td colspan='7'>" + this.state.observacao + "</td></tr>";
+      table = table + "</table";
+      var style = "<style> table{width: 100%; font: 17px Calibri;} img{max-width: 80px;} table,tr,td {border: solid 2px #000000; border-collapse: collapse;} td{width: 100px; padding-left: 2px;} .center{text-align: center;}</style>";
+      var head = "<head><title>Atendimento </title> " + style + " </head>";
+      var body = "<body>" + table + "<body>";
+      var win = window.open("", "", "height=700,width=700");
+      win.document.write("<html>");
+      win.document.write(head);
+      win.document.write(body);
+      win.document.write("</html>");
+      var img = win.document.getElementById("imagem");
+
+      img.onload = function () {
+        win.print();
+        win.close();
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this6 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", {
+        className: "text-center"
+      }, "Relat\xF3rio Ambulat\xF3rio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "paciente",
+        className: "col-md-1 col-form-label"
+      }, " Paciente: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        onChange: this.handleChange,
+        value: this.state.filtros.paciente,
+        id: "paciente",
+        placeholder: "Nome do paciente"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "dataInicial",
+        className: "col-md-1 col-form-label"
+      }, " Entre: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "date",
+        className: "form-control",
+        onChange: this.handleChange,
+        value: this.state.filtros.dataInicial,
+        id: "dataInicial"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", null, "-"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "date",
+        className: "form-control",
+        onChange: this.handleChange,
+        value: this.state.filtros.dataFinal,
+        id: "dataFinal"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "tecnico",
+        className: "col-md-1 col-form-label"
+      }, " T\xE9cnico: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "tecnico",
+        onChange: this.handleChange,
+        value: this.state.filtros.tecnico,
+        placeholder: "Nome do T\xE9cnico de Enfermagem"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "medico",
+        className: "col-md-1 col-form-label"
+      }, " M\xE9dico: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "medico",
+        onChange: this.handleChange,
+        value: this.state.filtros.medico,
+        placeholder: "Nome do M\xE9dico"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-5"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-primary form-control",
+        onClick: function onClick(e) {
+          return _this6.buscar(e);
+        }
+      }, "BUSCAR")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-success form-control",
+        id: "imprimir",
+        onClick: function onClick(e) {
+          return _this6.imprimir(e);
+        }
+      }, "IMPRIMIR"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("center", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "spinner-border d-none text-center",
+        id: "spinnerAmbulatorio",
+        role: "status"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        className: "sr-only"
+      }, "Loading..."))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12 d-none",
+        id: "tabelaAmbulatorio"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "table-responsive"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
+        className: "table table-striped"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Registro "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Prescri\xE7\xE3o "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Paciente "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Data e Hora "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " M\xE9dico "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " T. Enfermagem. "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Ver "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.state.atendimentos.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+          key: row.prescricao
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.id, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.prescricao, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.paciente, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", new Date(row.created_at).toLocaleString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.medico, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.tecnico, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+          type: "button",
+          className: "btn btn-primary",
+          "data-toggle": "modal",
+          "data-target": "#modalAmbulatorio",
+          onClick: function onClick(e) {
+            return _this6.verAmbulatorio(e, row);
+          }
+        }, " Ver ")));
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("center", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-3"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_js_pagination__WEBPACK_IMPORTED_MODULE_2___default.a, {
+        activePage: this.state.activePage,
+        itemsCountPerPage: this.state.itemsCountPerPage,
+        totalItemsCount: this.state.totalItemsCount,
+        pageRangeDisplayed: 5,
+        onChange: function onChange(e) {
+          return _this6.handlePageChange(e);
+        },
+        itemClass: "page-item",
+        linkClass: "page-link"
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal fade",
+        id: "modalAmbulatorio",
+        "data-backdrop": "static",
+        "data-keyboard": "false",
+        tabIndex: "-1",
+        "aria-labelledby": "staticBackdropLabel",
+        "aria-hidden": "true"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-dialog modal-xl"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-content"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-header"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
+        className: "modal-title",
+        id: "staticBackdropLabel"
+      }, "Consulta"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "close",
+        "data-dismiss": "modal",
+        "aria-label": "Close"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        "aria-hidden": "true"
+      }, "\xD7"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-body"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12 text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "spinner-border text-center",
+        id: "spinnerAmbulatorioVer",
+        role: "status"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        className: "sr-only"
+      }, "Loading...")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row d-none",
+        id: "dadosAmbulatorioVer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-6 border border-dark"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", {
+        className: "text-center"
+      }, "Registro: ", this.state.atendimento.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", {
+        className: "text-center"
+      }, "Paciente: ", this.state.atendimento.paciente), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", {
+        className: "text-center"
+      }, "M\xE9dico: ", this.state.atendimento.medico), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", {
+        className: "text-center"
+      }, "Data e Hora:", new Date(this.state.atendimento.created_at).toLocaleString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
+        className: "text-center"
+      }, "Prescri\xE7\xE3o M\xE9dica"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "table-responsive",
+        id: "tabela"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
+        id: "tab",
+        className: "table table-striped",
+        style: {
+          textAlign: 'left'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, "Quantidade"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, "Prescri\xE7\xE3o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, "Posologia"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, "Apresenta\xE7\xE3o"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.state.prescricao.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+          key: row.idPrescricaoMedicamento
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, row.quantidade), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, row.medicamento), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, _this6.getPosologia(row.posologia)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, _this6.getApresentacao(row.apresentacao)));
+      }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-6 border border-dark"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
+        className: "text-center"
+      }, "Listagem de Material"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", {
+        className: "text-center"
+      }, "T\xE9cnico: ", this.state.atendimento.medico), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "table-responsive",
+        id: "tabela"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
+        id: "tab",
+        className: "table table-striped",
+        style: {
+          textAlign: 'left'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, "Quantidade"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, "Material"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.state.materiais.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+          key: row.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, row.quantidade), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, row.material));
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "observacao",
+        className: "col-form-label"
+      }, "Observa\xE7\xE3o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("textarea", {
+        className: "form-control col-md-12",
+        id: "observacao",
+        disabled: true,
+        value: this.state.observacao,
+        placeholder: "Observa\xE7\xE3o"
+      }))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-footer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-secondary",
+        "data-dismiss": "modal"
+      }, "Sair"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-success",
+        onClick: function onClick(e) {
+          return _this6.imprimirRow(e);
+        }
+      }, "Imprimir"))))))));
+    }
+  }]);
+
+  return Ambulatorio;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/administrador/componentes/relatorios/consulta.js":
+/*!***********************************************************************!*\
+  !*** ./resources/js/administrador/componentes/relatorios/consulta.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Consulta; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_js_pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-js-pagination */ "./node_modules/react-js-pagination/dist/Pagination.js");
+/* harmony import */ var react_js_pagination__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_js_pagination__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/mensagens */ "./resources/js/components/mensagens.js");
+/* harmony import */ var _imagens_upa_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../imagens/upa.png */ "./resources/js/imagens/upa.png");
+/* harmony import */ var _imagens_upa_png__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_imagens_upa_png__WEBPACK_IMPORTED_MODULE_4__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+var Consulta = /*#__PURE__*/function (_Component) {
+  _inherits(Consulta, _Component);
+
+  var _super = _createSuper(Consulta);
+
+  function Consulta() {
+    var _this;
+
+    _classCallCheck(this, Consulta);
+
+    _this = _super.call(this);
+    _this.state = {
+      activePage: 0,
+      itemsCountPerPage: 0,
+      totalItemsCount: 0,
+      filtros: {
+        paciente: "",
+        dataInicial: "",
+        dataFinal: "",
+        medico: "",
+        diagnostico: "",
+        conduta: ""
+      },
+      atendimentos: [],
+      atendimento: {
+        resultados: "",
+        sintomas: "",
+        diagnostico: "",
+        cid: ""
+      }
+    };
+    _this.url = "/administrador/";
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handlePageChange = _this.handlePageChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Consulta, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      e.preventDefault();
+      var campo = e.target.id;
+      var valor = e.target.value.toUpperCase();
+      var filtros = this.state.filtros;
+      filtros[campo] = valor;
+      this.setState({
+        filtros: filtros
+      });
+    }
+  }, {
+    key: "buscar",
+    value: function buscar(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      $(document).ready(function () {
+        $("#tabelaConsulta").addClass("d-none");
+        $("#spinnerConsulta").removeClass("d-none");
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url + "relatorios/consulta", this.state.filtros).then(function (response) {
+        return _this2.closeLoading(response);
+      })["catch"](function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "handlePageChange",
+    value: function handlePageChange(pageNumber) {
+      var _this3 = this;
+
+      $(document).ready(function () {
+        $("#tabelaConsulta").addClass("d-none");
+        $("#spinnerConsulta").removeClass("d-none");
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url + "relatorios/consulta?page=" + pageNumber, this.state.filtros).then(function (response) {
+        return _this3.closeLoading(response);
+      })["catch"](function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "closeLoading",
+    value: function closeLoading(response) {
+      this.setState({
+        atendimentos: response.data.data,
+        activePage: response.data.current_page,
+        itemsCountPerPage: response.data.per_page,
+        totalItemsCount: response.data.total
+      });
+      $(document).ready(function () {
+        $("#tabelaConsulta").removeClass("d-none");
+        $("#spinnerConsulta").addClass('d-none');
+      });
+    }
+  }, {
+    key: "imprimir",
+    value: function imprimir(e) {
+      e.preventDefault();
+      var atendimentos = this.state.atendimentos;
+      var table = "<table><tr class='center'><td><img id='imagem' src='http://sisupa.com.br/images/upa.png'></td><td colspan='5'><b>PREFEITURA MUNICIPAL DE TEÓFILO OTONI <br> SECRETARIA MUNICIPAL DE SAÚDE <br> Unidade de Pronto Atendimento</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='6'><b>SECRETARIA DE ESTADO DE SAÚDE DE MINAS GERAIS</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='6'><b>PACIENTES ATENDIDOS</b></td></tr>";
+      table = table + "<tr><td colspan='6' bgcolor='C0C0C0'>&nbsp;</td></tr>";
+      table = table + "<tr><td><center><b>Registro</b></center></td><td><center><b>Paciente</b></center></td><td><center><b>Data e Hora</b></center></td><td><center><b>Médico</b></center></td><td><center><b>Diagnóstico Inicial</b></center></td></tr>";
+      atendimentos.map(function (e) {
+        table = table + "<tr><td><center>" + e.id + "</center></td><td >" + e.paciente + "</td><td>" + new Date(e.created_at).toLocaleString() + "</td><td >" + e.medico + "<td >" + e.diagnostico + "</td>" + "</td><tr>";
+      });
+      table = table + "</table";
+      var style = "<style> table{width: 100%; font: 17px Calibri;} img{max-width: 80px;} table,tr,td {border: solid 2px #000000; border-collapse: collapse;} .center{text-align: center;}</style>";
+      var head = "<head><title>Atendimento </title> " + style + " </head>";
+      var body = "<body>" + table + "<body>";
+      var win = window.open("", "", "height=700,width=700");
+      win.document.write("<html>");
+      win.document.write(head);
+      win.document.write(body);
+      win.document.write("</html>");
+      var img = win.document.getElementById("imagem");
+
+      img.onload = function () {
+        win.print();
+        win.close();
+      };
+    }
+  }, {
+    key: "verConsulta",
+    value: function verConsulta(e, row) {
+      var _this4 = this;
+
+      e.preventDefault();
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.url + "relatorios/consulta/dados/" + row.consulta).then(function (response) {
+        var atendimento = _this4.state.atendimento;
+        atendimento.sintomas = !response.data.sintomas ? "" : response.data.sintomas;
+        atendimento.conduta = !response.data.conduta ? "" : response.data.conduta;
+        atendimento.resultados = !response.data.resultados ? "" : response.data.resultados;
+        atendimento.diagnostico = !response.data.diagnostico ? "" : response.data.diagnostico;
+        atendimento.conduta = !response.data.conduta ? "" : response.data.conduta;
+        atendimento.conduta = !response.data.conduta ? "" : response.data.conduta;
+        atendimento.cid = !response.data.cid ? "" : response.data.cid;
+        atendimento.encaminhamento = !response.data.encaminhamento ? "" : response.data.encaminhamento;
+        atendimento.paciente = row.paciente;
+        atendimento.medico = row.medico;
+        atendimento.data = row.created_at;
+        atendimento.registro = row.id;
+
+        _this4.setState({
+          atendimento: atendimento
+        });
+
+        $("#spinnerConsultaVer").addClass('d-none');
+        $("#dadosConsultaVer").removeClass('d-none');
+      });
+    }
+  }, {
+    key: "imprimirRow",
+    value: function imprimirRow(e) {
+      e.preventDefault();
+      var atendimento = this.state.atendimento;
+      var table = "<table><tr class='center'><td><img id='imagem' src='http://sisupa.com.br/images/upa.png'></td><td colspan='6'><b>PREFEITURA MUNICIPAL DE TEÓFILO OTONI <br> SECRETARIA MUNICIPAL DE SAÚDE <br> Unidade de Pronto Atendimento</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='7'><b>SECRETARIA DE ESTADO DE SAÚDE DE MINAS GERAIS</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='7'><b>PACIENTES ATENDIDOS - CONSULTA MÉDICA</b></td></tr>";
+      table = table + "<tr><td colspan='7' bgcolor='C0C0C0'>&nbsp;</td></tr>";
+      table += "<tr><td> Registro </td><td colspan='2'>" + atendimento.registro + "</td><td>Data e Hora</td><td colspan='3'>" + new Date(atendimento.data).toLocaleString() + "</td></tr>";
+      table += "<tr><td>Paciente</td><td colspan='6'>" + atendimento.paciente + "</td></tr>";
+      table += "<tr><td>Medico</td><td colspan='6'>" + atendimento.medico + "</td></tr>";
+      table += "<tr><td class='center' colspan='7'>Principais Sinais de Sintomas Clínicos</td></tr>";
+      table += "<tr><td colspan='7'>" + atendimento.sintomas + "</td></tr>";
+      table += "<tr><td class='center' colspan='7'>Principais Resultados de Provas Diagnósticas</td></tr>";
+      table += "<tr><td colspan='7'>" + atendimento.resultados + "</td></tr>";
+      table += "<tr><td class='center' colspan='7'>Conduta Terapéutica</td></tr>";
+      table += "<tr><td colspan='7'>" + atendimento.conduta + "</td></tr>";
+      table += "<tr><td class='center' colspan='7'>Diagnóstico Inicial</td></tr>";
+      table += "<tr><td colspan='7'>" + atendimento.diagnostico + "</td></tr>";
+      table += "<tr><td>CID</td><td colspan='6'>" + atendimento.cid + "</td></tr>";
+      table += "<tr><td>Encaminhamento</td><td colspan='6'>" + this.getEncaminhamento(atendimento.encaminhamento) + "</td></tr>";
+      table = table + "</table";
+      var style = "<style> table{width: 100%; font: 17px Calibri;} img{max-width: 80px;} table,tr,td {border: solid 2px #000000; border-collapse: collapse;} td{width: 100px; padding-left: 2px;} .center{text-align: center;}</style>";
+      var head = "<head><title>Atendimento </title> " + style + " </head>";
+      var body = "<body>" + table + "<body>";
+      var win = window.open("", "", "height=700,width=700");
+      win.document.write("<html>");
+      win.document.write(head);
+      win.document.write(body);
+      win.document.write("</html>");
+      var img = win.document.getElementById("imagem");
+
+      img.onload = function () {
+        win.print();
+        win.close();
+      };
+    }
+  }, {
+    key: "getEncaminhamento",
+    value: function getEncaminhamento(id) {
+      switch (id) {
+        case 1:
+          return "Para Serviço mais Complexo";
+          break;
+
+        case 2:
+          return "Observação Hospitalar";
+          break;
+
+        case 3:
+          return "Ambulatório Rede Pública";
+          break;
+
+        case 4:
+          return "Iternação";
+          break;
+
+        case 5:
+          return "Retorno";
+          break;
+
+        case 6:
+          return "Alta";
+          break;
+      }
+
+      return "";
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this5 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", {
+        className: "text-center"
+      }, "Relat\xF3rio Consulta"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "paciente",
+        className: "col-md-1 col-form-label"
+      }, " Paciente: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        onChange: this.handleChange,
+        value: this.state.filtros.paciente,
+        id: "paciente",
+        placeholder: "Nome do paciente"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "dataInicial",
+        className: "col-md-1 col-form-label"
+      }, " Entre: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "date",
+        className: "form-control",
+        onChange: this.handleChange,
+        value: this.state.filtros.dataInicial,
+        id: "dataInicial"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", null, "-"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "date",
+        className: "form-control",
+        onChange: this.handleChange,
+        value: this.state.filtros.dataFinal,
+        id: "dataFinal"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "diagnostico",
+        className: "col-md-2 col-form-label"
+      }, " Diagn\xF3stico: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-8"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "diagnostico",
+        onChange: this.handleChange,
+        value: this.state.filtros.diagnostico,
+        placeholder: "Diagn\xF3stico Inicial"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "medico",
+        className: "col-md-1 col-form-label"
+      }, " M\xE9dico: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "medico",
+        onChange: this.handleChange,
+        value: this.state.filtros.medico,
+        placeholder: "Nome do M\xE9dico"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-1"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-primary form-control",
+        onClick: function onClick(e) {
+          return _this5.buscar(e);
+        }
+      }, "BUSCAR")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-success form-control",
+        id: "imprimir",
+        onClick: function onClick(e) {
+          return _this5.imprimir(e);
+        }
+      }, "IMPRIMIR"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("center", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "spinner-border d-none text-center",
+        id: "spinnerConsulta",
+        role: "status"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        className: "sr-only"
+      }, "Loading..."))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12 d-none",
+        id: "tabelaConsulta"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "table-responsive"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
+        className: "table table-striped"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Registro "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Paciente "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Data e Hora "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " M\xE9dico "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Diagn\xF3stico Inicial"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Ver "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.state.atendimentos.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+          key: row.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.id, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.paciente, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", new Date(row.created_at).toLocaleString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.medico, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.diagnostico, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+          type: "button",
+          className: "btn btn-primary",
+          "data-toggle": "modal",
+          "data-target": "#modalConsulta",
+          onClick: function onClick(e) {
+            return _this5.verConsulta(e, row);
+          }
+        }, " Ver ")));
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("center", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-3"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_js_pagination__WEBPACK_IMPORTED_MODULE_2___default.a, {
+        activePage: this.state.activePage,
+        itemsCountPerPage: this.state.itemsCountPerPage,
+        totalItemsCount: this.state.totalItemsCount,
+        pageRangeDisplayed: 5,
+        onChange: function onChange(e) {
+          return _this5.handlePageChange(e);
+        },
+        itemClass: "page-item",
+        linkClass: "page-link"
+      }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal fade",
+        id: "modalConsulta",
+        "data-backdrop": "static",
+        "data-keyboard": "false",
+        tabIndex: "-1",
+        "aria-labelledby": "staticBackdropLabel",
+        "aria-hidden": "true"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-dialog modal-xl"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-content"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-header"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
+        className: "modal-title",
+        id: "staticBackdropLabel"
+      }, "Consulta"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "close",
+        "data-dismiss": "modal",
+        "aria-label": "Close"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        "aria-hidden": "true"
+      }, "\xD7"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-body"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12 text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "spinner-border text-center",
+        id: "spinnerConsultaVer",
+        role: "status"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        className: "sr-only"
+      }, "Loading...")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row d-none",
+        id: "dadosConsultaVer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-6 border border-dark"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
+        className: "text-center"
+      }, "Laudo T\xE9cnico e Justificativa de Atendimento"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row "
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "sintomas",
+        className: "col-md-12 col-form-label"
+      }, " Principais Sinais de Sintomas Cl\xEDnicos: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("textarea", {
+        rows: "4",
+        disabled: true,
+        value: this.state.atendimento.sintomas,
+        className: "form-control text-uppercase",
+        id: "sintomas",
+        placeholder: "Principais Sinais de Sintomas Cl\xEDnicos"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "resultados",
+        className: "col-md-12 col-form-label"
+      }, " Principais Resultados de Provas Diagn\xF3sticas: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("textarea", {
+        rows: "3",
+        disabled: true,
+        value: this.state.atendimento.resultados,
+        className: "form-control text-uppercase",
+        id: "resultados",
+        placeholder: "Principais Resultados de Provas Diagn\xF3stcas"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "conduta",
+        className: "col-md-12 col-form-label"
+      }, " Conduta Terapeutica: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("textarea", {
+        rows: "3",
+        disabled: true,
+        value: this.state.atendimento.conduta,
+        className: "form-control text-uppercase",
+        id: "conduta",
+        placeholder: "Conduta Terapeutica"
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-6 border border-dark"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", {
+        className: "text-center"
+      }, "Registro: ", this.state.atendimento.registro), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", {
+        className: "text-center"
+      }, "Paciente: ", this.state.atendimento.paciente), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", {
+        className: "text-center"
+      }, "M\xE9dico: ", this.state.atendimento.medico), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", {
+        className: "text-center"
+      }, "Data e Hora:", new Date(this.state.atendimento.data).toLocaleString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "diagnostico",
+        className: "col-md-12 col-form-label"
+      }, " Diagn\xF3stico Inicial: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        disabled: true,
+        value: this.state.atendimento.diagnostico,
+        className: "form-control text-uppercase",
+        id: "diagnostico",
+        placeholder: "Diagn\xF3stico Inicial"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "cid",
+        className: "col-md-12 col-form-label"
+      }, " CID: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        disabled: true,
+        value: this.state.atendimento.cid,
+        className: "form-control text-uppercase",
+        id: "cid",
+        placeholder: "CID"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "encaminhamento",
+        className: "col-md-12 col-form-label"
+      }, " Encaminhamento: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+        disabled: true,
+        value: this.state.atendimento.encaminhamento,
+        className: "form-control text-uppercase",
+        id: "encaminhamento"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "0"
+      }, "Selecione"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "1"
+      }, "Para Servi\xE7o mais Complexo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "2"
+      }, "Observa\xE7\xE3o Hospitalar"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "3"
+      }, "Ambulat\xF3rio Rede P\xFAblica"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "4"
+      }, "Intern\xE7\xE3o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "5"
+      }, "Retorno"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "6"
+      }, "Alta"))))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-footer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-secondary",
+        "data-dismiss": "modal"
+      }, "Sair"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-success",
+        onClick: function onClick(e) {
+          return _this5.imprimirRow(e);
+        }
+      }, "Imprimir")))))));
+    }
+  }]);
+
+  return Consulta;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/administrador/componentes/relatorios/exames.js":
+/*!*********************************************************************!*\
+  !*** ./resources/js/administrador/componentes/relatorios/exames.js ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Exames; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_js_pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-js-pagination */ "./node_modules/react-js-pagination/dist/Pagination.js");
+/* harmony import */ var react_js_pagination__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_js_pagination__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/mensagens */ "./resources/js/components/mensagens.js");
+/* harmony import */ var _imagens_upa_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../imagens/upa.png */ "./resources/js/imagens/upa.png");
+/* harmony import */ var _imagens_upa_png__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_imagens_upa_png__WEBPACK_IMPORTED_MODULE_4__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+var Exames = /*#__PURE__*/function (_Component) {
+  _inherits(Exames, _Component);
+
+  var _super = _createSuper(Exames);
+
+  function Exames() {
+    var _this;
+
+    _classCallCheck(this, Exames);
+
+    _this = _super.call(this);
+    _this.state = {
+      activePage: 0,
+      itemsCountPerPage: 0,
+      totalItemsCount: 0,
+      filtros: {
+        paciente: "",
+        dataInicial: "",
+        dataFinal: "",
+        medico: "",
+        tecnico: "",
+        exame: ""
+      },
+      atendimentos: [],
+      exame: "exames"
+    };
+    _this.url = "/administrador/";
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handlePageChange = _this.handlePageChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Exames, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      e.preventDefault();
+      var campo = e.target.id;
+      var valor = e.target.value.toUpperCase();
+      var filtros = this.state.filtros;
+      filtros[campo] = valor;
+      this.setState({
+        filtros: filtros
+      });
+    }
+  }, {
+    key: "buscar",
+    value: function buscar(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      this.setState({
+        exame: "exames"
+      });
+      $(document).ready(function () {
+        $("#tabelaExames").addClass("d-none");
+        $("#spinnerExames").removeClass("d-none");
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url + "relatorios/exames", this.state.filtros).then(function (response) {
+        return _this2.closeLoading(response);
+      })["catch"](function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "buscarImagem",
+    value: function buscarImagem(e) {
+      var _this3 = this;
+
+      e.preventDefault();
+      this.setState({
+        exame: "examesImagem"
+      });
+      $(document).ready(function () {
+        $("#tabelaExames").addClass("d-none");
+        $("#spinnerExames").removeClass("d-none");
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url + "relatorios/examesImagem", this.state.filtros).then(function (response) {
+        return _this3.closeLoading(response);
+      })["catch"](function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "buscarOutros",
+    value: function buscarOutros(e) {
+      var _this4 = this;
+
+      e.preventDefault();
+      this.setState({
+        exame: "examesOutros"
+      });
+      $(document).ready(function () {
+        $("#tabelaExames").addClass("d-none");
+        $("#spinnerExames").removeClass("d-none");
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url + "relatorios/examesOutros", this.state.filtros).then(function (response) {
+        return _this4.closeLoading(response);
+      })["catch"](function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "handlePageChange",
+    value: function handlePageChange(pageNumber) {
+      var _this5 = this;
+
+      $(document).ready(function () {
+        $("#tabelaExames").addClass("d-none");
+        $("#spinnerExames").removeClass("d-none");
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url + "relatorios/" + this.state.exame + "?page=" + pageNumber, this.state.filtros).then(function (response) {
+        return _this5.closeLoading(response);
+      })["catch"](function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "closeLoading",
+    value: function closeLoading(response) {
+      this.setState({
+        atendimentos: response.data.data,
+        activePage: response.data.current_page,
+        itemsCountPerPage: response.data.per_page,
+        totalItemsCount: response.data.total
+      });
+      $(document).ready(function () {
+        $("#tabelaExames").removeClass("d-none");
+        $("#spinnerExames").addClass('d-none');
+      });
+    }
+  }, {
+    key: "imprimir",
+    value: function imprimir(e) {
+      e.preventDefault();
+      var atendimentos = this.state.atendimentos;
+      var table = "<table><tr class='center'><td><img id='imagem' src='http://sisupa.com.br/images/upa.png'></td><td colspan='5'><b>PREFEITURA MUNICIPAL DE TEÓFILO OTONI <br> SECRETARIA MUNICIPAL DE SAÚDE <br> Unidade de Pronto Atendimento</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='6'><b>SECRETARIA DE ESTADO DE SAÚDE DE MINAS GERAIS</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='6'><b>PACIENTES ATENDIDOS</b></td></tr>";
+      table = table + "<tr><td colspan='6' bgcolor='C0C0C0'>&nbsp;</td></tr>";
+      table = table + "<tr><td><center><b>Registro</b></center></td><td><center><b>Paciente</b></center></td><td><center><b>Data e Hora</b></center></td><td><center><b>Exame</b></center></td><td><center><b>Médico</b></center></td><td><center><b>T. Enfermagem</b></center></td></tr>";
+      atendimentos.map(function (e) {
+        table = table + "<tr><td><center>" + e.id + "</center></td><td>" + e.paciente + "</td><td>" + new Date(e.created_at).toLocaleString() + "</td><td>" + e.exame + "</td><td>" + e.medico + "</td>" + "</td><td >" + e.tecnico + "</td><tr>";
+      });
+      table = table + "</table";
+      var style = "<style> table{width: 100%; font: 17px Calibri;} img{max-width: 80px;} table,tr,td {border: solid 2px #000000; border-collapse: collapse;} .center{text-align: center;}</style>";
+      var head = "<head><title>Atendimento </title> " + style + " </head>";
+      var body = "<body>" + table + "<body>";
+      var win = window.open("", "", "height=700,width=700");
+      win.document.write("<html>");
+      win.document.write(head);
+      win.document.write(body);
+      win.document.write("</html>");
+      var img = win.document.getElementById("imagem");
+
+      img.onload = function () {
+        win.print();
+        win.close();
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this6 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", {
+        className: "text-center"
+      }, "Relat\xF3rio Ambulat\xF3rio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "paciente",
+        className: "col-md-1 col-form-label"
+      }, " Paciente: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        onChange: this.handleChange,
+        value: this.state.filtros.paciente,
+        id: "paciente",
+        placeholder: "Nome do paciente"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "dataInicial",
+        className: "col-md-1 col-form-label"
+      }, " Entre: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "date",
+        className: "form-control",
+        onChange: this.handleChange,
+        value: this.state.filtros.dataInicial,
+        id: "dataInicial"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", null, "-"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "date",
+        className: "form-control",
+        onChange: this.handleChange,
+        value: this.state.filtros.dataFinal,
+        id: "dataFinal"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "tecnico",
+        className: "col-md-1 col-form-label"
+      }, " T\xE9cnico: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "tecnico",
+        onChange: this.handleChange,
+        value: this.state.filtros.tecnico,
+        placeholder: "Nome do T\xE9cnico de Enfermagem"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "medico",
+        className: "col-md-1 col-form-label"
+      }, " M\xE9dico: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "medico",
+        onChange: this.handleChange,
+        value: this.state.filtros.medico,
+        placeholder: "Nome do M\xE9dico"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "exame",
+        className: "col-md-1 col-form-label"
+      }, " Exame: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "exame",
+        onChange: this.handleChange,
+        value: this.state.filtros.exame,
+        placeholder: "Nome do Exame"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-3"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-primary form-control",
+        onClick: function onClick(e) {
+          return _this6.buscar(e);
+        }
+      }, "BUSCAR EXAMES")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-3"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-primary form-control",
+        onClick: function onClick(e) {
+          return _this6.buscarImagem(e);
+        }
+      }, "BUSCAR EXAMES DE IMAGEM")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-3"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-primary form-control",
+        onClick: function onClick(e) {
+          return _this6.buscarOutros(e);
+        }
+      }, "BUSCAR OUTROS EXAMES")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-3"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-success form-control",
+        id: "imprimir",
+        onClick: function onClick(e) {
+          return _this6.imprimir(e);
+        }
+      }, "IMPRIMIR"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("center", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "spinner-border d-none text-center",
+        id: "spinnerExames",
+        role: "status"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        className: "sr-only"
+      }, "Loading..."))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12 d-none",
+        id: "tabelaExames"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "table-responsive"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
+        className: "table table-striped"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Registro "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Paciente "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Data e Hora "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Exame "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " M\xE9dico "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " T. Enfermagem "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.state.atendimentos.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+          key: row.idexame
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.id, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.paciente, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", new Date(row.created_at).toLocaleString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.exame, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.medico, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.tecnico, " "));
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("center", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-3"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_js_pagination__WEBPACK_IMPORTED_MODULE_2___default.a, {
+        activePage: this.state.activePage,
+        itemsCountPerPage: this.state.itemsCountPerPage,
+        totalItemsCount: this.state.totalItemsCount,
+        pageRangeDisplayed: 5,
+        onChange: function onChange(e) {
+          return _this6.handlePageChange(e);
+        },
+        itemClass: "page-item",
+        linkClass: "page-link"
+      }))))));
+    }
+  }]);
+
+  return Exames;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/administrador/componentes/relatorios/geral.js":
+/*!********************************************************************!*\
+  !*** ./resources/js/administrador/componentes/relatorios/geral.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Geral; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_js_pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-js-pagination */ "./node_modules/react-js-pagination/dist/Pagination.js");
+/* harmony import */ var react_js_pagination__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_js_pagination__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/mensagens */ "./resources/js/components/mensagens.js");
+/* harmony import */ var _imagens_upa_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../imagens/upa.png */ "./resources/js/imagens/upa.png");
+/* harmony import */ var _imagens_upa_png__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_imagens_upa_png__WEBPACK_IMPORTED_MODULE_4__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+var Geral = /*#__PURE__*/function (_Component) {
+  _inherits(Geral, _Component);
+
+  var _super = _createSuper(Geral);
+
+  function Geral() {
+    var _this;
+
+    _classCallCheck(this, Geral);
+
+    _this = _super.call(this);
+    _this.state = {
+      activePage: 0,
+      itemsCountPerPage: 0,
+      totalItemsCount: 0,
+      filtros: {
+        paciente: "",
+        dataInicial: "",
+        dataFinal: "",
+        recepcionista: "",
+        enfermeiro: "",
+        medico: ""
+      },
+      atendimentos: []
+    };
+    _this.url = "/administrador/";
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handlePageChange = _this.handlePageChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Geral, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      e.preventDefault();
+      var campo = e.target.id;
+      var valor = e.target.value.toUpperCase();
+      var filtros = this.state.filtros;
+      filtros[campo] = valor;
+      this.setState({
+        filtros: filtros
+      });
+    }
+  }, {
+    key: "buscar",
+    value: function buscar(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      $(document).ready(function () {
+        $("#tabela").addClass("d-none");
+        $("#spinner").removeClass("d-none");
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url + "relatorios", this.state.filtros).then(function (response) {
+        return _this2.closeLoading(response);
+      })["catch"](function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "handlePageChange",
+    value: function handlePageChange(pageNumber) {
+      var _this3 = this;
+
+      $(document).ready(function () {
+        $("#tabela").addClass("d-none");
+        $("#spinner").removeClass("d-none");
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url + "relatorios?page=" + pageNumber, this.state.filtros).then(function (response) {
+        return _this3.closeLoading(response);
+      })["catch"](function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "closeLoading",
+    value: function closeLoading(response) {
+      this.setState({
+        atendimentos: response.data.data,
+        activePage: response.data.current_page,
+        itemsCountPerPage: response.data.per_page,
+        totalItemsCount: response.data.total
+      });
+      $(document).ready(function () {
+        $("#tabela").removeClass("d-none");
+        $("#spinner").addClass('d-none');
+      });
+    }
+  }, {
+    key: "imprimir",
+    value: function imprimir(e) {
+      e.preventDefault();
+      var atendimentos = this.state.atendimentos;
+      var table = "<table><tr class='center'><td><img id='imagem' src='http://sisupa.com.br/images/upa.png'></td><td colspan='5'><b>PREFEITURA MUNICIPAL DE TEÓFILO OTONI <br> SECRETARIA MUNICIPAL DE SAÚDE <br> Unidade de Pronto Atendimento</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='6'><b>SECRETARIA DE ESTADO DE SAÚDE DE MINAS GERAIS</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='6'><b>PACIENTES ATENDIDOS</b></td></tr>";
+      table = table + "<tr><td colspan='6' bgcolor='C0C0C0'>&nbsp;</td></tr>";
+      table = table + "<tr><td><center><b>Registro</b></center></td><td><center><b>Paciente</b></center></td><td><center><b>Data e Hora</b></center></td><td><center><b>Recepcionista</b></center></td><td><center><b>Enfermeiro</b></center></td><td><center><b>Médico</b></center></td></tr>";
+      atendimentos.map(function (e) {
+        table = table + "<tr><td><center>" + e.id + "</center></td><td >" + e.paciente + "</td><td>" + new Date(e.created_at).toLocaleString() + "</td><td >" + e.recepcionista + "<td >" + e.enfermeiro + "</td>" + "</td><td >" + e.medico + "</td><tr>";
+      });
+      table = table + "</table";
+      var style = "<style> table{width: 100%; font: 17px Calibri;} img{max-width: 80px;} table,tr,td {border: solid 2px #000000; border-collapse: collapse;} .center{text-align: center;}</style>";
+      var head = "<head><title>Atendimento </title> " + style + " </head>";
+      var body = "<body>" + table + "<body>";
+      var win = window.open("", "", "height=700,width=700");
+      win.document.write("<html>");
+      win.document.write(head);
+      win.document.write(body);
+      win.document.write("</html>");
+      var img = win.document.getElementById("imagem");
+
+      img.onload = function () {
+        win.print();
+        win.close();
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this4 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", {
+        className: "text-center"
+      }, "Relat\xF3rio Geral"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "paciente",
+        className: "col-md-1 col-form-label"
+      }, " Paciente: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        onChange: this.handleChange,
+        value: this.state.filtros.paciente,
+        id: "paciente",
+        placeholder: "Nome do paciente"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "dataInicial",
+        className: "col-md-1 col-form-label"
+      }, " Entre: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "date",
+        className: "form-control",
+        onChange: this.handleChange,
+        value: this.state.filtros.dataInicial,
+        id: "dataInicial"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", null, "-"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "date",
+        className: "form-control",
+        onChange: this.handleChange,
+        value: this.state.filtros.dataFinal,
+        id: "dataFinal"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "recepcionista",
+        className: "col-md-1 col-form-label"
+      }, " Recep.: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        onChange: this.handleChange,
+        value: this.state.filtros.recepcionista,
+        id: "recepcionista",
+        placeholder: "Nome do Recepcionista"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "enfermeiro",
+        className: "col-md-1 col-form-label"
+      }, " Enfermeiro: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "enfermeiro",
+        onChange: this.handleChange,
+        value: this.state.filtros.enfermeiro,
+        placeholder: "Nome do Enfermeiro"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "medico",
+        className: "col-md-1 col-form-label"
+      }, " M\xE9dico: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "medico",
+        onChange: this.handleChange,
+        value: this.state.filtros.medico,
+        placeholder: "Nome do M\xE9dico"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-1"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-primary form-control",
+        onClick: function onClick(e) {
+          return _this4.buscar(e);
+        }
+      }, "BUSCAR")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-success form-control",
+        id: "imprimir",
+        onClick: function onClick(e) {
+          return _this4.imprimir(e);
+        }
+      }, "IMPRIMIR"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("center", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "spinner-border d-none text-center",
+        id: "spinner",
+        role: "status"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        className: "sr-only"
+      }, "Loading..."))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12 d-none",
+        id: "tabela"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "table-responsive"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
+        className: "table table-striped"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Registro "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Paciente "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Data e Hora "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Recepcionista "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Enfermeiro "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " M\xE9dico "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.state.atendimentos.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+          key: row.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.id, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.paciente, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", new Date(row.created_at).toLocaleString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.recepcionista, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.enfermeiro, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.medico, " "));
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("center", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-3"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_js_pagination__WEBPACK_IMPORTED_MODULE_2___default.a, {
+        activePage: this.state.activePage,
+        itemsCountPerPage: this.state.itemsCountPerPage,
+        totalItemsCount: this.state.totalItemsCount,
+        pageRangeDisplayed: 5,
+        onChange: function onChange(e) {
+          return _this4.handlePageChange(e);
+        },
+        itemClass: "page-item",
+        linkClass: "page-link"
+      }))))));
+    }
+  }]);
+
+  return Geral;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/administrador/componentes/relatorios/triagem.js":
+/*!**********************************************************************!*\
+  !*** ./resources/js/administrador/componentes/relatorios/triagem.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Triagem; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_js_pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-js-pagination */ "./node_modules/react-js-pagination/dist/Pagination.js");
+/* harmony import */ var react_js_pagination__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_js_pagination__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/mensagens */ "./resources/js/components/mensagens.js");
+/* harmony import */ var _imagens_upa_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../imagens/upa.png */ "./resources/js/imagens/upa.png");
+/* harmony import */ var _imagens_upa_png__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_imagens_upa_png__WEBPACK_IMPORTED_MODULE_4__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+var Triagem = /*#__PURE__*/function (_Component) {
+  _inherits(Triagem, _Component);
+
+  var _super = _createSuper(Triagem);
+
+  function Triagem() {
+    var _atendimento;
+
+    var _this;
+
+    _classCallCheck(this, Triagem);
+
+    _this = _super.call(this);
+    _this.state = {
+      discriminador: [],
+      fluxograma: [],
+      activePage: 0,
+      itemsCountPerPage: 0,
+      totalItemsCount: 0,
+      filtros: {
+        paciente: "",
+        dataInicial: "",
+        dataFinal: "",
+        enfermeiro: "",
+        cor: ""
+      },
+      atendimentos: [],
+      atendimento: (_atendimento = {
+        descricao: "",
+        hgt: "",
+        fc: "",
+        saturacao: "",
+        pa: "",
+        tax: "",
+        glasgow: "",
+        peso: "",
+        fluxograma: "",
+        discriminador: "",
+        classificacao: "",
+        enfermeiro: "",
+        paciente: ""
+      }, _defineProperty(_atendimento, "enfermeiro", ""), _defineProperty(_atendimento, "data", ""), _atendimento)
+    };
+    _this.url = "/administrador/";
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handlePageChange = _this.handlePageChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Triagem, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      e.preventDefault();
+      var campo = e.target.id;
+      var valor = e.target.value.toUpperCase();
+      var filtros = this.state.filtros;
+      filtros[campo] = valor;
+      this.setState({
+        filtros: filtros
+      });
+    }
+  }, {
+    key: "buscar",
+    value: function buscar(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      $(document).ready(function () {
+        $("#tabelaTriagem").addClass("d-none");
+        $("#spinnerTriagem").removeClass("d-none");
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url + "relatorios/triagem", this.state.filtros).then(function (response) {
+        return _this2.closeLoading(response);
+      })["catch"](function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "handlePageChange",
+    value: function handlePageChange(pageNumber) {
+      var _this3 = this;
+
+      $(document).ready(function () {
+        $("#tabelaTriagem").addClass("d-none");
+        $("#spinnerTriagem").removeClass("d-none");
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url + "relatorios/triagem?page=" + pageNumber, this.state.filtros).then(function (response) {
+        return _this3.closeLoading(response);
+      })["catch"](function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "closeLoading",
+    value: function closeLoading(response) {
+      this.setState({
+        atendimentos: response.data.data,
+        activePage: response.data.current_page,
+        itemsCountPerPage: response.data.per_page,
+        totalItemsCount: response.data.total
+      });
+      $(document).ready(function () {
+        $("#tabelaTriagem").removeClass("d-none");
+        $("#spinnerTriagem").addClass('d-none');
+      });
+    }
+  }, {
+    key: "imprimir",
+    value: function imprimir(e) {
+      var _this4 = this;
+
+      e.preventDefault();
+      var atendimentos = this.state.atendimentos;
+      var table = "<table><tr class='center'><td><img id='imagem' src='http://sisupa.com.br/images/upa.png'></td><td colspan='6'><b>PREFEITURA MUNICIPAL DE TEÓFILO OTONI <br> SECRETARIA MUNICIPAL DE SAÚDE <br> Unidade de Pronto Atendimento</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='7'><b>SECRETARIA DE ESTADO DE SAÚDE DE MINAS GERAIS</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='7'><b>PACIENTES ATENDIDOS - TRIAGEM</b></td></tr>";
+      table = table + "<tr><td colspan='7' bgcolor='C0C0C0'>&nbsp;</td></tr>";
+      table = table + "<tr><td><center><b>Registro</b></center></td><td><center><b>Paciente</b></center></td><td><center><b>Data e Hora</b></center></td><td><center><b>Enfermeiro</b></center></td><td><center><b>Fluxograma</b></center></td><td><center><b>Discriminador</b></center></td><td><center><b>Cor</b></center></td></tr>";
+      atendimentos.map(function (e) {
+        table = table + "<tr><td><center>" + e.id + "</center></td><td >" + e.paciente + "</td><td>" + new Date(e.created_at).toLocaleString() + "</td><td >" + e.enfermeiro + "<td >" + e.fluxograma + "</td>" + "</td><td >" + e.discriminador + "</td><td >" + _this4.getCor(e.cor) + "</td><tr>";
+      });
+      table = table + "</table";
+      var style = "<style> table{width: 100%; font: 17px Calibri;} img{max-width: 80px;} table,tr,td {border: solid 2px #000000; border-collapse: collapse;} .center{text-align: center;}</style>";
+      var head = "<head><title>Atendimento </title> " + style + " </head>";
+      var body = "<body>" + table + "<body>";
+      var win = window.open("", "", "height=700,width=700");
+      win.document.write("<html>");
+      win.document.write(head);
+      win.document.write(body);
+      win.document.write("</html>");
+      var img = win.document.getElementById("imagem");
+
+      img.onload = function () {
+        win.print();
+        win.close();
+      };
+    }
+  }, {
+    key: "imprimirRow",
+    value: function imprimirRow(e) {
+      e.preventDefault();
+      var atendimento = this.state.atendimento;
+      var table = "<table><tr class='center'><td><img id='imagem' src='http://sisupa.com.br/images/upa.png'></td><td colspan='6'><b>PREFEITURA MUNICIPAL DE TEÓFILO OTONI <br> SECRETARIA MUNICIPAL DE SAÚDE <br> Unidade de Pronto Atendimento</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='7'><b>SECRETARIA DE ESTADO DE SAÚDE DE MINAS GERAIS</b></td></tr>";
+      table = table + "<tr class='center'><td colspan='7'><b>PACIENTES ATENDIDOS - TRIAGEM</b></td></tr>";
+      table = table + "<tr><td colspan='7' bgcolor='C0C0C0'>&nbsp;</td></tr>";
+      table += "<tr><td> Registro </td><td colspan='2'>" + atendimento.registro + "</td><td>Data e Hora</td><td colspan='3'>" + new Date(atendimento.data).toLocaleString() + "</td></tr>";
+      table += "<tr><td>Paciente</td><td colspan='6'>" + atendimento.paciente + "</td></tr>";
+      table += "<tr><td>Enfermeiro</td><td colspan='6'>" + atendimento.enfermeiro + "</td></tr>";
+      table += "<tr><td class='center' colspan='7'><h4>Descricação</h4></td></tr>";
+      table += "<tr><td colspan='7'>" + atendimento.descricao + "</td></tr>";
+      table += "<tr><td class='center' colspan='7'><h4>Classificação de Risco</h4></td></tr>";
+      table += "<tr><td>Fluxograma</td><td colspan='6'>" + atendimento.fluxograma + "</td></tr>";
+      table += "<tr><td>Discriminador</td><td colspan='6'>" + atendimento.discriminador + "</td></tr>";
+      table += "<tr><td>Cor</td><td colspan='6'>" + this.state.classificacao + "</td></tr>";
+      table += "<tr><td class='center' colspan='7'><h4>Sinais Vitais</h4></td></tr>";
+      table += "<tr><td> Saturação </td><td colspan='2'>" + atendimento.saturacao + "</td><td> Glasgow </td><td colspan='3'>" + atendimento.glasgow + "</td></tr>";
+      table += "<tr><td> Temperatura </td><td colspan='2'>" + atendimento.tax + "</td><td> Glicemia </td><td colspan='3'>" + atendimento.hgt + "</td></tr>";
+      table += "<tr><td> P. Arterial </td><td colspan='2'>" + atendimento.pa + "</td><td> F. Cardiaca </td><td colspan='3'>" + atendimento.fc + "</td></tr>";
+      table += "<tr><td>Peso</td><td colspan='6'>" + atendimento.peso + "</td></tr>";
+      table = table + "</table";
+      var style = "<style> table{width: 100%; font: 17px Calibri;} img{max-width: 80px;} table,tr,td {border: solid 2px #000000; border-collapse: collapse;} td{width: 100px; padding-left: 2px;} .center{text-align: center;}</style>";
+      var head = "<head><title>Atendimento </title> " + style + " </head>";
+      var body = "<body>" + table + "<body>";
+      var win = window.open("", "", "height=700,width=700");
+      win.document.write("<html>");
+      win.document.write(head);
+      win.document.write(body);
+      win.document.write("</html>");
+      var img = win.document.getElementById("imagem");
+
+      img.onload = function () {
+        win.print();
+        win.close();
+      };
+    }
+  }, {
+    key: "getCor",
+    value: function getCor(cor) {
+      switch (cor) {
+        case 1:
+          return "Vermelho";
+          break;
+
+        case 2:
+          return "Laranja";
+          break;
+
+        case 3:
+          return "Amarelo";
+          break;
+
+        case 4:
+          return "Verde";
+          break;
+
+        case 5:
+          return "Azul";
+          break;
+      }
+    }
+  }, {
+    key: "verTriagem",
+    value: function verTriagem(e, row) {
+      var _this5 = this;
+
+      e.preventDefault();
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.url + "relatorios/triagem/dados/" + row.triagem).then(function (response) {
+        var atendimento = _this5.state.atendimento;
+        atendimento.descricao = !response.data.descricao ? "" : response.data.descricao;
+        atendimento.hgt = !response.data.hgt ? "" : response.data.hgt;
+        atendimento.fc = !response.data.fc ? "" : response.data.fc;
+        atendimento.saturacao = !response.data.saturacao ? "" : response.data.saturacao;
+        atendimento.tax = !response.data.tax ? "" : response.data.tax;
+        atendimento.pa = !response.data.pa ? "" : response.data.pa;
+        atendimento.glasgow = !response.data.glasgow ? "" : response.data.glasgow;
+        atendimento.peso = !response.data.peso ? "" : response.data.peso;
+        atendimento.classificacao = response.data.classificacao;
+        atendimento.paciente = row.paciente;
+        atendimento.enfermeiro = row.enfermeiro;
+        atendimento.data = row.created_at;
+        atendimento.registro = row.id;
+
+        _this5.setState({
+          atendimento: atendimento
+        });
+
+        console.log(atendimento);
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(_this5.url + "relatorios/classificacao/dados/" + atendimento.classificacao).then(function (response) {
+          var atendimento = _this5.state.atendimento;
+          atendimento.fluxograma = response.data.classificacao.nomeFluxograma;
+          atendimento.discriminador = response.data.classificacao.nomeDiscriminador;
+
+          _this5.setState({
+            atendimento: atendimento,
+            "discriminador": response.data.discriminadores
+          });
+
+          switch (response.data.classificacao.cor) {
+            case 1:
+              _this5.setState({
+                cor: '#ff0000',
+                classificacao: "VERMELHO"
+              });
+
+              break;
+
+            case 2:
+              _this5.setState({
+                cor: '#ff8c00',
+                classificacao: "LARANJA"
+              });
+
+              break;
+
+            case 3:
+              _this5.setState({
+                cor: '#ffff00',
+                classificacao: "AMARELO"
+              });
+
+              break;
+
+            case 4:
+              _this5.setState({
+                cor: '#008000',
+                classificacao: "VERDE"
+              });
+
+              break;
+
+            case 5:
+              _this5.setState({
+                cor: '#0000FF',
+                classificacao: "AZUL"
+              });
+
+              break;
+          }
+
+          $("#spinnerTriagemVer").addClass("d-none");
+          $("#dadosTriagemVer").removeClass("d-none");
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this6 = this,
+          _React$createElement,
+          _React$createElement2;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", {
+        className: "text-center"
+      }, "Relat\xF3rio Triagem"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "paciente",
+        className: "col-md-1 col-form-label"
+      }, " Paciente: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        onChange: this.handleChange,
+        value: this.state.filtros.paciente,
+        id: "paciente",
+        placeholder: "Nome do paciente"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "dataInicial",
+        className: "col-md-1 col-form-label"
+      }, " Entre: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "date",
+        className: "form-control",
+        onChange: this.handleChange,
+        value: this.state.filtros.dataInicial,
+        id: "dataInicial"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", null, "-"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "date",
+        className: "form-control",
+        onChange: this.handleChange,
+        value: this.state.filtros.dataFinal,
+        id: "dataFinal"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "enfermeiro",
+        className: "col-md-1 col-form-label"
+      }, " Enfermeiro: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "enfermeiro",
+        onChange: this.handleChange,
+        value: this.state.filtros.enfermeiro,
+        placeholder: "Nome do Enfermeiro"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "cor",
+        className: "col-md-1 col-form-label"
+      }, " Cor: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+        className: "form-control text-uppercase",
+        id: "cor",
+        onChange: this.handleChange,
+        value: this.state.filtros.cor
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: ""
+      }, "Selecione"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "1"
+      }, "Vermelho"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "2"
+      }, "Laranja"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "3"
+      }, "Amarelo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "4"
+      }, "Verde"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "5"
+      }, "Azul"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-primary form-control",
+        onClick: function onClick(e) {
+          return _this6.buscar(e);
+        }
+      }, "BUSCAR")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-success form-control",
+        id: "imprimir",
+        onClick: function onClick(e) {
+          return _this6.imprimir(e);
+        }
+      }, "IMPRIMIR"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("center", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "spinner-border d-none text-center",
+        id: "spinnerTriagem",
+        role: "status"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        className: "sr-only"
+      }, "Loading..."))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12 d-none",
+        id: "tabelaTriagem"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "table-responsive"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
+        className: "table table-striped"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Registro "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Paciente "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Data e Hora "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Enfermeiro "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Fluxograma "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Discriminador "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Cor "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        scope: "col"
+      }, " Ver "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.state.atendimentos.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+          key: row.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.id, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.paciente, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", new Date(row.created_at).toLocaleString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.enfermeiro, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.fluxograma, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", row.discriminador, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, " ", _this6.getCor(row.cor), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+          type: "button",
+          className: "btn btn-primary",
+          "data-toggle": "modal",
+          "data-target": "#modalTriagem",
+          onClick: function onClick(e) {
+            return _this6.verTriagem(e, row);
+          }
+        }, " Ver ")));
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("center", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-3"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_js_pagination__WEBPACK_IMPORTED_MODULE_2___default.a, {
+        activePage: this.state.activePage,
+        itemsCountPerPage: this.state.itemsCountPerPage,
+        totalItemsCount: this.state.totalItemsCount,
+        pageRangeDisplayed: 5,
+        onChange: function onChange(e) {
+          return _this6.handlePageChange(e);
+        },
+        itemClass: "page-item",
+        linkClass: "page-link"
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal fade",
+        id: "modalTriagem",
+        "data-backdrop": "static",
+        "data-keyboard": "false",
+        tabIndex: "-1",
+        "aria-labelledby": "staticBackdropLabel",
+        "aria-hidden": "true"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-dialog modal-xl"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-content"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-header"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
+        className: "modal-title",
+        id: "staticBackdropLabel"
+      }, "Triagem"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "close",
+        "data-dismiss": "modal",
+        "aria-label": "Close"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        "aria-hidden": "true"
+      }, "\xD7"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-body"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12 text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "spinner-border text-center",
+        id: "spinnerTriagemVer",
+        role: "status"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        className: "sr-only"
+      }, "Loading...")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row d-none",
+        id: "dadosTriagemVer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-6 border border-dark"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
+        className: "text-center"
+      }, "Descri\xE7\xE3o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "descricao",
+        className: "col-sm-2 col-form-label"
+      }, " Descri\xE7\xE3o: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-sm-10"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("textarea", (_React$createElement = {
+        rows: "4",
+        disabled: true,
+        value: this.state.atendimento.descricao
+      }, _defineProperty(_React$createElement, "disabled", true), _defineProperty(_React$createElement, "className", "form-control text-uppercase"), _defineProperty(_React$createElement, "id", "descricao"), _defineProperty(_React$createElement, "placeholder", "Queixa/Situa\xE7\xE3o"), _React$createElement)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
+        className: "text-center"
+      }, "Sinais Vitais"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "saturacao",
+        className: "col-sm-2 col-form-label"
+      }, " Satura\xE7\xE3o: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-sm-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        disabled: true,
+        value: this.state.atendimento.saturacao,
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "saturacao",
+        placeholder: "Oxig\xEAnio"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "glasgow",
+        className: "col-sm-2 col-form-label"
+      }, " Glasgow: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-sm-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        disabled: true,
+        value: this.state.atendimento.glasgow,
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "glasgow",
+        placeholder: "Glasgow"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "tax",
+        className: "col-sm-2 col-form-label"
+      }, " Tax: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-sm-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        disabled: true,
+        value: this.state.atendimento.tax,
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "tax",
+        placeholder: "Tax"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "hgt",
+        className: "col-sm-2 col-form-label"
+      }, " HGT: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-sm-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        disabled: true,
+        value: this.state.atendimento.hgt,
+        type: "text",
+        className: "form-control text-uppercase float",
+        id: "hgt",
+        placeholder: "HGT"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "pa",
+        className: "col-sm-2 col-form-label"
+      }, " PA: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-sm-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        disabled: true,
+        value: this.state.atendimento.pa,
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "pa",
+        placeholder: "Press\xE3o Arterial"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "fc",
+        className: "col-sm-2 col-form-label"
+      }, " FC: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-sm-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        disabled: true,
+        value: this.state.atendimento.fc,
+        type: "text",
+        className: "form-control text-uppercase",
+        id: "fc",
+        placeholder: "FC"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "peso",
+        className: "col-sm-2 col-form-label"
+      }, " Peso: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-sm-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        disabled: true,
+        value: this.state.atendimento.peso,
+        type: "text",
+        className: "form-control text-uppercase float",
+        id: "peso",
+        placeholder: "Peso"
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-6 border border-dark"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", {
+        className: "text-center"
+      }, "Registro: ", this.state.atendimento.registro), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", {
+        className: "text-center"
+      }, "Paciente: ", this.state.atendimento.paciente), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", {
+        className: "text-center"
+      }, "Enfermeiro: ", this.state.atendimento.enfermeiro), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", {
+        className: "text-center"
+      }, "Data e Hora:", new Date(this.state.atendimento.data).toLocaleString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
+        className: "text-center"
+      }, "Classifica\xE7\xE3o de Risco"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "fluxograma",
+        className: "col-sm-12 col-form-label text-center"
+      }, " Fluxograma: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-sm-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        className: "form-control text-uppercase",
+        type: "text",
+        id: "fluxograma",
+        list: "cbFluxograma",
+        disabled: true,
+        value: this.state.atendimento.fluxograma,
+        placeholder: "Fluxograma"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("datalist", {
+        id: "cbFluxograma"
+      }, this.state.fluxograma.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+          value: row.nome,
+          key: row.id
+        });
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "discriminador",
+        className: "col-sm-12 col-form-label text-center"
+      }, " Discriminador: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-sm-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", (_React$createElement2 = {
+        className: "form-control text-uppercase",
+        disabled: true,
+        type: "text",
+        id: "discriminador",
+        list: "cbDiscriminador"
+      }, _defineProperty(_React$createElement2, "disabled", true), _defineProperty(_React$createElement2, "value", this.state.atendimento.discriminador), _defineProperty(_React$createElement2, "placeholder", "Discriminador"), _React$createElement2)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("datalist", {
+        id: "cbDiscriminador"
+      }, this.state.discriminador.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+          value: row.nome,
+          key: row.id
+        });
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12 text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12 text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "border text-center border-dark rounded p-2 m-0 h5 text-uppercase",
+        style: {
+          background: this.state.cor
+        }
+      }, this.state.classificacao))))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-footer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-secondary",
+        "data-dismiss": "modal"
+      }, "Sair"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-success",
+        onClick: function onClick(e) {
+          return _this6.imprimirRow(e);
+        }
+      }, "Imprimir")))))));
+    }
+  }]);
+
+  return Triagem;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+
+
+/***/ }),
+
 /***/ "./resources/js/administrador/index.js":
 /*!*********************************************!*\
   !*** ./resources/js/administrador/index.js ***!
@@ -81419,7 +84293,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_footer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/footer */ "./resources/js/components/footer.js");
 /* harmony import */ var _componentes_registrar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./componentes/registrar */ "./resources/js/administrador/componentes/registrar.js");
 /* harmony import */ var _componentes_classificacao__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./componentes/classificacao */ "./resources/js/administrador/componentes/classificacao.js");
-/* harmony import */ var _componentes_materiais__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./componentes/materiais */ "./resources/js/administrador/componentes/materiais.js");
+/* harmony import */ var _componentes_relatorios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./componentes/relatorios */ "./resources/js/administrador/componentes/relatorios.js");
+/* harmony import */ var _componentes_cadastros__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./componentes/cadastros */ "./resources/js/administrador/componentes/cadastros.js");
+
 
 
 
@@ -81455,8 +84331,12 @@ function Administrador() {
     component: _componentes_classificacao__WEBPACK_IMPORTED_MODULE_7__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
-    path: "/administrador/materiais",
-    component: _componentes_materiais__WEBPACK_IMPORTED_MODULE_8__["default"]
+    path: "/administrador/cadastros",
+    component: _componentes_cadastros__WEBPACK_IMPORTED_MODULE_10__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/administrador/relatorios",
+    component: _componentes_relatorios__WEBPACK_IMPORTED_MODULE_8__["default"]
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_footer__WEBPACK_IMPORTED_MODULE_5__["default"], null)));
 }
 
@@ -81465,6 +84345,796 @@ function Administrador() {
 if (document.getElementById('admin')) {
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Administrador, null), document.getElementById('admin'));
 }
+
+/***/ }),
+
+/***/ "./resources/js/ambulatorio/componentes/atendidos.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/ambulatorio/componentes/atendidos.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Atendidos; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_js_pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-js-pagination */ "./node_modules/react-js-pagination/dist/Pagination.js");
+/* harmony import */ var react_js_pagination__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_js_pagination__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _imagens_edit_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../imagens/edit.png */ "./resources/js/imagens/edit.png");
+/* harmony import */ var _imagens_edit_png__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_imagens_edit_png__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/mensagens */ "./resources/js/components/mensagens.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+
+var Atendidos = /*#__PURE__*/function (_Component) {
+  _inherits(Atendidos, _Component);
+
+  var _super = _createSuper(Atendidos);
+
+  function Atendidos() {
+    var _this;
+
+    _classCallCheck(this, Atendidos);
+
+    _this = _super.call(this);
+    _this.state = {
+      cor: "",
+      atendimentos: [],
+      activePage: 0,
+      itemsCountPerPage: 0,
+      totalItemsCount: 0
+    };
+    $(document).ready(function () {
+      $("#spinner").removeClass("d-none");
+      $("#tabela").addClass("d-none");
+    });
+    _this.api = "/ambulatorio/";
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_this.api + 'atendimentos/dados/lista/atendidos').then(function (response) {
+      _this.setState({
+        atendimentos: response.data.data,
+        activePage: response.data.current_page,
+        itemsCountPerPage: response.data.per_page,
+        totalItemsCount: response.data.total
+      });
+
+      $(document).ready(function () {
+        $("#tabela").removeClass("d-none");
+        $("#spinner").addClass("d-none");
+      });
+    })["catch"](function (e) {
+      Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_5__["redirect"])(e);
+    });
+    return _this;
+  }
+
+  _createClass(Atendidos, [{
+    key: "handlePageChange",
+    value: function handlePageChange(pageNumber) {
+      var _this2 = this;
+
+      $(document).ready(function () {
+        $("#spinner").removeClass("d-none");
+        $("#tabela").addClass("d-none");
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(this.api + 'atendimentos/dados/lista/atendidos?page=' + pageNumber).then(function (response) {
+        _this2.setState({
+          atendimentos: response.data.data,
+          activePage: response.data.current_page,
+          itemsCountPerPage: response.data.per_page,
+          totalItemsCount: response.data.total
+        });
+
+        $(document).ready(function () {
+          $("#spinner").addClass("d-none");
+          $("#tabela").removeClass("d-none");
+        });
+      })["catch"](function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_5__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+        className: "text-center"
+      }, "Lista de Pacientes Atendidos"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("center", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "spinner-border d-none",
+        id: "spinner",
+        role: "status"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "sr-only"
+      }, "Loading..."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 d-none",
+        id: "tabela"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table-responsive"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table table-striped"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col",
+        colSpan: "3"
+      }, " Paciente "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col",
+        colSpan: "3"
+      }, " M\xE3e "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Nascimento "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Bairro"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Hora "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.atendimentos.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: row.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          colSpan: "3"
+        }, " ", row.paciente, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          colSpan: "3"
+        }, " ", row.mae, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", new Date(row.nascimento).toLocaleDateString(), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", row.bairro, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", new Date(row.created_at).toLocaleTimeString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+          to: "/consulta/atendimento/" + row.id,
+          className: "btn btn-primary"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: _imagens_edit_png__WEBPACK_IMPORTED_MODULE_3___default.a
+        }))));
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("center", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-3"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_js_pagination__WEBPACK_IMPORTED_MODULE_2___default.a, {
+        activePage: this.state.activePage,
+        itemsCountPerPage: this.state.itemsCountPerPage,
+        totalItemsCount: this.state.totalItemsCount,
+        pageRangeDisplayed: 5,
+        onChange: function onChange(e) {
+          return _this3.handlePageChange(e);
+        },
+        itemClass: "page-item",
+        linkClass: "page-link"
+      }))))));
+    }
+  }]);
+
+  return Atendidos;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/ambulatorio/componentes/atendimento.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/ambulatorio/componentes/atendimento.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Atendimento; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _imagens_cancel_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../imagens/cancel.png */ "./resources/js/imagens/cancel.png");
+/* harmony import */ var _imagens_cancel_png__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_imagens_cancel_png__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/mensagens */ "./resources/js/components/mensagens.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+var Atendimento = /*#__PURE__*/function (_Component) {
+  _inherits(Atendimento, _Component);
+
+  var _super = _createSuper(Atendimento);
+
+  function Atendimento(props) {
+    var _this;
+
+    _classCallCheck(this, Atendimento);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      id: _this.props.match.params.prescricao,
+      paciente: "",
+      medico: "",
+      prescricao: [],
+      materiais: [],
+      item: {
+        id: "",
+        quantidade: "",
+        material: ""
+      },
+      itens: [],
+      itensSalvo: [],
+      observacao: ""
+    };
+    _this.api = "/ambulatorio/";
+    _this.handleChage = _this.handleChage.bind(_assertThisInitialized(_this));
+    $(document).ready(function () {
+      $("#header").addClass("d-none");
+    });
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_this.api + "materiais/lista").then(function (response) {
+      _this.setState({
+        materiais: response.data
+      });
+    })["catch"](function (e) {
+      return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+    });
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_this.api + "materiais/salvos/" + _this.state.id).then(function (response) {
+      var observacao = response.data.prescricao.observacao ? response.data.prescricao.observacao : "";
+
+      _this.setState({
+        itensSalvo: response.data.materiais,
+        observacao: observacao
+      });
+    })["catch"](function (e) {
+      return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+    });
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_this.api + "prescricao/dados/" + _this.state.id).then(function (response) {
+      _this.setState({
+        prescricao: response.data.prescricaos,
+        paciente: response.data.dados[0].paciente,
+        medico: response.data.dados[0].medico
+      });
+    })["catch"](function (e) {
+      return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])();
+    });
+    return _this;
+  }
+
+  _createClass(Atendimento, [{
+    key: "handleChage",
+    value: function handleChage(e) {
+      e.preventDefault();
+      var campo = e.target.id;
+      var value = e.target.value;
+
+      if (campo != "observacao") {
+        var item = this.state.item;
+        item[campo] = value;
+        this.setState({
+          item: item
+        });
+      } else {
+        this.setState({
+          observacao: value
+        });
+      }
+    }
+  }, {
+    key: "cancelItem",
+    value: function cancelItem(e, id) {
+      e.preventDefault();
+      var itens = this.state.itens;
+      itens.splice(id - 1, 1);
+
+      for (var i = 0; i < itens.length; i++) {
+        itens[i].id = i + 1;
+      }
+
+      this.setState({
+        itens: itens
+      });
+    }
+  }, {
+    key: "getPosologia",
+    value: function getPosologia(id) {
+      switch (id) {
+        case 1:
+          return "2 em 2 Horas";
+          break;
+
+        case 2:
+          return "4 em 4 Horas";
+          break;
+
+        case 3:
+          return "6 em 6 Horas";
+          break;
+
+        case 4:
+          return "8 em 8 Horas";
+          break;
+
+        case 5:
+          return "10 em 10 Horas";
+          break;
+
+        case 6:
+          return "12 em 12 Horas";
+          break;
+      }
+    }
+  }, {
+    key: "getApresentacao",
+    value: function getApresentacao(id) {
+      switch (id) {
+        case 1:
+          return "Via Oral";
+          break;
+
+        case 2:
+          return "Via Intravenosa";
+          break;
+
+        case 3:
+          return "Via Intramuscular";
+          break;
+      }
+    }
+  }, {
+    key: "adicionar",
+    value: function adicionar(e) {
+      e.preventDefault();
+      var item = this.state.item;
+
+      if (!item.quantidade) {
+        preencha("quantidade", "#quantidade");
+      } else if (!item.material) {
+        preencha("material", "#material");
+      } else {
+        var itens = this.state.itens;
+        item.id = itens.length + 1;
+        itens.push(item);
+        this.setState({
+          itens: itens,
+          item: {
+            id: "",
+            quantidade: "",
+            material: ""
+          }
+        });
+      }
+    }
+  }, {
+    key: "getMaterial",
+    value: function getMaterial(id) {
+      var materiais = this.state.materiais;
+
+      for (var i = 0; i < materiais.length; i++) {
+        if (materiais[i].id == id) {
+          return materiais[i].nome;
+        }
+      }
+    }
+  }, {
+    key: "cancelar",
+    value: function cancelar(e) {
+      e.preventDefault();
+      Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["cancelarEdicao"])("Atendimento Ambulatorial").then(function (response) {
+        if (response) {
+          window.location.replace("/ambulatorio/lista");
+        }
+      });
+    }
+  }, {
+    key: "salvar",
+    value: function salvar(e) {
+      e.preventDefault();
+      var prescricao = {
+        prescricao: this.state.id,
+        observacao: this.state.observacao,
+        tecnico: $("#userId").val(),
+        materiais: this.state.itens
+      };
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(this.api + "store", prescricao).then(function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["salvo"])();
+        window.location.replace("/ambulatorio/lista");
+      })["catch"](function (e) {
+        return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        className: "text-center"
+      }, "Prescri\xE7\xE3o M\xE9dica"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6"
+      }, "Paciente: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, this.state.paciente)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6"
+      }, "M\xE9dico(a): ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, this.state.medico))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table-responsive",
+        id: "tabela"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        id: "tab",
+        className: "table table-striped",
+        style: {
+          textAlign: 'left'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Quantidade"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Prescri\xE7\xE3o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Posologia"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Apresenta\xE7\xE3o"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.prescricao.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: row.idPrescricaoMedicamento
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.quantidade), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.medicamento), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this2.getPosologia(row.posologia)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this2.getApresentacao(row.apresentacao)));
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        className: "text-center"
+      }, " Listagem de Material"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-3"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "quantidade",
+        className: " col-form-label"
+      }, "Quantidade"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        id: "quantidade",
+        className: "form-control text-uppercase",
+        onChange: this.handleChage,
+        value: this.state.item.quantidade,
+        placeholder: "Quantidade Pedida"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-7"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "material",
+        className: "col-form-label"
+      }, "Material"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        id: "material",
+        className: " form-control text-uppercase",
+        onChange: this.handleChage,
+        value: this.state.item.material
+      }, this.state.materiais.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          value: row.id,
+          key: row.id
+        }, row.nome);
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "col-form-label"
+      }, "\xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-success col-md-12 text-center",
+        onClick: function onClick(e) {
+          return _this2.adicionar(e);
+        }
+      }, "Adicionar"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table-responsive",
+        id: "tabela"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        id: "tab",
+        className: "table table-striped",
+        style: {
+          textAlign: 'left'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Quantidade"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Material"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "\xA0"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.itensSalvo.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: row.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.quantidade), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this2.getMaterial(row.material)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "\xA0"));
+      }), this.state.itens.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: row.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.quantidade), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this2.getMaterial(row.material)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: function onClick(e) {
+            return _this2.cancelItem(e, row.id);
+          },
+          className: "btn btn-danger"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: _imagens_cancel_png__WEBPACK_IMPORTED_MODULE_2___default.a
+        }))));
+      }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "observacao",
+        className: "col-form-label"
+      }, "Observa\xE7\xE3o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        className: "form-control col-md-12",
+        id: "observacao",
+        onChange: this.handleChage,
+        value: this.state.observacao,
+        placeholder: "Observa\xE7\xE3o"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-warning col-md-3 border",
+        onClick: function onClick(e) {
+          return _this2.cancelar(e);
+        }
+      }, "Cancelar"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-primary col-md-3 border",
+        onClick: function onClick(e) {
+          return _this2.salvar(e);
+        }
+      }, "Salvar"))));
+    }
+  }]);
+
+  return Atendimento;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/ambulatorio/componentes/exames.js":
+/*!********************************************************!*\
+  !*** ./resources/js/ambulatorio/componentes/exames.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Exames; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _imagens_accept_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../imagens/accept.png */ "./resources/js/imagens/accept.png");
+/* harmony import */ var _imagens_accept_png__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_imagens_accept_png__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/mensagens */ "./resources/js/components/mensagens.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+var Exames = /*#__PURE__*/function (_Component) {
+  _inherits(Exames, _Component);
+
+  var _super = _createSuper(Exames);
+
+  function Exames() {
+    var _this;
+
+    _classCallCheck(this, Exames);
+
+    _this = _super.call(this);
+    _this.state = {
+      exames: [],
+      examesImagem: [],
+      examesOutros: []
+    };
+    _this.api = "/ambulatorio/";
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_this.api + "exames/solicitados/imagem").then(function (respose) {
+      _this.setState({
+        examesImagem: respose.data
+      });
+    })["catch"](function (e) {
+      return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+    });
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_this.api + "exames/solicitados/laboratorio").then(function (respose) {
+      _this.setState({
+        exames: respose.data
+      });
+    })["catch"](function (e) {
+      return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+    });
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_this.api + "exames/solicitados/outros").then(function (respose) {
+      _this.setState({
+        examesOutros: respose.data
+      });
+    })["catch"](function (e) {
+      return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+    });
+    return _this;
+  }
+
+  _createClass(Exames, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        className: "text-center"
+      }, "Exames Solicitados"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 border border-dark"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "text-center"
+      }, "Exames de Imagem"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table-responsive"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table table-striped"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Paciente "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Nascimento "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " M\xE3e "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Prioridade "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "\xA0"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.examesImagem.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: row.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.paciente), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, new Date(row.nascimento).toLocaleDateString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.mae), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "pb-md-2",
+          style: {
+            background: row.prioridade == 1 ? "#FFFF00" : "#008000"
+          }
+        }, "\xA0\xA0\xA0", row.prioridade == 1 ? "Urgência" : "Rotina")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+          to: "/ambulatorio/exames/atendimento/imagem/" + row.consulta,
+          className: "btn btn-primary"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: _imagens_accept_png__WEBPACK_IMPORTED_MODULE_2___default.a
+        }))));
+      })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 border border-dark"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "text-center"
+      }, "Exames Laboratoriais"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table-responsive"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table table-striped"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Paciente "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Nascimento "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " M\xE3e "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Prioridade "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "\xA0"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.exames.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: row.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.paciente), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, new Date(row.nascimento).toLocaleDateString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.mae), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "pb-md-2",
+          style: {
+            background: row.prioridade == 1 ? "#FFFF00" : "#008000"
+          }
+        }, "\xA0\xA0\xA0", row.prioridade == 1 ? "Urgência" : "Rotina")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+          to: "/ambulatorio/exames/atendimento/lab/" + row.consulta,
+          className: "btn btn-primary"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: _imagens_accept_png__WEBPACK_IMPORTED_MODULE_2___default.a
+        }))));
+      })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 border border-dark"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "text-center"
+      }, "Outros Exames"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table-responsive"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table table-striped"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Paciente "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Nascimento "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " M\xE3e "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Prioridade "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "\xA0"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.examesOutros.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: row.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.paciente), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, new Date(row.nascimento).toLocaleDateString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.mae), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "pb-md-2",
+          style: {
+            background: row.prioridade == 1 ? "#FFFF00" : "#008000"
+          }
+        }, "\xA0\xA0\xA0", row.prioridade == 1 ? "Urgência" : "Rotina")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+          to: "/ambulatorio/exames/atendimento/outros/" + row.consulta,
+          className: "btn btn-primary"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: _imagens_accept_png__WEBPACK_IMPORTED_MODULE_2___default.a
+        }))));
+      }))))))));
+    }
+  }]);
+
+  return Exames;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
 
 /***/ }),
 
@@ -81526,7 +85196,8 @@ var Header = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
-        className: "navbar navbar-expand-lg navbar-dark bg-dark"
+        className: "navbar navbar-expand-lg navbar-dark bg-dark",
+        id: "header"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "navbar-brand nav-link mr-5",
         to: "/home"
@@ -81563,7 +85234,7 @@ var Header = /*#__PURE__*/function (_Component) {
         to: "/ambulatorio/lista"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "home"
-      }, "Usu\xE1rio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, "Lista de Pacientes"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "sr-only"
       }, "(current)"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "nav-item active"
@@ -81572,7 +85243,16 @@ var Header = /*#__PURE__*/function (_Component) {
         to: "/ambulatorio/exames"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "home"
-      }, "Classifica\xE7\xE3o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, "Exames"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "sr-only"
+      }, "(current)"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-item active"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        className: "nav-link",
+        to: "/ambulatorio/exames"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "home"
+      }, "Exames"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "sr-only"
       }, "(current)"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "nav-item active"
@@ -81594,6 +85274,912 @@ var Header = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./resources/js/ambulatorio/componentes/imagem.js":
+/*!********************************************************!*\
+  !*** ./resources/js/ambulatorio/componentes/imagem.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Imagem; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/mensagens */ "./resources/js/components/mensagens.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var Imagem = /*#__PURE__*/function (_Component) {
+  _inherits(Imagem, _Component);
+
+  var _super = _createSuper(Imagem);
+
+  function Imagem(props) {
+    var _this;
+
+    _classCallCheck(this, Imagem);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      consulta: _this.props.match.params.consulta,
+      exames: [],
+      paciente: "",
+      mae: ""
+    };
+    _this.api = "/ambulatorio/";
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_this.api + "exames/dados/imagem/" + _this.state.consulta).then(function (response) {
+      var exames = response.data;
+
+      for (var i = 0; i < exames.length; i++) {
+        exames[i].index = i;
+        exames[i].observacao = exames[i].observacao ? exames[i].observacao : "";
+      }
+
+      _this.setState({
+        exames: exames,
+        paciente: response.data[0].paciente,
+        mae: response.data[0].mae
+      });
+    })["catch"](function (e) {
+      return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["redirect"])(e);
+    });
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Imagem, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      var exames = this.state.exames;
+      exames[e.target.id.substring(6, e.target.id.length)].observacao = e.target.value;
+      this.setState({
+        exames: exames
+      });
+    }
+  }, {
+    key: "salvar",
+    value: function salvar(e) {
+      e.preventDefault();
+      var exames = [];
+      this.state.exames.map(function (row) {
+        exames.push({
+          id: row.id,
+          observacao: row.observacao,
+          tecnico: $("#userId").val()
+        });
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(this.api + "exames/imagem/atendimento/store", {
+        exames: exames
+      }).then(function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["salvo"])();
+        window.location.replace("/ambulatorio/exames");
+      })["catch"](function (e) {
+        return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "cancelar",
+    value: function cancelar(e) {
+      e.preventDefault();
+      Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["cancelarEdicao"])("Exames de Imagem").then(function (response) {
+        if (response) {
+          window.location.replace("/ambulatorio/exames");
+        }
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6"
+      }, "Paciente: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, this.state.paciente)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6"
+      }, "M\xE3e: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, this.state.mae))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 border border-dark"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "text-center"
+      }, "Exames de Imagem"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table-responsive"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table table-striped"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Exame "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col",
+        colSpan: "2"
+      }, " Descri\xE7\xE3o "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Prioridade "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " M\xE9dico "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col",
+        colSpan: "2"
+      }, " Observa\xE7\xE3o "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.exames.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: row.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.exame), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          colSpan: "2"
+        }, row.descricao), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "pb-md-2",
+          style: {
+            background: row.prioridade == 1 ? "#FFFF00" : "#008000"
+          }
+        }, "\xA0\xA0\xA0", row.prioridade == 1 ? "Urgência" : "Rotina")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " Dr(a) ", row.medico, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          colSpan: "2"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "text",
+          id: "imagem" + row.index,
+          className: "form-control",
+          placeholder: "Observa\xE7\xE3o",
+          onChange: _this2.handleChange,
+          value: _this2.state.exames[row.index].observacao
+        })));
+      }))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-warning col-md-3 border",
+        onClick: function onClick(e) {
+          return _this2.cancelar(e);
+        }
+      }, "Cancelar"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-primary col-md-3 border",
+        onClick: function onClick(e) {
+          return _this2.salvar(e);
+        }
+      }, "Salvar"))));
+    }
+  }]);
+
+  return Imagem;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/ambulatorio/componentes/laboratorio.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/ambulatorio/componentes/laboratorio.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Laboratorio; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/mensagens */ "./resources/js/components/mensagens.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var Laboratorio = /*#__PURE__*/function (_Component) {
+  _inherits(Laboratorio, _Component);
+
+  var _super = _createSuper(Laboratorio);
+
+  function Laboratorio(props) {
+    var _this;
+
+    _classCallCheck(this, Laboratorio);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      consulta: _this.props.match.params.consulta,
+      exames: [],
+      paciente: "",
+      mae: ""
+    };
+    _this.api = "/ambulatorio/";
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_this.api + "exames/dados/lab/" + _this.state.consulta).then(function (response) {
+      var exames = response.data;
+
+      for (var i = 0; i < exames.length; i++) {
+        exames[i].index = i;
+        exames[i].observacao = exames[i].observacao ? exames[i].observacao : "";
+      }
+
+      _this.setState({
+        exames: exames,
+        paciente: response.data[0].paciente,
+        mae: response.data[0].mae
+      });
+    })["catch"](function (e) {
+      return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["redirect"])(e);
+    });
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Laboratorio, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      var exames = this.state.exames;
+      exames[e.target.id.substring(3, e.target.id.length)].observacao = e.target.value;
+      this.setState({
+        exames: exames
+      });
+    }
+  }, {
+    key: "salvar",
+    value: function salvar(e) {
+      e.preventDefault();
+      var exames = [];
+      this.state.exames.map(function (row) {
+        exames.push({
+          id: row.id,
+          observacao: row.observacao,
+          tecnico: $("#userId").val()
+        });
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(this.api + "exames/lab/atendimento/store", {
+        exames: exames
+      }).then(function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["salvo"])();
+        window.location.replace("/ambulatorio/exames");
+      })["catch"](function (e) {
+        return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "cancelar",
+    value: function cancelar(e) {
+      e.preventDefault();
+      Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["cancelarEdicao"])("Exames de Laboratório").then(function (response) {
+        if (response) {
+          window.location.replace("/ambulatorio/exames");
+        }
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6"
+      }, "Paciente: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, this.state.paciente)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6"
+      }, "M\xE3e: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, this.state.mae))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 border border-dark"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "text-center"
+      }, "Exames de Laborat\xF3rio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table-responsive"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table table-striped"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Exame "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Prioridade "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " M\xE9dico "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col",
+        colSpan: "2"
+      }, " Observa\xE7\xE3o "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.exames.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: row.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.exame), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "pb-md-2",
+          style: {
+            background: row.prioridade == 1 ? "#FFFF00" : "#008000"
+          }
+        }, "\xA0\xA0\xA0", row.prioridade == 1 ? "Urgência" : "Rotina")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " Dr(a) ", row.medico, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          colSpan: "2"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "text",
+          id: "lab" + row.index,
+          className: "form-control",
+          placeholder: "Observa\xE7\xE3o",
+          onChange: _this2.handleChange,
+          value: _this2.state.exames[row.index].observacao
+        })));
+      }))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-warning col-md-3 border",
+        onClick: function onClick(e) {
+          return _this2.cancelar(e);
+        }
+      }, "Cancelar"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-primary col-md-3 border",
+        onClick: function onClick(e) {
+          return _this2.salvar(e);
+        }
+      }, "Salvar"))));
+    }
+  }]);
+
+  return Laboratorio;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/ambulatorio/componentes/lista.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/ambulatorio/componentes/lista.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Lista; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _tabela__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tabela */ "./resources/js/ambulatorio/componentes/tabela.js");
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/mensagens */ "./resources/js/components/mensagens.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+var Lista = /*#__PURE__*/function (_Component) {
+  _inherits(Lista, _Component);
+
+  var _super = _createSuper(Lista);
+
+  function Lista() {
+    var _this;
+
+    _classCallCheck(this, Lista);
+
+    _this = _super.call(this);
+    _this.state = {
+      vermelho: [],
+      laranja: [],
+      amarelo: [],
+      verde: [],
+      azul: []
+    };
+    _this.api = "/ambulatorio/";
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_this.api + 'atendimentos/dados/lista').then(function (response) {
+      _this.triagem(response.data);
+    })["catch"](function (e) {
+      return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+    });
+    /*Echo.private('consulta')
+    .listen('NovaTriagem', (response) => {
+        this.triagem(JSON.parse(response.atendimentos));
+    });*/
+
+    return _this;
+  }
+
+  _createClass(Lista, [{
+    key: "triagem",
+    value: function triagem(atendimentos) {
+      var _this2 = this;
+
+      this.setState({
+        vermelho: [],
+        laranja: [],
+        amarelo: [],
+        verde: [],
+        azul: []
+      });
+      atendimentos.map(function (row) {
+        switch (row.cor) {
+          case 1:
+            var vermelho = _this2.state.vermelho;
+            vermelho.push(row);
+
+            _this2.setState({
+              vermelho: vermelho
+            });
+
+            break;
+
+          case 2:
+            var laranja = _this2.state.laranja;
+            laranja.push(row);
+
+            _this2.setState({
+              laranja: laranja
+            });
+
+            break;
+
+          case 3:
+            var amarelo = _this2.state.amarelo;
+            amarelo.push(row);
+
+            _this2.setState({
+              amarelo: amarelo
+            });
+
+            break;
+
+          case 4:
+            var verde = _this2.state.verde;
+            verde.push(row);
+
+            _this2.setState({
+              verde: verde
+            });
+
+            break;
+
+          case 5:
+            var azul = _this2.state.azul;
+            azul.push(row);
+
+            _this2.setState({
+              azul: azul
+            });
+
+            break;
+        }
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+        className: "text-center"
+      }, "Lista de Pacientes para Medica\xE7\xE3o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "nav nav-tabs",
+        id: "myTab",
+        role: "tablist"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-item"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "nav-link active",
+        id: "vermelho-tab",
+        "data-toggle": "tab",
+        href: "#vermelho",
+        role: "tab",
+        "aria-controls": "vermelho",
+        "aria-selected": "true"
+      }, "Vermelho | ", this.state.vermelho.length)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-item"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "nav-link",
+        id: "laranja-tab",
+        "data-toggle": "tab",
+        href: "#laranja",
+        role: "tab",
+        "aria-controls": "laranja",
+        "aria-selected": "false"
+      }, "Laranja | ", this.state.laranja.length)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-item"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "nav-link",
+        id: "amarelo-tab",
+        "data-toggle": "tab",
+        href: "#amarelo",
+        role: "tab",
+        "aria-controls": "amarelo",
+        "aria-selected": "false"
+      }, "Amarelo | ", this.state.amarelo.length)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-item"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "nav-link",
+        id: "verde-tab",
+        "data-toggle": "tab",
+        href: "#verde",
+        role: "tab",
+        "aria-controls": "verde",
+        "aria-selected": "false"
+      }, "Verde | ", this.state.verde.length)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-item"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "nav-link",
+        id: "azul-tab",
+        "data-toggle": "tab",
+        href: "#azul",
+        role: "tab",
+        "aria-controls": "azul",
+        "aria-selected": "false"
+      }, "Azul | ", this.state.azul.length))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-content",
+        id: "myTabContent"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-pane fade show active",
+        id: "vermelho",
+        role: "tabpanel",
+        "aria-labelledby": "vermelho-tab"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabela__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        atendimentos: this.state.vermelho
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-pane fade",
+        id: "laranja",
+        role: "tabpanel",
+        "aria-labelledby": "laranja-tab"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabela__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        atendimentos: this.state.laranja
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-pane fade",
+        id: "amarelo",
+        role: "tabpanel",
+        "aria-labelledby": "amarelo-tab"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabela__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        atendimentos: this.state.amarelo
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-pane fade",
+        id: "verde",
+        role: "tabpanel",
+        "aria-labelledby": "verde-tab"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabela__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        atendimentos: this.state.verde
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-pane fade",
+        id: "azul",
+        role: "tabpanel",
+        "aria-labelledby": "azul-tab"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabela__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        atendimentos: this.state.azul
+      })))));
+    }
+  }]);
+
+  return Lista;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/ambulatorio/componentes/outros.js":
+/*!********************************************************!*\
+  !*** ./resources/js/ambulatorio/componentes/outros.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Outros; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/mensagens */ "./resources/js/components/mensagens.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var Outros = /*#__PURE__*/function (_Component) {
+  _inherits(Outros, _Component);
+
+  var _super = _createSuper(Outros);
+
+  function Outros(props) {
+    var _this;
+
+    _classCallCheck(this, Outros);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      consulta: _this.props.match.params.consulta,
+      exames: [],
+      paciente: "",
+      mae: ""
+    };
+    _this.api = "/ambulatorio/";
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_this.api + "exames/dados/outros/" + _this.state.consulta).then(function (response) {
+      var exames = response.data;
+
+      for (var i = 0; i < exames.length; i++) {
+        exames[i].index = i;
+        exames[i].observacao = exames[i].observacao ? exames[i].observacao : "";
+      }
+
+      _this.setState({
+        exames: exames,
+        paciente: response.data[0].paciente,
+        mae: response.data[0].mae
+      });
+    })["catch"](function (e) {
+      return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["redirect"])(e);
+    });
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Outros, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      var exames = this.state.exames;
+      exames[e.target.id.substring(6, e.target.id.length)].observacao = e.target.value;
+      this.setState({
+        exames: exames
+      });
+    }
+  }, {
+    key: "salvar",
+    value: function salvar(e) {
+      e.preventDefault();
+      var exames = [];
+      this.state.exames.map(function (row) {
+        exames.push({
+          id: row.id,
+          observacao: row.observacao,
+          tecnico: $("#userId").val()
+        });
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(this.api + "exames/outros/atendimento/store", {
+        exames: exames
+      }).then(function (e) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["salvo"])();
+        window.location.replace("/ambulatorio/exames");
+      })["catch"](function (e) {
+        return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["redirect"])(e);
+      });
+    }
+  }, {
+    key: "cancelar",
+    value: function cancelar(e) {
+      e.preventDefault();
+      Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["cancelarEdicao"])("Outros Exames").then(function (response) {
+        if (response) {
+          window.location.replace("/ambulatorio/exames");
+        }
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6"
+      }, "Paciente: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, this.state.paciente)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6"
+      }, "M\xE3e: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, this.state.mae))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 border border-dark"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "text-center"
+      }, "Exames de Imagem"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table-responsive"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table table-striped"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+        scope: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col",
+        colSpan: "3"
+      }, " Descri\xE7\xE3o do Exame"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " Prioridade "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, " M\xE9dico "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col",
+        colSpan: "2"
+      }, " Observa\xE7\xE3o "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.exames.map(function (row) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: row.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          colSpan: "3"
+        }, row.descricao), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "pb-md-2",
+          style: {
+            background: row.prioridade == 1 ? "#FFFF00" : "#008000"
+          }
+        }, "\xA0\xA0\xA0", row.prioridade == 1 ? "Urgência" : "Rotina")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " Dr(a) ", row.medico, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          colSpan: "2"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "text",
+          id: "outros" + row.index,
+          className: "form-control",
+          placeholder: "Observa\xE7\xE3o",
+          onChange: _this2.handleChange,
+          value: _this2.state.exames[row.index].observacao
+        })));
+      }))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-warning col-md-3 border",
+        onClick: function onClick(e) {
+          return _this2.cancelar(e);
+        }
+      }, "Cancelar"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-primary col-md-3 border",
+        onClick: function onClick(e) {
+          return _this2.salvar(e);
+        }
+      }, "Salvar"))));
+    }
+  }]);
+
+  return Outros;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/ambulatorio/componentes/tabela.js":
+/*!********************************************************!*\
+  !*** ./resources/js/ambulatorio/componentes/tabela.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _imagens_accept_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../imagens/accept.png */ "./resources/js/imagens/accept.png");
+/* harmony import */ var _imagens_accept_png__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_imagens_accept_png__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+function Tabela(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "table-responsive"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+    className: "table table-striped"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+    scope: "row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+    scope: "col",
+    colSpan: "3"
+  }, " Paciente "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+    scope: "col",
+    colSpan: "3"
+  }, " M\xE3e "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+    scope: "col"
+  }, " Nascimento "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+    scope: "col"
+  }, " Bairro"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+    scope: "col"
+  }, " Hora "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+    scope: "col"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, props.atendimentos.map(function (row) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+      key: row.prescricao
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+      colSpan: "3"
+    }, " ", row.paciente, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+      colSpan: "3"
+    }, " ", row.mae, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", new Date(row.nascimento).toLocaleDateString(), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", row.bairro, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", new Date(row.created_at).toLocaleTimeString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "/ambulatorio/atendimento/" + row.prescricao,
+      className: "btn btn-primary"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: _imagens_accept_png__WEBPACK_IMPORTED_MODULE_2___default.a
+    }))));
+  })))));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Tabela);
+
+/***/ }),
+
 /***/ "./resources/js/ambulatorio/index.js":
 /*!*******************************************!*\
   !*** ./resources/js/ambulatorio/index.js ***!
@@ -81611,14 +86197,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _componentes_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./componentes/header */ "./resources/js/ambulatorio/componentes/header.js");
 /* harmony import */ var _components_home__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/home */ "./resources/js/components/home.js");
 /* harmony import */ var _components_footer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/footer */ "./resources/js/components/footer.js");
+/* harmony import */ var _componentes_lista__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./componentes/lista */ "./resources/js/ambulatorio/componentes/lista.js");
+/* harmony import */ var _componentes_atendimento__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./componentes/atendimento */ "./resources/js/ambulatorio/componentes/atendimento.js");
+/* harmony import */ var _componentes_exames__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./componentes/exames */ "./resources/js/ambulatorio/componentes/exames.js");
+/* harmony import */ var _componentes_imagem__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./componentes/imagem */ "./resources/js/ambulatorio/componentes/imagem.js");
+/* harmony import */ var _componentes_laboratorio__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./componentes/laboratorio */ "./resources/js/ambulatorio/componentes/laboratorio.js");
+/* harmony import */ var _componentes_outros__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./componentes/outros */ "./resources/js/ambulatorio/componentes/outros.js");
+/* harmony import */ var _componentes_atendidos__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./componentes/atendidos */ "./resources/js/ambulatorio/componentes/atendidos.js");
 
 
 
 
 
- //import Lista from './componentes/lista';
-//import Atendimento from './componentes/atendimento';
-//import Atendidos from './componentes/atendidos';
+
+
+
+
+
+
+
+
 
 function Ambulatorio() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -81635,6 +86233,34 @@ function Ambulatorio() {
     exact: true,
     path: "/ambulatorio",
     component: _components_home__WEBPACK_IMPORTED_MODULE_4__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/ambulatorio/lista",
+    component: _componentes_lista__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/ambulatorio/exames",
+    component: _componentes_exames__WEBPACK_IMPORTED_MODULE_8__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/ambulatorio/atendidos",
+    component: _componentes_atendidos__WEBPACK_IMPORTED_MODULE_12__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/ambulatorio/atendimento/:prescricao",
+    component: _componentes_atendimento__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/ambulatorio/exames/atendimento/imagem/:consulta",
+    component: _componentes_imagem__WEBPACK_IMPORTED_MODULE_9__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/ambulatorio/exames/atendimento/lab/:consulta",
+    component: _componentes_laboratorio__WEBPACK_IMPORTED_MODULE_10__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/ambulatorio/exames/atendimento/outros/:consulta",
+    component: _componentes_outros__WEBPACK_IMPORTED_MODULE_11__["default"]
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_footer__WEBPACK_IMPORTED_MODULE_5__["default"], null)));
 }
 
@@ -81789,7 +86415,7 @@ function Home() {
 /*!**********************************************!*\
   !*** ./resources/js/components/mensagens.js ***!
   \**********************************************/
-/*! exports provided: redirect, salvo, preencha, senhasDif, selecionePaciente, continuarAtender, cancelarEdicao, selecioneExame */
+/*! exports provided: redirect, salvo, preencha, senhasDif, selecionePaciente, continuarAtender, cancelarEdicao, selecioneExame, deletarPrescricao, excluidoSucesso */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -81802,6 +86428,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "continuarAtender", function() { return continuarAtender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cancelarEdicao", function() { return cancelarEdicao; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selecioneExame", function() { return selecioneExame; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletarPrescricao", function() { return deletarPrescricao; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "excluidoSucesso", function() { return excluidoSucesso; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _sweetalert_with_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @sweetalert/with-react */ "./node_modules/@sweetalert/with-react/dist/sweetalert.js");
@@ -81830,6 +86458,16 @@ function salvo() {
     title: "Salvo",
     icon: "success",
     text: "Salvo com sucesso!",
+    timer: 3000,
+    button: "Está Bem!"
+  });
+}
+
+function excluidoSucesso() {
+  _sweetalert_with_react__WEBPACK_IMPORTED_MODULE_1___default()({
+    title: "Excluido",
+    icon: "success",
+    text: "Excluido com sucesso!",
     timer: 3000,
     button: "Está Bem!"
   });
@@ -81948,6 +86586,30 @@ function cancelarEdicao(form) {
   });
 }
 
+function deletarPrescricao() {
+  return _sweetalert_with_react__WEBPACK_IMPORTED_MODULE_1___default()({
+    title: "Excluir Prescrição",
+    icon: "error",
+    closeOnClickOutside: false,
+    closeOnEsc: false,
+    text: "Deseja realmente excluir esta Prescrição?",
+    buttons: {
+      cancel: {
+        text: "    Não   ",
+        value: false,
+        visible: true,
+        className: "btn btn-warning"
+      },
+      sim: {
+        text: "  Sim Excluir   ",
+        value: true,
+        visible: true,
+        className: "btn btn-danger"
+      }
+    }
+  });
+}
+
 
 
 /***/ }),
@@ -82007,12 +86669,14 @@ var User = /*#__PURE__*/function (_Component) {
       senhaAntiga: "",
       novaSenha: "",
       confirmar: "",
-      userId: ""
+      userId: "",
+      userName: ""
     };
     axios.get("/user").then(function (response) {
       _this.setState({
         user: response.data,
-        userId: response.data.id
+        userId: response.data.id,
+        userName: response.data.conselho ? response.data.name + "  CRM: " + response.data.conselho : response.data.name
       });
     });
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -82076,6 +86740,12 @@ var User = /*#__PURE__*/function (_Component) {
         id: "userId",
         onChange: this.handleChange,
         value: this.state.userId,
+        className: "d-none"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        id: "userName",
+        onChange: this.handleChange,
+        value: this.state.userName,
         className: "d-none"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "dropdown"
@@ -82260,6 +86930,28 @@ module.exports = "/images/imagemUpa2.png?6e86740ab8ef0e4dcd2655c488de48eb";
 /***/ (function(module, exports) {
 
 module.exports = "/images/logo.png?42791b70e20a1fbce00bc39dfe483332";
+
+/***/ }),
+
+/***/ "./resources/js/imagens/upa.png":
+/*!**************************************!*\
+  !*** ./resources/js/imagens/upa.png ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/upa.png?fc35991e3b01399b9c1821915bf3cf4c";
+
+/***/ }),
+
+/***/ "./resources/js/imagens/upa2.png":
+/*!***************************************!*\
+  !*** ./resources/js/imagens/upa2.png ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/upa2.png?5b6209f88bdc99ddbc704e78c0ecdbf9";
 
 /***/ }),
 
@@ -82725,10 +87417,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _triagem__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./triagem */ "./resources/js/medico/componentes/triagem.js");
 /* harmony import */ var _encaminhamento__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./encaminhamento */ "./resources/js/medico/componentes/encaminhamento.js");
 /* harmony import */ var _outrosexames__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./outrosexames */ "./resources/js/medico/componentes/outrosexames.js");
-/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../components/mensagens */ "./resources/js/components/mensagens.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../components/mensagens */ "./resources/js/components/mensagens.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -82762,14 +87453,13 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Atendimento = /*#__PURE__*/function (_Component) {
   _inherits(Atendimento, _Component);
 
   var _super = _createSuper(Atendimento);
 
   function Atendimento(props) {
-    var _atendimento;
-
     var _this;
 
     _classCallCheck(this, Atendimento);
@@ -82777,11 +87467,17 @@ var Atendimento = /*#__PURE__*/function (_Component) {
     _this = _super.call(this, props);
     _this.state = {
       paciente: "",
-      atendimento: (_atendimento = {
+      atendimento: {
         id: _this.props.match.params.atendimento,
         consulta: "",
-        sintomas: ""
-      }, _defineProperty(_atendimento, "consulta", ""), _defineProperty(_atendimento, "diagnostico", ""), _defineProperty(_atendimento, "cid", ""), _defineProperty(_atendimento, "medico", ""), _defineProperty(_atendimento, "triagem", ""), _atendimento)
+        resultados: "",
+        sintomas: "",
+        condulta: "",
+        diagnostico: "",
+        cid: "",
+        medico: "",
+        triagem: ""
+      }
     };
     $(document).ready(function () {
       $("#header").addClass("d-none");
@@ -82796,12 +87492,13 @@ var Atendimento = /*#__PURE__*/function (_Component) {
         atendimento: atendimento
       });
     })["catch"](function (e) {
-      return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_10__["redirect"])(e);
+      return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_11__["redirect"])(e);
     });
     axios__WEBPACK_IMPORTED_MODULE_6___default.a.get(_this.api + "atendimento/dados/" + _this.state.atendimento.id).then(function (response) {
       var atendimento = _this.state.atendimento;
       atendimento.consulta = response.data.consulta;
       atendimento.triagem = response.data.triagem;
+      atendimento.created_at = response.data.created_at;
 
       _this.setState({
         atendimento: atendimento,
@@ -82809,7 +87506,7 @@ var Atendimento = /*#__PURE__*/function (_Component) {
       });
 
       if (response.data.status == 4) {
-        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_10__["continuarAtender"])("consulta");
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_11__["continuarAtender"])("consulta");
       } else if (response.data.status == 5) {
         axios__WEBPACK_IMPORTED_MODULE_6___default.a.get(_this.api + "atendimento/edit/" + response.data.consulta).then(function (response) {
           var atendimento = _this.state.atendimento;
@@ -82825,12 +87522,14 @@ var Atendimento = /*#__PURE__*/function (_Component) {
           _this.setState({
             atendimento: atendimento
           });
+
+          _this.habilitarButtons();
         })["catch"](function (e) {
-          return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_10__["redirect"])(e);
+          return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_11__["redirect"])(e);
         });
       }
     })["catch"](function (e) {
-      return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_10__["redirect"])(e);
+      return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_11__["redirect"])(e);
     });
     return _this;
   }
@@ -82847,15 +87546,31 @@ var Atendimento = /*#__PURE__*/function (_Component) {
   }, {
     key: "salvar",
     value: function salvar(e) {
+      var _this2 = this;
+
       e.preventDefault();
       axios__WEBPACK_IMPORTED_MODULE_6___default.a.put(this.api + "atendimento/store/" + this.state.atendimento.consulta, this.state.atendimento).then(function (response) {
-        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_10__["salvo"])();
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_11__["salvo"])();
+
+        _this2.habilitarButtons();
+      });
+    }
+  }, {
+    key: "habilitarButtons",
+    value: function habilitarButtons() {
+      $(document).ready(function () {
+        $("#btn-prescricao").attr("disabled", false);
+        $("#btn-imagem").attr("disabled", false);
+        $("#btn-receita").attr("disabled", false);
+        $("#btn-lab").attr("disabled", false);
+        $("#btn-encaminhamento").attr("disabled", false);
+        $("#btn-atestado").attr("disabled", false);
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "row",
@@ -82889,16 +87604,16 @@ var Atendimento = /*#__PURE__*/function (_Component) {
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "provadiagnostico",
+        htmlFor: "resultados",
         className: "col-md-12 col-form-label"
       }, " Principais Resultados de Provas Diagn\xF3sticas: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-12"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         rows: "3",
         onChange: this.handleChange,
-        value: this.state.atendimento.provadiagnostico,
+        value: this.state.atendimento.resultados,
         className: "form-control text-uppercase",
-        id: "provadiagnostico",
+        id: "resultados",
         placeholder: "Principais Resultados de Provas Diagn\xF3stcas"
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
@@ -82973,51 +87688,47 @@ var Atendimento = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-4 p-0 border"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_prescricao__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        consulta: this.state.atendimento.consulta,
-        medico: this.state.atendimento.medico
+        consulta: this.state.atendimento.consulta
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-4 p-0 border"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_receita__WEBPACK_IMPORTED_MODULE_3__["default"], {
         consulta: this.state.atendimento.consulta,
-        medico: this.state.atendimento.medico
+        paciente: this.state.paciente
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-4 p-0 border"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_laboratoriais__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        consulta: this.state.atendimento.consulta,
-        medico: this.state.atendimento.medico
+        consulta: this.state.atendimento.consulta
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-4 p-0 border"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_imagem__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        consulta: this.state.atendimento.consulta,
-        medico: this.state.atendimento.medico
+        consulta: this.state.atendimento.consulta
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-4 p-0 border"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atestado__WEBPACK_IMPORTED_MODULE_2__["default"], {
         consulta: this.state.atendimento.consulta,
-        medico: this.state.atendimento.medico
+        paciente: this.state.paciente,
+        dataConsulta: this.state.atendimento.created_at
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-4 p-0 border"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_encaminhamento__WEBPACK_IMPORTED_MODULE_8__["default"], {
         consulta: this.state.atendimento.consulta,
-        medico: this.state.atendimento.medico
+        paciente: this.state.paciente
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-4 p-0 border"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_outrosexames__WEBPACK_IMPORTED_MODULE_9__["default"], {
-        consulta: this.state.atendimento.consulta,
-        medico: this.state.atendimento.medico
+        consulta: this.state.atendimento.consulta
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-12 text-center"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn btn-warning col-md-5 m-3",
-        onClick: function onClick(e) {
-          return cancelar(e);
-        }
-      }, " Cancelar "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Link"], {
+        to: "/consulta/lista",
+        className: "btn btn-secondary col-md-5 m-3"
+      }, " Sair "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
         className: "btn btn-primary col-md-5 m-3",
         onClick: function onClick(e) {
-          return _this2.salvar(e);
+          return _this3.salvar(e);
         }
       }, " Salvar "))))));
     }
@@ -83044,7 +87755,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/mensagens */ "./resources/js/components/mensagens.js");
+/* harmony import */ var _imagens_upa2_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../imagens/upa2.png */ "./resources/js/imagens/upa2.png");
+/* harmony import */ var _imagens_upa2_png__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_imagens_upa2_png__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_mensagens__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/mensagens */ "./resources/js/components/mensagens.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -83073,6 +87786,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Atestado = /*#__PURE__*/function (_Component) {
   _inherits(Atestado, _Component);
 
@@ -83084,13 +87798,19 @@ var Atestado = /*#__PURE__*/function (_Component) {
     _classCallCheck(this, Atestado);
 
     _this = _super.call(this, props);
+    var data = new Date().toLocaleDateString();
+    var data = data.substring(6, 10) + '-' + data.substring(3, 5) + '-' + data.substring(0, 2);
     _this.state = {
       tipoAtividadesAtestado: "",
       tempoAtestado: "",
-      cid: ""
+      cid: "",
+      apartir: data
     };
     _this.api = "/consulta/";
     _this.handleChage = _this.handleChage.bind(_assertThisInitialized(_this));
+    $(document).ready(function () {
+      $("#btn-atestado").attr("disabled", true);
+    });
     return _this;
   }
 
@@ -83100,34 +87820,111 @@ var Atestado = /*#__PURE__*/function (_Component) {
       this.setState(_defineProperty({}, e.target.id, e.target.value));
     }
   }, {
+    key: "imprimirComparecimento",
+    value: function imprimirComparecimento(e) {
+      e.preventDefault();
+      var table = "<table><tr><td><div class='center cabecalho'><img id='imagem' src='/images/upa2.png'/></div><div class='center cabecalho'><b>PREFEITURA MUNICIPAL DE TEÓFILO OTONI<br/>Secretaria Municipal de Saúde<br/> Unidade de Pronto Atendimento - UPA24h</b></div></td></tr>";
+      table = table + "<tr><td><h2 class='center'>ATESTADO DE COMPARECIMENTO</h2><br/><br/><div class='espaco'>ATESTO PARA OS DEVIDOS FINS QUE <b>" + this.props.paciente + "</b>, COMPARECEU A UNIDADE DE PRONTO ATENDIMENTO (UPA 24 HORAS), NO DIA <b>" + new Date(this.props.dataConsulta).toLocaleDateString() + "</b>.</div><br/><br/><br/><br/><br/><div class='espaco0 center'><h3>DR(A) " + $("#userName").val() + "</h3>MÉDICO(A)</div><br/></td></tr></table>";
+      var style = "<style>table{width: 100%; font: 17px Calibri;} table,tr,td {border: solid 2px #000000; border-collapse: collapse;} .center{text-align: center;} .cabecalho{display: inline-block; float: left;width: 330px; padding-top: 10px; padding-bottom: 10px;} .espaco0{line-height: 0px;} .espaco{line-height: 30px;}</style>";
+      var head = "<head><title>Atendimento </title> " + style + " </head>";
+      var body = "<body>" + table + "<body>";
+      var win = window.open("", "", "height=700,width=700");
+      win.document.write("<html>");
+      win.document.write(head);
+      win.document.write(body);
+      win.document.write("</html>");
+      var img = win.document.getElementById("imagem");
+
+      img.onload = function () {
+        win.print();
+        win.close();
+      };
+
+      $("#atestado").modal("toggle");
+      this.setState({
+        tempoAtestado: "",
+        cid: "",
+        tipoAtividadesAtestado: ""
+      });
+    }
+  }, {
+    key: "getTipoAtividade",
+    value: function getTipoAtividade(id) {
+      switch (id) {
+        case '1':
+          return "Laborais";
+          break;
+      }
+    }
+  }, {
+    key: "imprimirAtestado",
+    value: function imprimirAtestado(e) {
+      var data = new Date(e).toLocaleDateString();
+      var cid = this.state.cid ? this.state.cid : "";
+      var apartir = new Date(this.state.apartir).toLocaleDateString();
+      var tempo = this.state.tempoAtestado;
+      var atividade = this.getTipoAtividade(this.state.tipoAtividadesAtestado);
+      var table = "<table><tr><td><img id='imagem' src='/images/upa2.png'/></td><td colspan='3' class='center'><b>UNIDADE DE PRONTO ATENDIMENTO <br/> UPA - 24Hs</b> <hr/> CPNPJ 25104902000107</td><td class='center' id='td-3'>Rua Getúlio Vargas, Nº 1824. Centro <b>Telefone: 3529-1695</b> Teófilo Otoni - MG</td></tr>";
+      table += "<tr><td colspan='5' id='body' class='espaco'><br/><h1 class='center'><i> ATESTADO </i></h1> Atesto para os devidos fins que o(a) Sr(a) <b> " + this.props.paciente + " </b>. Deve permanecer afastado de suas atividades <b>" + atividade + "</b>. Por <b>" + tempo + " dias</b>, a partir de <b>" + apartir + "</b>. Por motivo de doença. <br/> CID: <b>" + cid + "</b><br/> Teófilo Otoni - MG " + data + " <br/><br/><br/><br/><br/><div class='espaco0 center'><h3>Dr(a) " + $("#userName").val() + " </h3><br/> Assinatura do Médico/CRM</div><br/></td></tr>";
+      table += "</table>";
+      var style = "<style>table{width: 100%; font: 17px Calibri;} h1{font-family: Times} table,tr,td {border: solid 2px #000000; border-collapse: collapse;} .center{text-align: center;} td{width: 130px;} img{max-width: 130px;} #td-3{width: 145px;} .espaco0{line-height: 0px;} .espaco{line-height: 30px;} hr{border-top: 4px solid #000;border-bottom: 4px solid #000;color: #fff; background-color: #fff; height: 3px;} #body{padding: 15px;}</style>";
+      var head = "<head><title>Atendimento </title> " + style + " </head>";
+      var body = "<body>" + table + "<body>";
+      var win = window.open("", "", "height=700,width=700");
+      win.document.write("<html>");
+      win.document.write(head);
+      win.document.write(body);
+      win.document.write("</html>");
+      var img = win.document.getElementById("imagem");
+
+      img.onload = function () {
+        win.print();
+        win.close();
+      };
+
+      $("#atestado").modal("toggle");
+      this.setState({
+        tempoAtestado: "",
+        cid: "",
+        tipoAtividadesAtestado: ""
+      });
+    }
+  }, {
     key: "salvar",
     value: function salvar(e) {
+      var _this2 = this;
+
       e.preventDefault();
 
       if (!this.state.tempoAtestado) {
-        preencha("tempo de atestado", "#tempoAtestado");
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["preencha"])("tempo de atestado", "#tempoAtestado");
       } else if (!this.state.tipoAtividadesAtestado) {
-        preencha("tipo de atividade", "#tipoAtividade");
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["preencha"])("tipo de atividade", "#tipoAtividade");
       } else {
         var atestado = {
           tempoAtestado: this.state.tempoAtestado,
           tipoAtividadesAtestado: this.state.tipoAtividadesAtestado,
           cid: this.state.cid,
-          medico: this.props.medico,
-          consulta: this.props.consulta
+          medico: $("#userId").val(),
+          consulta: this.props.consulta,
+          apartir: this.state.apartir
         };
 
         if (!this.state.id) {
           axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(this.api + "atestado/store", atestado).then(function (e) {
-            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["salvo"])();
+            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["salvo"])();
+
+            _this2.imprimirAtestado(e.data);
           })["catch"](function (e) {
-            return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["redirect"])(e);
+            return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
           });
         } else {
           axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(this.api + "atestado/update/" + this.state.id, atestado).then(function (e) {
-            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["salvo"])();
+            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["salvo"])();
+
+            _this2.imprimirAtestado(e.data);
           })["catch"](function (e) {
-            return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["redirect"])(e);
+            return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
           });
         }
       }
@@ -83135,29 +87932,30 @@ var Atestado = /*#__PURE__*/function (_Component) {
   }, {
     key: "abrir",
     value: function abrir(e) {
-      var _this2 = this;
+      var _this3 = this;
 
       e.preventDefault();
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(this.api + "atestado/edit/" + this.props.consulta).then(function (response) {
-        _this2.setState({
+        _this3.setState({
           id: response.data.id ? response.data.id : "",
           tipoAtividadesAtestado: response.data.tipoAtividadesAtestado ? response.data.tipoAtividadesAtestado : "",
           tempoAtestado: response.data.tempoAtestado ? response.data.tempoAtestado : "",
           cid: response.data.cid ? response.data.cid : ""
         });
       })["catch"](function (e) {
-        return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["redirect"])(e);
+        return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-success col-md-12",
+        id: "btn-atestado",
         onClick: function onClick(e) {
-          return _this3.abrir(e);
+          return _this4.abrir(e);
         },
         type: "button",
         "data-toggle": "modal",
@@ -83228,6 +88026,19 @@ var Atestado = /*#__PURE__*/function (_Component) {
         onChange: this.handleChage,
         value: this.state.cid,
         placeholder: "CID"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "apartir",
+        className: "col-form-label col-md-4"
+      }, "Apartir de: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-8"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        id: "apartir",
+        type: "date",
+        className: "form-control text-uppercase",
+        onChange: this.handleChage,
+        value: this.state.apartir
       })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal-footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -83240,18 +88051,18 @@ var Atestado = /*#__PURE__*/function (_Component) {
         id: "cancelar",
         "data-dismiss": "modal"
       }, "Cancelar"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        id: "btnSalvar",
+        id: "btnComparecimento",
         type: "button",
         className: "btn btn-primary border",
         onClick: function onClick(e) {
-          return _this3.salvar(e);
+          return _this4.imprimirComparecimento(e);
         }
       }, "Atestado de Comparecimento"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         id: "btnSalvar",
         type: "button",
         className: "btn btn-primary border",
         onClick: function onClick(e) {
-          return _this3.salvar(e);
+          return _this4.salvar(e);
         }
       }, "Salvar Atestado"))))))));
     }
@@ -83332,6 +88143,9 @@ var Encaminhamento = /*#__PURE__*/function (_Component) {
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.api = "/consulta/";
+    $(document).ready(function () {
+      $("#btn-encaminhamento").attr("disabled", true);
+    });
     return _this;
   }
 
@@ -83356,7 +88170,13 @@ var Encaminhamento = /*#__PURE__*/function (_Component) {
       e.preventDefault();
       this.setState({
         id: row.id,
-        descricao: row.descricao
+        encaminhamento: {
+          servico: row.servico ? row.servico : "",
+          entidade: row.entidade,
+          historia: row.historia,
+          exames: row.exames ? row.exames : "",
+          hd: row.hd ? row.hd : ""
+        }
       });
       this.modalEncaminhamento();
     }
@@ -83367,23 +88187,33 @@ var Encaminhamento = /*#__PURE__*/function (_Component) {
 
       e.preventDefault();
       var encaminhamento = {
-        descricao: this.state.descricao,
-        medico: this.props.medico,
+        servico: this.state.encaminhamento.servico,
+        entidade: this.state.encaminhamento.entidade,
+        historia: this.state.encaminhamento.historia,
+        exames: this.state.encaminhamento.exames,
+        hd: this.state.encaminhamento.hd,
+        medico: $("#userId").val(),
         consulta: this.props.consulta
       };
 
-      if (!encaminhamento.descricao) {
-        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["preencha"])("encaminhamento", "#descricao");
+      if (!encaminhamento.entidade || encaminhamento.entidade == '0') {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["preencha"])("Encaminhamento para", "#entidade");
+      } else if (!encaminhamento.historia) {
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["preencha"])("História Clínica", "#historia");
       } else {
         if (!this.state.id) {
           axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(this.api + "encaminhamento/store", encaminhamento).then(function (e) {
-            return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["salvo"])();
+            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["salvo"])();
+
+            _this2.imprimir(e.data[0]);
           })["catch"](function (e) {
             return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
           });
         } else {
           axios__WEBPACK_IMPORTED_MODULE_2___default.a.put(this.api + "encaminhamento/update/" + this.state.id, encaminhamento).then(function (e) {
-            return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["salvo"])();
+            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["salvo"])();
+
+            _this2.imprimir(e.data[0]);
           })["catch"](function (e) {
             return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
           });
@@ -83396,12 +88226,124 @@ var Encaminhamento = /*#__PURE__*/function (_Component) {
         })["catch"](function (e) {
           return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
         });
-        this.setState({
-          descricao: "",
-          id: ""
-        });
-        this.modalLista();
       }
+    }
+  }, {
+    key: "getEntidade",
+    value: function getEntidade(id) {
+      switch (id) {
+        case '1':
+          return "UBS";
+          break;
+
+        case '2':
+          return "POLICLÍNICA";
+          break;
+
+        case '3':
+          return "PSF";
+          break;
+
+        case '4':
+          return "HMRG";
+          break;
+
+        case '5':
+          return "CAPS";
+          break;
+
+        case '6':
+          return "HSR";
+          break;
+
+        case '7':
+          return "HBS";
+          break;
+
+        case '8':
+          return "H. FILADÉLFIA";
+          break;
+
+        case '9':
+          return "CVV";
+          break;
+
+        case '10':
+          return "CTA";
+          break;
+
+        case '11':
+          return "OUTROS";
+          break;
+      }
+    }
+  }, {
+    key: "idade",
+    value: function idade(nascimento) {
+      var d = new Date();
+      var ano_atual = d.getFullYear();
+      var mes_atual = d.getMonth() + 1;
+      var dia_atual = d.getDate();
+      var ano_aniversario = nascimento.getFullYear();
+      var mes_aniversario = nascimento.getMonth() + 1;
+      var dia_aniversario = nascimento.getDate() + 1;
+      var quantos_anos = ano_atual - ano_aniversario;
+
+      if (mes_atual < mes_aniversario || mes_atual == mes_aniversario && dia_atual < dia_aniversario) {
+        quantos_anos--;
+      }
+
+      return quantos_anos < 0 ? 0 : quantos_anos;
+    }
+  }, {
+    key: "imprimir",
+    value: function imprimir(dados) {
+      var encaminhamento = this.state.encaminhamento;
+      var servico = encaminhamento.servico ? encaminhamento.servico : "";
+      var entidade = this.getEntidade(encaminhamento.entidade);
+      var historia = encaminhamento.historia;
+      var exames = encaminhamento.exames ? encaminhamento.exames : "";
+      var hd = encaminhamento.hd ? encaminhamento.hd : "";
+      var paciente = dados.paciente;
+      var idade = this.idade(new Date(dados.nascimento));
+      var municipio = dados.municipio;
+      var cns = dados.cns ? dados.cns : "";
+      var table = "<table class='espaco'><tr><td class='center'><img id='imagem' src='/images/upa2.png'</td><td id='td-cabecalho' colspan='4' class='center'><b>PREFEITURA MUNICIPAL DE TEÓFILO OTONI <br/> SECRETARIA MUNICIPAL DE SAÚDE - SUS/MG <br/> Encaminhamento de Atendimento UPA-24Hs</b></td></tr>";
+      table += "<tr><td colspan='5'>Serviço de: <b> " + servico + " </b><br>Nome: <b>" + paciente + "</b> &nbsp;  &nbsp;  &nbsp; Idade: <b> " + idade + " anos</b>  &nbsp;  &nbsp;  &nbsp; Municipio: <b> " + municipio + " </b></td></tr>";
+      table += "<tr><td colspan='5'>Cartão SUS: <b>" + cns + "</b></td></tr>";
+      table += "<tr><td colspan='5'>Encaminhamento para: <b>" + entidade + "</b></td></tr>";
+      table += "<tr><td colspan='5'><div id='hc'>Historia Clínica:  " + historia + "</div></td></tr>";
+      table += "<tr><td colspan='5'><div id='er'>Exames Realizados:  " + exames + "</div></td></tr>";
+      table += "<tr><td colspan='5'><div id='hd'>HD:  " + hd + "</div></td></tr>";
+      table += "<tr><td colspan='5'><div class='center'><br/><br/><b>Teófilo Otoni, 09/07/2020</b><br/><br/><br/><br/><div class='espaco0'><h4>DR(A) MÉDICO </h4> Médico </div><br/></div></td></tr>";
+      table += "</table>";
+      var style = "<style>table{width: 100%; font: 17px Calibri;} table,tr,td {border: solid 2px #000000; border-collapse: collapse;} td{width: 135px;} .center{text-align: center;} img{max-width: 130px;}  .espaco0{line-height: 0px;} .espaco{line-height: 30px;}  #td-cabecalho{font-family: Times;} #hc{height: 200px;} #er{height: 150px} #hd{height: 100px;}</style>";
+      var head = "<head><title>Atendimento </title> " + style + " </head>";
+      var body = "<body>" + table + "<body>";
+      var win = window.open("", "", "height=700,width=700");
+      win.document.write("<html>");
+      win.document.write(head);
+      win.document.write(body);
+      win.document.write("</html>");
+      var img = win.document.getElementById("imagem");
+
+      img.onload = function () {
+        win.print();
+        win.close();
+      };
+
+      this.setState({
+        id: "",
+        encaminhamento: {
+          servico: "",
+          entidade: "0",
+          historia: "",
+          exames: "",
+          hd: ""
+        }
+      });
+      this.modalLista();
+      this.abrirEncaminhamentos(e);
     }
   }, {
     key: "abrirEncaminhamentos",
@@ -83472,6 +88414,7 @@ var Encaminhamento = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-success col-md-12",
         type: "button",
+        id: "btn-encaminhamento",
         onClick: function onClick(e) {
           return _this5.abrirEncaminhamentos(e);
         },
@@ -83515,6 +88458,8 @@ var Encaminhamento = /*#__PURE__*/function (_Component) {
         scope: "row"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
         scope: "col"
+      }, "Encaminhamento Para"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
       }, " Data / Hora "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
         scope: "col"
       }, " M\xE9dico "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
@@ -83522,7 +88467,7 @@ var Encaminhamento = /*#__PURE__*/function (_Component) {
       }, " Editar "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.encaminhamentos.map(function (row) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
           key: row.id
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", new Date(row.updated_at).toLocaleString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", row.medico, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", _this5.getEntidade(row.entidade), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", new Date(row.updated_at).toLocaleString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", row.medico, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           type: "button",
           className: "btn btn-warning",
           onClick: function onClick(e) {
@@ -83849,6 +88794,10 @@ var Imagem = /*#__PURE__*/function (_Component) {
     _this.api = "/consulta/";
     _this.handleChage = _this.handleChage.bind(_assertThisInitialized(_this));
     _this.handleSelect = _this.handleSelect.bind(_assertThisInitialized(_this));
+    _this.handleRadio = _this.handleRadio.bind(_assertThisInitialized(_this));
+    $(document).ready(function () {
+      $("#btn-imagem").attr("disabled", true);
+    });
     return _this;
   }
 
@@ -83880,6 +88829,13 @@ var Imagem = /*#__PURE__*/function (_Component) {
           });
         }
       }
+    }
+  }, {
+    key: "handleRadio",
+    value: function handleRadio(e) {
+      this.setState({
+        prioridade: e.target.value
+      });
     }
   }, {
     key: "handleChage",
@@ -83914,7 +88870,8 @@ var Imagem = /*#__PURE__*/function (_Component) {
 
           _this2.setState({
             exames: exames,
-            descricao: descricao
+            descricao: descricao,
+            prioridade: "2"
           });
 
           $(document).ready(function () {
@@ -84005,12 +88962,13 @@ var Imagem = /*#__PURE__*/function (_Component) {
           var parametros = {
             exames: exames,
             descricao: descricao,
-            medico: this.props.medico,
+            medico: $("#userId").val(),
             consulta: this.props.consulta,
             prioridade: this.state.prioridade
           };
           axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(this.api + "examesimagem/store", parametros).then(function (e) {
             Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["salvo"])();
+            $("#imagem").modal("toggle");
           })["catch"](function (e) {
             Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_1__["redirect"])(e);
           });
@@ -84037,6 +88995,7 @@ var Imagem = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-success col-md-12",
         type: "button",
+        id: "btn-imagem",
         "data-toggle": "modal",
         "data-target": "#imagem",
         onClick: function onClick(e) {
@@ -84148,7 +89107,37 @@ var Imagem = /*#__PURE__*/function (_Component) {
         onClick: function onClick(e) {
           return _this4.outrosExames(e);
         }
-      }, "Outros Exames"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Outros Exames")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12 text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Prioridade: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-check form-check-inline"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "inlineRadioOptions",
+        id: "inlineRadio1",
+        value: "1",
+        onChange: this.handleRadio,
+        checked: this.state.prioridade == 1
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "form-check-label",
+        htmlFor: "inlineRadio1"
+      }, "Urg\xEAncia")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-check form-check-inline"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "inlineRadioOptions",
+        id: "inlineRadio2",
+        value: "2",
+        onChange: this.handleRadio,
+        checked: this.state.prioridade == 2
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "form-check-label",
+        htmlFor: "inlineRadio2"
+      }, "Rotina"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal-footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
@@ -84237,6 +89226,9 @@ var Laboratoriais = /*#__PURE__*/function (_Component) {
     _this.api = "/consulta/";
     _this.handleChage = _this.handleChage.bind(_assertThisInitialized(_this));
     _this.handleRadio = _this.handleRadio.bind(_assertThisInitialized(_this));
+    $(document).ready(function () {
+      $("#btn-lab").attr("disabled", true);
+    });
     return _this;
   }
 
@@ -84367,7 +89359,7 @@ var Laboratoriais = /*#__PURE__*/function (_Component) {
       e.preventDefault();
       var exames = {
         id: [],
-        medico: this.props.medico,
+        medico: $("#userId").val(),
         consulta: this.props.consulta,
         prioridade: this.state.prioridade
       };
@@ -84382,6 +89374,7 @@ var Laboratoriais = /*#__PURE__*/function (_Component) {
       if (umSelecionado) {
         axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(this.api + "exames/store", exames).then(function (e) {
           Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["salvo"])();
+          $("#laboratoriais").modal("toggle");
         })["catch"](function (e) {
           Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["redirect"])(e);
         });
@@ -84406,6 +89399,7 @@ var Laboratoriais = /*#__PURE__*/function (_Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-success col-md-12",
+        id: "btn-lab",
         onClick: function onClick(e) {
           return _this3.abrir(e);
         },
@@ -84610,6 +89604,9 @@ var Lista = /*#__PURE__*/function (_Component) {
       verde: [],
       azul: []
     };
+    $(document).ready(function () {
+      $("#header").removeClass("d-none");
+    });
     _this.api = "/consulta/";
     axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_this.api + 'atendimentos/dados/lista').then(function (response) {
       _this.triagem(response.data);
@@ -84867,7 +89864,7 @@ var Outrosexames = /*#__PURE__*/function (_Component) {
   _createClass(Outrosexames, [{
     key: "handleChage",
     value: function handleChage(e) {
-      this.setState(_defineProperty({}, e.target.id, e.target.value));
+      this.setState(_defineProperty({}, e.target.id, e.target.value.toUpperCase()));
     }
   }, {
     key: "handleRadio",
@@ -84879,6 +89876,8 @@ var Outrosexames = /*#__PURE__*/function (_Component) {
   }, {
     key: "salvar",
     value: function salvar(e) {
+      var _this2 = this;
+
       e.preventDefault();
 
       if (!this.state.descricao) {
@@ -84888,19 +89887,51 @@ var Outrosexames = /*#__PURE__*/function (_Component) {
           nome: this.state.nome,
           descricao: this.state.descricao,
           prioridade: this.state.prioridade,
-          medico: this.props.medico,
+          medico: $("#userId").val(),
           consulta: this.props.consulta
         };
 
         if (!this.state.id) {
           axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(this.api + "outrosexames/store", exames).then(function (e) {
             Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["salvo"])();
+
+            _this2.setState({
+              descricao: ""
+            });
+
+            $(document).ready(function () {
+              var returnForm = $("#returnForm").val();
+
+              if (returnForm == "imagem") {
+                $("#imagem").modal("toggle");
+              } else {
+                $("#laboratoriais").modal("toggle");
+              }
+
+              $("#outrosexames").modal("toggle");
+            });
           })["catch"](function (e) {
             return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["redirect"])(e);
           });
         } else {
           axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(this.api + "outrosexames/update/" + this.state.id, exames).then(function (e) {
             Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["salvo"])();
+
+            _this2.setState({
+              descricao: ""
+            });
+
+            $(document).ready(function () {
+              var returnForm = $("#returnForm").val();
+
+              if (returnForm == "imagem") {
+                $("#imagem").modal("toggle");
+              } else {
+                $("#laboratoriais").modal("toggle");
+              }
+
+              $("#outrosexames").modal("toggle");
+            });
           })["catch"](function (e) {
             return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["redirect"])(e);
           });
@@ -84910,13 +89941,16 @@ var Outrosexames = /*#__PURE__*/function (_Component) {
   }, {
     key: "cancelar",
     value: function cancelar(e) {
+      var _this3 = this;
+
       e.preventDefault();
       Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_2__["cancelarEdicao"])("Outros Exames").then(function (response) {
         if (response) {
+          _this3.setState({
+            descricao: ""
+          });
+
           $(document).ready(function () {
-            this.setState({
-              descricao: ""
-            });
             var returnForm = $("#returnForm").val();
 
             if (returnForm == "imagem") {
@@ -84933,7 +89967,7 @@ var Outrosexames = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this4 = this;
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "returnForm",
@@ -84972,7 +90006,7 @@ var Outrosexames = /*#__PURE__*/function (_Component) {
         className: "col-md-12"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         id: "descricao",
-        className: "form-control",
+        className: "form-control text-uppercase",
         onChange: this.handleChage,
         value: this.state.descricao
       }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -85014,14 +90048,14 @@ var Outrosexames = /*#__PURE__*/function (_Component) {
         type: "button",
         className: "btn btn-warning border",
         onClick: function onClick(e) {
-          return _this2.cancelar(e);
+          return _this4.cancelar(e);
         }
       }, "Cancelar"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         id: "btnSalvarOutrosExames",
         type: "button",
         className: "btn btn-primary border",
         onClick: function onClick(e) {
-          return _this2.salvar(e);
+          return _this4.salvar(e);
         }
       }, "Salvar"))))))));
     }
@@ -85095,7 +90129,8 @@ var Prescricao = /*#__PURE__*/function (_Component) {
         quantidade: "",
         prescricao: "",
         apresentacao: "",
-        posologia: ""
+        posologia: "",
+        observacao: ""
       },
       prescricao: [],
       prescricaos: [],
@@ -85103,6 +90138,9 @@ var Prescricao = /*#__PURE__*/function (_Component) {
     };
     _this.api = "/consulta/";
     _this.handleChage = _this.handleChage.bind(_assertThisInitialized(_this));
+    $(document).ready(function () {
+      $("#btn-prescricao").attr("disabled", true);
+    });
     return _this;
   }
 
@@ -85122,7 +90160,7 @@ var Prescricao = /*#__PURE__*/function (_Component) {
       var item = this.state.item;
 
       if (!item.prescricao) {
-        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["preencha"])("prescrição/posologia", "#prescricao");
+        Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["preencha"])("prescrição", "#prescricao");
       } else {
         var prescricao = this.state.prescricao;
         item.id = prescricao.length + 1;
@@ -85134,7 +90172,8 @@ var Prescricao = /*#__PURE__*/function (_Component) {
             quantidade: "",
             prescricao: "",
             apresentacao: "",
-            posologia: ""
+            posologia: "",
+            observacao: ""
           }
         });
       }
@@ -85157,12 +90196,12 @@ var Prescricao = /*#__PURE__*/function (_Component) {
   }, {
     key: "cancelar",
     value: function cancelar(e) {
+      var _this2 = this;
+
       e.preventDefault();
       Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["cancelarEdicao"])("Prescrição").then(function (response) {
         if (response) {
-          $(document).ready(function () {
-            this.modalLista();
-          });
+          _this2.modalLista();
         }
       });
     }
@@ -85175,18 +90214,18 @@ var Prescricao = /*#__PURE__*/function (_Component) {
   }, {
     key: "abrirPrescricao",
     value: function abrirPrescricao(e) {
-      var _this2 = this;
+      var _this3 = this;
 
       e.preventDefault();
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(this.api + "prescricao/lista/" + this.props.consulta).then(function (response) {
-        _this2.setState({
+        _this3.setState({
           prescricaos: response.data
         });
       })["catch"](function (e) {
         return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
       });
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(this.api + "medicamentos/lista").then(function (response) {
-        _this2.setState({
+        _this3.setState({
           medicamentos: response.data
         });
       })["catch"](function (e) {
@@ -85229,8 +90268,28 @@ var Prescricao = /*#__PURE__*/function (_Component) {
       }
     }
   }, {
+    key: "deletar",
+    value: function deletar(e, id) {
+      var _this4 = this;
+
+      e.preventDefault();
+      Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["deletarPrescricao"])().then(function (e) {
+        if (e) {
+          axios__WEBPACK_IMPORTED_MODULE_2___default.a.put(_this4.api + "prescricao/delete/" + id, {
+            medico: $("#userId").val()
+          }).then(function (e) {
+            return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["excluidoSucesso"])();
+          })["catch"](function (e) {
+            return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+          });
+        }
+      });
+    }
+  }, {
     key: "salvar",
     value: function salvar(e) {
+      var _this5 = this;
+
       e.preventDefault();
       var prescricao = this.state.prescricao;
 
@@ -85242,28 +90301,83 @@ var Prescricao = /*#__PURE__*/function (_Component) {
           consulta: this.props.consulta,
           prescricao: prescricao
         };
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(this.api + "prescricao/store", parametros);
-        then(function (e) {
-          return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["salvo"])();
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(this.api + "prescricao/store", parametros).then(function (e) {
+          Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["salvo"])();
+          axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(_this5.api + "prescricao/lista/" + _this5.props.consulta).then(function (response) {
+            _this5.setState({
+              prescricaos: response.data
+            });
+          })["catch"](function (e) {
+            return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+          });
+
+          _this5.modalLista();
         })["catch"](function (e) {
           return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
         });
       }
     }
   }, {
+    key: "getPosologia",
+    value: function getPosologia(id) {
+      switch (id) {
+        case '1':
+          return "2 em 2 Horas";
+          break;
+
+        case '2':
+          return "4 em 4 Horas";
+          break;
+
+        case '3':
+          return "6 em 6 Horas";
+          break;
+
+        case '4':
+          return "8 em 8 Horas";
+          break;
+
+        case '5':
+          return "10 em 10 Horas";
+          break;
+
+        case '6':
+          return "12 em 12 Horas";
+          break;
+      }
+    }
+  }, {
+    key: "getApresentacao",
+    value: function getApresentacao(id) {
+      switch (id) {
+        case '1':
+          return "Via Oral";
+          break;
+
+        case '2':
+          return "Via Intravenosa";
+          break;
+
+        case '3':
+          return "Via Intramuscular";
+          break;
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this6 = this;
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "p-0 m-0"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-success col-md-12",
+        id: "btn-prescricao",
         type: "button",
         "data-toggle": "modal",
         "data-target": "#prescricao",
         onClick: function onClick(e) {
-          return _this3.abrirPrescricao(e);
+          return _this6.abrirPrescricao(e);
         }
       }, "Prescri\xE7\xE3o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal fade selecionado",
@@ -85293,7 +90407,7 @@ var Prescricao = /*#__PURE__*/function (_Component) {
         id: "btnNovaPrescricao",
         className: "btn btn-success",
         onClick: function onClick(e) {
-          return _this3.novaPrescricao(e);
+          return _this6.novaPrescricao(e);
         }
       }, "Adcionar Prescri\xE7\xE3o")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "table-responsive"
@@ -85313,17 +90427,20 @@ var Prescricao = /*#__PURE__*/function (_Component) {
           key: row.id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", new Date(row.created_at).toLocaleTimeString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
           colSpan: "3"
-        }, " ", row.medico, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }, " ", row.nomeMedico, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           type: "button",
-          className: "btn btn-danger"
-        }, "Cancelar"), " "));
+          className: "btn btn-danger",
+          onClick: function onClick(e) {
+            return _this6.deletar(e, row.id);
+          }
+        }, "Excluir"), " "));
       })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "d-none",
         id: "novaPrescricao"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-4"
+        className: "col-md-3"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "quantidade",
         className: " col-form-label"
@@ -85335,7 +90452,7 @@ var Prescricao = /*#__PURE__*/function (_Component) {
         value: this.state.item.quantidade,
         placeholder: "Quantidade Pedida"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-8"
+        className: "col-md-9"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "prescricao",
         className: "col-form-label"
@@ -85352,37 +90469,68 @@ var Prescricao = /*#__PURE__*/function (_Component) {
       })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-4"
+        className: "col-md-3"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "posologia",
         className: "col-form-label"
-      }, "Posologia"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
+      }, "Posologia"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         id: "posologia",
         className: " form-control text-uppercase",
         onChange: this.handleChage,
-        value: this.state.item.posologia,
-        placeholder: "Posologia"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-5"
+        value: this.state.item.posologia
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "0"
+      }, "Selecione"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1"
+      }, "2 em 2 Horas"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "2"
+      }, "4 em 4 Horas"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "3"
+      }, "6 em 6 Horas"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "4"
+      }, "8 em 8 Horas"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "5"
+      }, "10 em 10 Horas"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "6"
+      }, "12 em 12 Horas"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-3"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "apresentacao",
         className: "col-form-label"
-      }, "Apresenta\xE7\xE3o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "Apresenta\xE7\xE3o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         type: "text",
         id: "apresentacao",
         className: " form-control text-uppercase",
         onChange: this.handleChage,
-        value: this.state.item.apresentacao,
-        placeholder: "Apresenta\xE7\xE3o"
+        value: this.state.item.apresentacao
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "0"
+      }, "Selecione"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1"
+      }, "Via Oral"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "2"
+      }, "Via Intravenosa"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "3"
+      }, "Via Intramuscular"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-4"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "observacao",
+        className: "col-form-label"
+      }, "Observa\xE7\xE3o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        id: "observacao",
+        className: " form-control text-uppercase",
+        onChange: this.handleChage,
+        value: this.state.item.observacao,
+        placeholder: "Observa\xE7\xE3o"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-3"
+        className: "col-md-2"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "col-form-label"
       }, "\xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-success col-md-12 text-center",
         onClick: function onClick(e) {
-          return _this3.adicionar(e);
+          return _this6.adicionar(e);
         }
       }, "Adicionar"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "table-responsive",
@@ -85405,12 +90553,14 @@ var Prescricao = /*#__PURE__*/function (_Component) {
         scope: "col"
       }, "Apresenta\xE7\xE3o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
         scope: "col"
+      }, "Observa\xE7\xE3o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
       }, "\xA0"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.prescricao.map(function (row) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
           key: row.prescricao
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.quantidade), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this3.getMedicamento(row.prescricao)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.posologia), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.apresentacao), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.quantidade), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this6.getMedicamento(row.prescricao)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this6.getPosologia(row.posologia)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this6.getApresentacao(row.apresentacao)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.observacao), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           onClick: function onClick(e) {
-            return _this3.cancelItem(e, row.id);
+            return _this6.cancelItem(e, row.id);
           },
           className: "btn btn-danger"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -85423,19 +90573,19 @@ var Prescricao = /*#__PURE__*/function (_Component) {
         className: "btn btn-secondary col-md-2",
         id: "btnPrescricaoSair",
         "data-dismiss": "modal"
-      }, "Sair"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "Fechar"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         className: "btn btn-warning col-md-2 d-none",
         id: "btnPrescricaoCancelar",
         onClick: function onClick(e) {
-          return _this3.cancelar(e);
+          return _this6.cancelar(e);
         }
       }, "Cancelar"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         id: "btnSalvarPrescricao",
         type: "button",
         className: "btn btn-primary col-md-2 d-none",
         onClick: function onClick(e) {
-          return _this3.salvar(e);
+          return _this6.salvar(e);
         }
       }, "Salvar"))))));
     }
@@ -85510,6 +90660,9 @@ var Receita = /*#__PURE__*/function (_Component) {
     };
     _this.handleChage = _this.handleChage.bind(_assertThisInitialized(_this));
     _this.api = "/consulta/";
+    $(document).ready(function () {
+      $("#btn-receita").attr("disabled", true);
+    });
     return _this;
   }
 
@@ -85517,7 +90670,7 @@ var Receita = /*#__PURE__*/function (_Component) {
     key: "handleChage",
     value: function handleChage(e) {
       this.setState({
-        descricao: e.target.value
+        descricao: e.target.value.toUpperCase()
       });
     }
   }, {
@@ -85544,7 +90697,7 @@ var Receita = /*#__PURE__*/function (_Component) {
       e.preventDefault();
       var receita = {
         descricao: this.state.descricao,
-        medico: this.props.medico,
+        medico: $("#userId").val(),
         consulta: this.props.consulta
       };
 
@@ -85553,38 +90706,48 @@ var Receita = /*#__PURE__*/function (_Component) {
       } else {
         if (!this.state.id) {
           axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(this.api + "receita/store", receita).then(function (e) {
-            return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["salvo"])();
+            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["salvo"])();
+
+            _this2.imprimir(e.data);
+
+            _this2.setState({
+              descricao: "",
+              id: ""
+            });
           })["catch"](function (e) {
             return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
           });
         } else {
           axios__WEBPACK_IMPORTED_MODULE_2___default.a.put(this.api + "receita/update/" + this.state.id, receita).then(function (e) {
-            return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["salvo"])();
+            Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["salvo"])();
+
+            _this2.imprimir(e.data);
+
+            _this2.setState({
+              descricao: "",
+              id: ""
+            });
+
+            axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(_this2.api + "receita/lista/" + _this2.props.consulta).then(function (response) {
+              _this2.setState({
+                receitas: response.data
+              });
+
+              _this2.modalLista();
+            })["catch"](function (e) {
+              return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
+            });
           })["catch"](function (e) {
             return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
           });
         }
-
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(this.api + "receita/lista/" + this.props.consulta).then(function (response) {
-          _this2.setState({
-            receitas: response.data
-          });
-        })["catch"](function (e) {
-          return Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["redirect"])(e);
-        });
-        this.setState({
-          descricao: "",
-          id: ""
-        });
-        this.modalLista();
       }
     }
   }, {
     key: "abrirReceitas",
-    value: function abrirReceitas(e) {
+    value: function abrirReceitas() {
       var _this3 = this;
 
-      e.preventDefault();
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(this.api + "receita/lista/" + this.props.consulta).then(function (response) {
         _this3.setState({
           receitas: response.data
@@ -85604,6 +90767,7 @@ var Receita = /*#__PURE__*/function (_Component) {
         $("#btnReceitaCancelar").addClass("d-none");
         $("#btnReceitaSair").removeClass("d-none");
       });
+      this.abrirReceitas();
     }
   }, {
     key: "modalReceita",
@@ -85623,7 +90787,7 @@ var Receita = /*#__PURE__*/function (_Component) {
       var _this4 = this;
 
       e.preventDefault();
-      cancelarEdicao("Receita").then(function (response) {
+      Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_3__["cancelarEdicao"])("Receita").then(function (response) {
         if (response) {
           _this4.setState({
             descricao: "",
@@ -85635,6 +90799,28 @@ var Receita = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "imprimir",
+    value: function imprimir(e) {
+      var data = new Date(e).toLocaleDateString();
+      var table = "<table><tr><td><div class='cabecalho center'><img id='imagem' src='/images/upa2.png'></div><div class='center cabecalho'><h1>Receituário Médico</h1></div></td></tr>";
+      table += "<tr><td><div id='body'><br/><h3 class='center'>" + this.props.paciente + "</h3><br/>" + this.state.descricao.replace(/(?:\r\n|\r|\n)/g, '<br />') + "</div><div class='espaco0 center'><div id='data'>" + data + "</div><br/><h4>DR(A) " + $("#userName").val() + " </h4>Médico</div><br/></td></tr>";
+      table += "<table>";
+      var style = "<style>table{width: 100%; font: 17px Calibri;} table,tr,td {border: solid 2px #000000; border-collapse: collapse;} .center{text-align: center;} #data{text-align: right; margin-right: 40px;} img{max-width: 130px;}  .espaco0{line-height: 0px;} .espaco{line-height: 30px;} #body{height: 500px; padding: 15px;} .cabecalho{display: inline-block; float: left;width: 335px; padding-top: 10px; padding-bottom: 10px;} h1{margin: 0px;}</style>";
+      var head = "<head><title>Atendimento </title> " + style + " </head>";
+      var body = "<body>" + table + "<body>";
+      var win = window.open("", "", "height=700,width=700");
+      win.document.write("<html>");
+      win.document.write(head);
+      win.document.write(body);
+      win.document.write("</html>");
+      var img = win.document.getElementById("imagem");
+
+      img.onload = function () {
+        win.print();
+        win.close();
+      };
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this5 = this;
@@ -85642,8 +90828,9 @@ var Receita = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-success col-md-12",
         type: "button",
+        id: "btn-receita",
         onClick: function onClick(e) {
-          return _this5.abrirReceitas(e);
+          return _this5.abrirReceitas();
         },
         "data-toggle": "modal",
         "data-target": "#receita"
@@ -85709,7 +90896,7 @@ var Receita = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-12"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
-        className: "form-control",
+        className: "form-control text-uppercase",
         rows: "10",
         onChange: this.handleChage,
         value: this.state.descricao
@@ -86962,7 +92149,25 @@ var Atendimento = /*#__PURE__*/function (_Component) {
     key: "salvar",
     value: function salvar(e) {
       e.preventDefault();
-      var paciente = this.state.paciente;
+      var paciente = {
+        nome: this.state.paciente.nome,
+        mae: this.state.paciente.mae,
+        pai: this.state.paciente.pai,
+        nascimento: this.state.paciente.nascimento,
+        sexo: this.state.paciente.sexo,
+        etnia: this.state.paciente.etnia,
+        naturalidade: this.state.paciente.naturalidade,
+        profissao: this.state.paciente.profissao,
+        logradouro: this.state.paciente.logradouro,
+        numero: this.state.paciente.numero,
+        telefone: this.state.paciente.telefone,
+        complemento: this.state.paciente.complemento,
+        bairro: this.state.paciente.bairro,
+        municipio: this.state.paciente.municipio,
+        rg: this.state.paciente.rg,
+        cpf: this.state.paciente.cpf,
+        cns: this.state.paciente.cns
+      };
       var prenchido = {
         municipio: false,
         naturalidade: false,
@@ -87000,7 +92205,7 @@ var Atendimento = /*#__PURE__*/function (_Component) {
         Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_5__["preencha"])("mãe", "#mae");
       } else if (!paciente.nascimento) {
         Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_5__["preencha"])("nascimento", "#nascimento");
-      } else if (!paciente.sexo || !paciente.sexo == 0) {
+      } else if (!paciente.sexo || paciente.sexo == 0) {
         Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_5__["preencha"])("sexo", "#sexo");
       } else if (!prenchido.etnia) {
         Object(_components_mensagens__WEBPACK_IMPORTED_MODULE_5__["preencha"])("etnia", "#etnia");

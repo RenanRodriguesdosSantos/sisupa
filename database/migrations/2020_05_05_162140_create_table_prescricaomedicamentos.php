@@ -15,11 +15,12 @@ class CreateTablePrescricaomedicamentos extends Migration
     {
         Schema::create('prescricaomedicamentos', function (Blueprint $table) {
             $table->id();
-            $table->string('posologia');
-            $table->float('quantidade');
+            $table->integer('posologia')->nullable();
+            $table->string('quantidade');
             $table->integer('apresentacao');
             $table->unsignedBigInteger('medicamento');
             $table->unsignedBigInteger('prescricao');
+            $table->string('observacao')->nullable();
             
             $table->foreign('medicamento')->references('id')->on('medicamentos');
             $table->foreign('prescricao')->references('id')->on('prescricaos');

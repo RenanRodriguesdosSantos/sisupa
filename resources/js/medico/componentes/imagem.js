@@ -14,6 +14,10 @@ export default class Imagem extends Component{
         this.api = "/consulta/";
         this.handleChage = this.handleChage.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
+        this.handleRadio = this.handleRadio.bind(this);
+        $(document).ready(function () {
+            $("#btn-imagem").attr("disabled", true);
+        });
     }
 
     handleSelect(e){
@@ -38,6 +42,10 @@ export default class Imagem extends Component{
                 this.setState({descricao: descricao});
             }
         }
+    }
+
+    handleRadio(e){
+        this.setState({prioridade: e.target.value});
     }
 
     handleChage(e){
@@ -65,7 +73,7 @@ export default class Imagem extends Component{
 
                 exames[3] = false;
 
-                this.setState({exames: exames, descricao: descricao});
+                this.setState({exames: exames, descricao: descricao, prioridade: "2"});
                 $(document).ready(function() {
                     $("#imagem").modal("toggle");
                 });
@@ -142,9 +150,9 @@ export default class Imagem extends Component{
 
             if(selecionado){
                 console.log(descricao)
-                var parametros = {exames: exames, descricao: descricao, medico: this.props.medico, consulta: this.props.consulta, prioridade: this.state.prioridade};
+                var parametros = {exames: exames, descricao: descricao, medico: $("#userId").val(), consulta: this.props.consulta, prioridade: this.state.prioridade};
                 axios.post(this.api + "examesimagem/store",parametros)
-                .then(e => {salvo();})
+                .then(e => {salvo(); $("#imagem").modal("toggle");})
                 .catch(e =>{redirect(e)});
             }
             else{
@@ -165,7 +173,7 @@ export default class Imagem extends Component{
     render(){
         return(
             <div>
-                <button className="btn btn-success col-md-12" type="button" data-toggle="modal" data-target="#imagem" onClick={e => this.abrir(e)}>Exames de Imagem</button>
+                <button className="btn btn-success col-md-12" type="button" id="btn-imagem" data-toggle="modal" data-target="#imagem" onClick={e => this.abrir(e)}>Exames de Imagem</button>
                 <div className="modal fade" id="imagem" tabIndex="-1" data-backdrop="static" role="dialog" aria-labelledby="headerModal" aria-hidden="true">
                         <div className="modal-dialog"  role="document">
                             <div className="modal-content">
@@ -214,6 +222,19 @@ export default class Imagem extends Component{
                                         <hr/>
                                         <div className="col-md-12 text-center">
                                             <button className="btn btn-success" onClick={e => this.outrosExames(e)}>Outros Exames</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    <div className="col-md-12 text-center">
+                                        <b>Prioridade: </b>
+                                        <div className="form-check form-check-inline">
+                                            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" onChange={this.handleRadio} checked={this.state.prioridade == 1}/>
+                                            <label className="form-check-label" htmlFor="inlineRadio1">Urgência</label>
+                                        </div>
+                                        <div className="form-check form-check-inline">
+                                            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2" onChange={this.handleRadio} checked={this.state.prioridade == 2} />
+                                            <label className="form-check-label" htmlFor="inlineRadio2">Rotina</label>
                                         </div>
                                     </div>
                                 </div>

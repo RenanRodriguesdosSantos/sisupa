@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Encaminhamento;
 use App\Consultaencaminhamento;
+use App\Atendimento;
 
 class EncaminhamentoController extends Controller
 {
@@ -18,7 +19,11 @@ class EncaminhamentoController extends Controller
 
     public function store(Request $request){
         $encaminhamento = new Encaminhamento();
-        $encaminhamento->descricao = $request->descricao;
+        $encaminhamento->servico = $request->servico;
+        $encaminhamento->entidade = $request->entidade;
+        $encaminhamento->historia = $request->historia;
+        $encaminhamento->exames = $request->exames;
+        $encaminhamento->hd = $request->hd;
         $encaminhamento->medico = $request->medico;
         $encaminhamento->save();
 
@@ -27,12 +32,27 @@ class EncaminhamentoController extends Controller
         $consultaencaminhamento->consulta = $request->consulta;
         $consultaencaminhamento->save();
 
+        return Atendimento::join("pacientes","atendimentos.paciente","=","pacientes.id")
+                            ->join("municipios","pacientes.municipio","=","municipios.id")
+                            ->where("atendimentos.consulta","=",$request->consulta)
+                            ->select("pacientes.nome as paciente","municipios.nome as municipio","pacientes.nascimento","pacientes.cns")
+                            ->get();
     }
 
     public function update(Request $request,$id){
         $encaminhamento = Encaminhamento::find($id);
-        $encaminhamento->descricao = $request->descricao;
+        $encaminhamento->servico = $request->servico;
+        $encaminhamento->entidade = $request->entidade;
+        $encaminhamento->historia = $request->historia;
+        $encaminhamento->exames = $request->exames;
+        $encaminhamento->hd = $request->hd;
         $encaminhamento->medico = $request->medico;
         $encaminhamento->save();
+
+        return Atendimento::join("pacientes","atendimentos.paciente","=","pacientes.id")
+                            ->join("municipios","pacientes.municipio","=","municipios.id")
+                            ->where("atendimentos.consulta","=",$request->consulta)
+                            ->select("pacientes.nome as paciente","municipios.nome as municipio","pacientes.nascimento","pacientes.cns")
+                            ->get();
     }
 }

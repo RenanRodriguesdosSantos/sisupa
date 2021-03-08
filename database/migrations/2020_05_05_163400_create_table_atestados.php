@@ -19,6 +19,7 @@ class CreateTableAtestados extends Migration
             $table->string("tempoAtestado")->nullable();
             $table->string("cid",10)->nullable();
             $table->unsignedBigInteger('medico');
+            $table->date("apartir");
             
             $table->foreign('medico')->references('id')->on('users');
             $table->timestamps();

@@ -20,7 +20,7 @@ export default class Outrosexames extends Component{
     }
 
     handleChage(e){
-        this.setState({[e.target.id]: e.target.value});
+        this.setState({[e.target.id]: e.target.value.toUpperCase()});
     }
 
     handleRadio(e){
@@ -39,18 +39,44 @@ export default class Outrosexames extends Component{
                 nome: this.state.nome,
                 descricao: this.state.descricao,
                 prioridade: this.state.prioridade,
-                medico: this.props.medico,
+                medico: $("#userId").val(),
                 consulta: this.props.consulta
             }
 
             if(!this.state.id){
                 axios.post(this.api + "outrosexames/store",exames)
-                .then(e => {salvo()})
+                .then(e => {
+                    salvo();
+                    this.setState({descricao: ""});
+                    $(document).ready(function() {
+                        var returnForm = $("#returnForm").val();
+                        if(returnForm == "imagem"){
+                            $("#imagem").modal("toggle");
+                        }
+                        else{
+                            $("#laboratoriais").modal("toggle");
+                        }
+                        $("#outrosexames").modal("toggle");
+                    });
+                })
                 .catch(e => redirect(e));
             }
             else{
                 axios.put(this.api + "outrosexames/update/"+ this.state.id, exames)
-                .then(e => {salvo()})
+                .then(e => {
+                    salvo();
+                    this.setState({descricao: ""});
+                    $(document).ready(function() {
+                        var returnForm = $("#returnForm").val();
+                        if(returnForm == "imagem"){
+                            $("#imagem").modal("toggle");
+                        }
+                        else{
+                            $("#laboratoriais").modal("toggle");
+                        }
+                        $("#outrosexames").modal("toggle");
+                    });
+                })
                 .catch(e => redirect(e));
             }
         }
@@ -61,8 +87,8 @@ export default class Outrosexames extends Component{
         cancelarEdicao("Outros Exames")
         .then(response =>{
             if(response){
+                this.setState({descricao: ""});
                 $(document).ready(function() {
-                    this.setState({descricao: ""});
                     var returnForm = $("#returnForm").val();
                     if(returnForm == "imagem"){
                         $("#imagem").modal("toggle");
@@ -92,7 +118,7 @@ export default class Outrosexames extends Component{
                                         <div className="form-group row">
                                             <label htmlFor="descricao" className="col-form-label col-md-12">Descrição dos Exames: </label>
                                             <div className="col-md-12">
-                                                <textarea id="descricao" className="form-control" onChange={this.handleChage} value={this.state.descricao}></textarea>
+                                                <textarea id="descricao" className="form-control text-uppercase" onChange={this.handleChage} value={this.state.descricao}></textarea>
                                             </div>
                                         </div>
                                     </div>

@@ -26,13 +26,14 @@ class ReceitaController extends Controller
         $consultaReceita->receita = $receita->id;
         $consultaReceita->consulta = $request->consulta;
         $consultaReceita->save();
-
+        return $receita->created_at;
     }
-
+    
     public function update(Request $request,$id){
         $receita = Receita::find($id);
         $receita->descricao = $request->descricao;
         $receita->medico = $request->medico;
         $receita->save();
+        return $receita->created_at;
     }
 }

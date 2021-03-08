@@ -6,7 +6,7 @@ export default class Header extends Component{
     render(){
         return(
             <div>
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark" id="header">
                     <Link className="navbar-brand nav-link mr-5" to="/home"><img src={Logo} />Skalp</Link>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -18,10 +18,13 @@ export default class Header extends Component{
                                 <Link className="nav-link" to="/ambulatorio"><div id="home">Home</div><span className="sr-only">(current)</span></Link>
                             </li>
                             <li className="nav-item active">
-                                <Link className="nav-link" to="/ambulatorio/lista" ><div id="home">Usuário</div><span className="sr-only">(current)</span></Link>
+                                <Link className="nav-link" to="/ambulatorio/lista" ><div id="home">Lista de Pacientes</div><span className="sr-only">(current)</span></Link>
                             </li>
                             <li className="nav-item active">
-                                <Link className="nav-link" to="/ambulatorio/exames"><div id="home">Classificação</div><span className="sr-only">(current)</span></Link>
+                                <Link className="nav-link" to="/ambulatorio/exames"><div id="home">Exames</div><span className="sr-only">(current)</span></Link>
+                            </li>
+                            <li className="nav-item active">
+                                <Link className="nav-link" to="/ambulatorio/exames"><div id="home">Exames</div><span className="sr-only">(current)</span></Link>
                             </li>
                             <li className="nav-item active">
                                 <Link className="nav-link" to="/ajuda"><div id="home">Ajuda</div><span className="sr-only">(current)</span></Link>

@@ -15,7 +15,11 @@ class CreateTableEncaminhamentos extends Migration
     {
         Schema::create('encaminhamentos', function (Blueprint $table) {
             $table->id();
-            $table->text('descricao');
+            $table->string('servico')->nullable();
+            $table->integer("entidade");
+            $table->text("historia");
+            $table->text("exames")->nullable();
+            $table->text("hd")->nullable();
             $table->unsignedBigInteger('medico');
             
             $table->foreign('medico')->references('id')->on('users');

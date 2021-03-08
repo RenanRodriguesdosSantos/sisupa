@@ -24,7 +24,10 @@ export default class Header extends Component{
                                 <Link className="nav-link" to="/administrador/classificacao"><div id="home">Classificação</div><span className="sr-only">(current)</span></Link>
                             </li>
                             <li className="nav-item active">
-                                <Link className="nav-link" to="/administrador/materiais"><div id="home">Materiais</div><span className="sr-only">(current)</span></Link>
+                                <Link className="nav-link" to="/administrador/cadastros"><div id="home">Cadastros</div><span className="sr-only">(current)</span></Link>
+                            </li>
+                            <li className="nav-item active">
+                                <Link className="nav-link" to="/administrador/relatorios"><div id="home">Relatórios</div><span className="sr-only">(current)</span></Link>
                             </li>
                             <li className="nav-item active">
                                 <Link className="nav-link" to="/ajuda"><div id="home">Ajuda</div><span className="sr-only">(current)</span></Link>

@@ -14,6 +14,10 @@ export default class Lista extends Component{
             azul: []
         };
 
+        $(document).ready(function(){
+            $("#header").removeClass("d-none");
+        })
+
         this.api = "/consulta/";
         axios.get(this.api + 'atendimentos/dados/lista')
         .then(response => {

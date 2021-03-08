@@ -20,13 +20,13 @@ class CreateTableAtendimentos extends Migration
             $table->unsignedBigInteger('recepcao');
             $table->unsignedBigInteger('triagem')->nullable();
             $table->unsignedBigInteger('consulta')->nullable();
-            $table->unsignedBigInteger('ambulatorio')->nullable();
+            $table->unsignedBigInteger('sinais')->nullable();
             
             $table->foreign('paciente')->references('id')->on('pacientes');
             $table->foreign('recepcao')->references('id')->on('recepcaos');
             $table->foreign('triagem')->references('id')->on('triagems');
             $table->foreign('consulta')->references('id')->on('consultas');
-            $table->foreign('ambulatorio')->references('id')->on('ambulatorios');
+            $table->foreign('sinais')->references('id')->on('atendimentosinais');
 
             $table->timestamps();
         });

@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { preencha, salvo } from '../../components/mensagens';
 
-export default class Materiais extends Component{
+export default class Cadastros extends Component{
     constructor(){
         super();
         this.state ={
@@ -10,7 +10,10 @@ export default class Materiais extends Component{
             materiais: [],
             medicamentos: [],
             material: "",
-            medicamento: ""
+            medicamento: "",
+            idExame: "",
+            exame: "",
+            exames: []
         }
         this.url = "/administrador/";
         this.handleChange = this.handleChange.bind(this);
@@ -38,11 +41,20 @@ export default class Materiais extends Component{
                 }
             }
         }
-        else{
+        else if(campo == 'idMedicamento'){
             var medicamentos = this.state.medicamentos;
             for(var i = 0; i < medicamentos.length; i++){
                 if(medicamentos[i].id == valor){
                     this.setState({medicamento: medicamentos[i].nome});
+                    break;
+                }
+            }
+        }
+        else{
+            var exames = this.state.exames;
+            for(var i = 0; i < exames.length; i++){
+                if(exames[i].id == valor){
+                    this.setState({exame: exames[i].nome});
                     break;
                 }
             }
@@ -64,6 +76,15 @@ export default class Materiais extends Component{
         this.setState({['idMedicamento']: "",['medicamento']: ""});
         axios.get(this.url + "medicamentos/dados")
         .then(response => {this.setState({medicamentos: response.data})})
+        .catch(e => redirect(e));
+    }
+
+    editarExames(e){
+        e.preventDefault();
+        $("#idExame").toggleClass('d-none');
+        this.setState({['idExame']: "",['exame']: ""});
+        axios.get(this.url + "exames/dados")
+        .then(response => {this.setState({exames: response.data})})
         .catch(e => redirect(e));
     }
 
@@ -110,7 +131,7 @@ export default class Materiais extends Component{
             var medicamento = {
                 nome: this.state.medicamento
             }
-            if(!this.state.idmedicamento){
+            if(!this.state.idMedicamento){
                 axios.post(this.url + "medicamento/store",medicamento)
                 .then(e => {  
                     salvo();
@@ -132,11 +153,43 @@ export default class Materiais extends Component{
             this.setState({medicamento: "", idmedicamento: ""});
         }
     }
+    salvarExame(e){
+        e.preventDefault();
+        
+        if(!this.state.exame){
+            preencha("exame","#exame");
+        }
+        else{
+            var exame = {
+                nome: this.state.exame
+            }
+            if(!this.state.idExame){
+                axios.post(this.url + "exame/store",exame)
+                .then(e => {  
+                    salvo();
+                    axios.get(this.url + "exames/dados")
+                    .then(response => {this.setState({exames: response.data})})
+                    .catch(e => redirect(e));
+                })
+                .catch(e => redirect(e));
+            }
+            else{
+                axios.put(this.url + "exame/update/" + this.state.idExame ,exame)
+                .then(e => {  
+                    salvo()
+                    axios.get(this.url + "exames/dados")
+                    .then(response => {this.setState({exames: response.data})});
+                })
+                .catch(e => redirect(e));
+            }
+            this.setState({exame: "", idExame: ""});
+        }
+    }
 
     render(){
         return(
             <div>
-                <h2>Cadastro de Medicamentos e Materiais</h2>
+                <h2>Cadastro de Medicamentos, Materiais e Exames</h2>
                 <form>
                 <div className="form-group row ">
                         <div className="col-md-12 text-center">
@@ -184,6 +237,30 @@ export default class Materiais extends Component{
                         </div>
                         <div className="col-md-2 text-right">
                             <button className="btn btn-primary col-md-12" onClick={e => this.salvarMedicamento(e)}>Salvar Medicamento</button>
+                        </div>
+                    </div>
+                    <div className="form-group row ">
+                        <div className="col-md-12 text-center">
+                            <button className="btn btn-primary col-md-3" onClick={e => this.editarExames(e)}>Editar Exames</button>
+                            <div className="col-md-10">
+                                <select id="idExame" className="d-none form-control" onChange={this.handleSelect} value={this.state.idExame}>   
+                                    {
+                                        this.state.exames.map(
+                                            row =>
+                                        <option value={row.id} key={row.id}>{row.nome}</option>
+                                        )
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="exame" className="col-md-2 col-form-label"> Exame Lab: </label>
+                        <div className="col-md-8">
+                            <input onChange={this.handleChange} value={this.state.exame} type="text" className="form-control text-uppercase" id="exame" placeholder="Exame Laboratorial"/>
+                        </div>
+                        <div className="col-md-2 text-right">
+                            <button className="btn btn-primary col-md-12" onClick={e => this.salvarExame(e)}>Salvar Exame</button>
                         </div>
                     </div>
                 </form>

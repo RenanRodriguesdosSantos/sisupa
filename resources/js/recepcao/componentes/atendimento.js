@@ -227,7 +227,25 @@ export default class Atendimento extends Component{
     salvar(e){
         e.preventDefault();
 
-        const paciente = this.state.paciente;
+        var paciente = {
+            nome: this.state.paciente.nome,
+            mae: this.state.paciente.mae,
+            pai: this.state.paciente.pai,
+            nascimento: this.state.paciente.nascimento,
+            sexo: this.state.paciente.sexo,
+            etnia: this.state.paciente.etnia,
+            naturalidade: this.state.paciente.naturalidade,
+            profissao: this.state.paciente.profissao,
+            logradouro: this.state.paciente.logradouro,
+            numero: this.state.paciente.numero,
+            telefone: this.state.paciente.telefone,
+            complemento: this.state.paciente.complemento,
+            bairro: this.state.paciente.bairro,
+            municipio: this.state.paciente.municipio,
+            rg: this.state.paciente.rg,
+            cpf: this.state.paciente.cpf,
+            cns: this.state.paciente.cns
+        };
         var prenchido = {municipio: false, naturalidade: false, etnia: false};
         //Para tranformar o nome em id para salvar no banco
         for(var i = 0; i < this.state.municipios.length; i++){
@@ -263,7 +281,7 @@ export default class Atendimento extends Component{
         else if(!paciente.nascimento){
             preencha("nascimento","#nascimento");
         }
-        else if(!paciente.sexo || !paciente.sexo == 0){
+        else if(!paciente.sexo || paciente.sexo == 0){
             preencha("sexo","#sexo");
         }
         else if(!prenchido.etnia){

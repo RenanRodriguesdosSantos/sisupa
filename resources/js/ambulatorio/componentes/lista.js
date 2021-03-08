@@ -1,125 +1,105 @@
 import React,{Component} from 'react';
 import axios from 'axios';
-import Pagination from 'react-js-pagination';
-import Aceitar from '../../imagens/accept.png';
-import { Link } from 'react-router-dom';
+import Tabela from './tabela';
 import { redirect } from '../../components/mensagens';
 
 export default class Lista extends Component{
     constructor(){
         super();
         this.state = {
-            atendimentos: [],
-            activePage:0,
-            itemsCountPerPage:0,
-            totalItemsCount:0,
+            vermelho: [],
+            laranja: [],
+            amarelo: [],
+            verde: [],
+            azul: []
         };
-
-        $(document).ready(function() {
-            $("#spinner").removeClass("d-none");
-            $("#tabela").addClass("d-none");
-        });
 
         this.api = "/ambulatorio/";
         axios.get(this.api + 'atendimentos/dados/lista')
         .then(response => {
-            this.setState({
-                atendimentos: response.data.data,
-                activePage: response.data.current_page,
-                itemsCountPerPage: response.data.per_page,
-                totalItemsCount: response.data.total
-            })
-            $(document).ready(function() {
-                $("#tabela").removeClass("d-none");
-                $("#spinner").addClass("d-none");
-            })
+            this.triagem(response.data);
         })
         .catch((e) => redirect(e));
 
-        Echo.private('triagem')
-        .listen('NovaRecepcao', (response) => {
-            this.setState({
-                atendimentos: response.atendimentos.data,
-                activePage: response.atendimentos.current_page,
-                itemsCountPerPage: response.atendimentos.per_page,
-                totalItemsCount: response.atendimentos.total
-            });
-        });
+        /*Echo.private('consulta')
+        .listen('NovaTriagem', (response) => {
+            this.triagem(JSON.parse(response.atendimentos));
+        });*/
     }
 
-    handlePageChange(pageNumber){
-        $(document).ready(function() {
-            $("#spinner").removeClass("d-none");
-            $("#tabela").addClass("d-none");
-        });
-
-        axios.get(this.api + 'atendimentos/dados/lista?page='+pageNumber)
-        .then((response)=>{
-            this.setState({
-                atendimentos: response.data.data,
-                activePage: response.data.current_page,
-                itemsCountPerPage: response.data.per_page,
-                totalItemsCount: response.data.total
-            });
-            $(document).ready(function() {
-                $("#spinner").addClass("d-none");
-                $("#tabela").removeClass("d-none");
-            });
-        })
-        .catch((e) => redirect(e));
+    triagem(atendimentos){
+        this.setState({vermelho: [], laranja: [], amarelo: [], verde: [], azul: []});
+        atendimentos.map(
+            row => {
+                switch (row.cor) {
+                    case 1:
+                        var vermelho = this.state.vermelho;
+                        vermelho.push(row);
+                        this.setState({vermelho: vermelho});
+                        break;
+                    case 2:
+                        var laranja = this.state.laranja;
+                        laranja.push(row);
+                        this.setState({laranja: laranja});
+                        break;
+                    case 3:
+                        var amarelo = this.state.amarelo;
+                        amarelo.push(row);
+                        this.setState({amarelo: amarelo});
+                        break;
+                    case 4:
+                        var verde = this.state.verde;
+                        verde.push(row);
+                        this.setState({verde: verde});
+                        break;
+                    case 5:
+                        var azul = this.state.azul;
+                        azul.push(row);
+                        this.setState({azul: azul});
+                        break;
+                }
+            }
+        )
     }
 
     render(){
         return(
             <div>
-                <h2 className="text-center">Lista de Pacientes para a Triagem</h2>
-                <center>
-                    <div className="spinner-border d-none" id="spinner" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </div>
-                </center>
-                <div className="col-md-12 d-none" id="tabela">
-                    <div className="table-responsive" >
-                        <table className="table table-striped">
-                            <thead>
-                                <tr scope="row">
-                                    <th scope="col" colSpan="3"> Paciente </th>
-                                    <th scope="col" colSpan="3"> Mãe </th>
-                                    <th scope="col"> Nascimento </th>
-                                    <th scope="col"> Bairro</th>
-                                    <th scope="col"> Hora </th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.atendimentos.map(
-                                    row =>
-                                    <tr key= {row.id}>
-                                        <td colSpan="3"> {row.paciente} </td>
-                                        <td colSpan="3"> {row.mae} </td>
-                                        <td> {new Date(row.nascimento).toLocaleDateString()} </td>
-                                        <td> {row.bairro} </td>
-                                        <td> {new Date(row.created_at).toLocaleTimeString()}</td>
-                                        <td><Link  to={"/triagem/atendimento/" + row.id} className="btn btn-primary"><img src={Aceitar}/></Link></td>
-                                    </tr>
-                                    )}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className="col-md-12">
-                        <center>
-                            <div className="col-md-3">
-                                <Pagination
-                                    activePage={this.state.activePage}
-                                    itemsCountPerPage={this.state.itemsCountPerPage}
-                                    totalItemsCount={this.state.totalItemsCount}
-                                    pageRangeDisplayed={5}
-                                    onChange={e => this.handlePageChange(e)}
-                                    itemClass="page-item"
-                                    linkClass="page-link"
-                                />
-                            </div>
-                        </center>
+                <h2 className="text-center">Lista de Pacientes para Medicação</h2>
+                <div className="col-md-12">
+                    <ul className="nav nav-tabs" id="myTab" role="tablist">
+                        <li className="nav-item">
+                            <a className="nav-link active" id="vermelho-tab" data-toggle="tab" href="#vermelho" role="tab" aria-controls="vermelho" aria-selected="true">Vermelho | {this.state.vermelho.length}</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" id="laranja-tab" data-toggle="tab" href="#laranja" role="tab" aria-controls="laranja" aria-selected="false">Laranja | {this.state.laranja.length}</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" id="amarelo-tab" data-toggle="tab" href="#amarelo" role="tab" aria-controls="amarelo" aria-selected="false">Amarelo | {this.state.amarelo.length}</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" id="verde-tab" data-toggle="tab" href="#verde" role="tab" aria-controls="verde" aria-selected="false">Verde | {this.state.verde.length}</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" id="azul-tab" data-toggle="tab" href="#azul" role="tab" aria-controls="azul" aria-selected="false">Azul | {this.state.azul.length}</a>
+                        </li>
+                    </ul>
+                    <div className="tab-content" id="myTabContent">
+                        <div className="tab-pane fade show active" id="vermelho" role="tabpanel" aria-labelledby="vermelho-tab">
+                            <Tabela atendimentos={this.state.vermelho}/>
+                        </div>
+                        <div className="tab-pane fade" id="laranja" role="tabpanel" aria-labelledby="laranja-tab">
+                            <Tabela atendimentos={this.state.laranja}/>
+                        </div>
+                        <div className="tab-pane fade" id="amarelo" role="tabpanel" aria-labelledby="amarelo-tab">
+                            <Tabela atendimentos={this.state.amarelo}/>
+                        </div>
+                        <div className="tab-pane fade" id="verde" role="tabpanel" aria-labelledby="verde-tab">
+                            <Tabela atendimentos={this.state.verde}/>
+                        </div>
+                        <div className="tab-pane fade" id="azul" role="tabpanel" aria-labelledby="azul-tab">
+                            <Tabela atendimentos={this.state.azul}/>
+                        </div>
                     </div>
                 </div>
             </div>

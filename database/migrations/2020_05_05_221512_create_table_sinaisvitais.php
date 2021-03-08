@@ -23,10 +23,11 @@ class CreateTableSinaisvitais extends Migration
             $table->float('fc',8,2)->nullable();
             $table->float('peso',8,2)->nullable();
             $table->string('pa',7)->nullable();
-            $table->unsignedBigInteger('ambulatorio');
+            $table->string("observacao")->nullable();
+            $table->unsignedBigInteger('atendimento');
             $table->unsignedBigInteger('tecnico');
             
-            $table->foreign('ambulatorio')->references('id')->on('ambulatorios');
+            $table->foreign('atendimento')->references('id')->on('atendimentosinais');
             $table->foreign('tecnico')->references('id')->on('users');
             $table->timestamps();
         });

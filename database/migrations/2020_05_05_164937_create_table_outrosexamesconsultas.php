@@ -18,9 +18,13 @@ class CreateTableOutrosexamesconsultas extends Migration
             $table->integer('prioridade');
             $table->string('nome');
             $table->string('descricao')->nullable();
+            $table->string('observacao')->nullable();
+            $table->integer('status')->nullable();
             $table->unsignedBigInteger('consulta');
             $table->unsignedBigInteger('medico');
+            $table->unsignedBigInteger('tecnico')->nullable();
             
+            $table->foreign('tecnico')->references('id')->on('users');
             $table->foreign('consulta')->references('id')->on('consultas');
             $table->foreign('medico')->references('id')->on('users');
             $table->timestamps();

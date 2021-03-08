@@ -17,9 +17,13 @@ class CreateTableExamesconsultas extends Migration
             $table->id();
             $table->integer('prioridade');
             $table->unsignedBigInteger('exame');
+            $table->integer('status')->nullable();
+            $table->string('observacao')->nullable();
             $table->unsignedBigInteger('consulta');
             $table->unsignedBigInteger('medico');
+            $table->unsignedBigInteger('tecnico')->nullable();
             
+            $table->foreign('tecnico')->references('id')->on('users');
             $table->foreign('exame')->references('id')->on('exames');
             $table->foreign('consulta')->references('id')->on('consultas');
             $table->foreign('medico')->references('id')->on('users');

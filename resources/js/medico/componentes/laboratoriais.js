@@ -15,6 +15,9 @@ export default class Laboratoriais extends Component{
         this.api = "/consulta/";
         this.handleChage = this.handleChage.bind(this);
         this.handleRadio = this.handleRadio.bind(this);
+        $(document).ready(function () {
+            $("#btn-lab").attr("disabled", true);
+        });
     }
 
     handleChage(e){
@@ -107,7 +110,7 @@ export default class Laboratoriais extends Component{
 
     salvar(e){
         e.preventDefault();
-        var exames = {id: [], medico: this.props.medico, consulta: this.props.consulta, prioridade: this.state.prioridade};
+        var exames = {id: [], medico: $("#userId").val(), consulta: this.props.consulta, prioridade: this.state.prioridade};
         var umSelecionado = false;
         this.state.exames.map(row => {
             if(row.checked){
@@ -118,7 +121,7 @@ export default class Laboratoriais extends Component{
 
         if(umSelecionado){
             axios.post(this.api + "exames/store",exames)
-            .then(e => {salvo();})
+            .then(e => {salvo(); $("#laboratoriais").modal("toggle")})
             .catch(e =>{redirect(e)});
             
         }
@@ -139,7 +142,7 @@ export default class Laboratoriais extends Component{
     render(){
         return(
             <div>
-                <button className="btn btn-success col-md-12" onClick={e => this.abrir(e)} type="button" data-toggle="modal" data-target="#laboratoriais">Exames Laboratoriais</button>
+                <button className="btn btn-success col-md-12" id="btn-lab" onClick={e => this.abrir(e)} type="button" data-toggle="modal" data-target="#laboratoriais">Exames Laboratoriais</button>
                 <div className="modal fade selecionado" id="laboratoriais" tabIndex="-1" data-backdrop="static" role="dialog" aria-labelledby="headerModal" aria-hidden="true">
                         <div className="modal-dialog modal-xl"  role="document">
                             <div className="modal-content">

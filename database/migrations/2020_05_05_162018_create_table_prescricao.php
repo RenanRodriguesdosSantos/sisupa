@@ -15,9 +15,11 @@ class CreateTablePrescricao extends Migration
     {
         Schema::create('prescricaos', function (Blueprint $table) {
             $table->id();
+            $table->integer("status");
+            $table->string("observacao")->nullable();
             $table->unsignedBigInteger('medico');
             $table->unsignedBigInteger('tecnico')->nullable();
-            $table->string('observacao')->nullable();
+            $table->softDeletes();
             
             $table->foreign('medico')->references('id')->on('users');
             $table->foreign('tecnico')->references('id')->on('users');

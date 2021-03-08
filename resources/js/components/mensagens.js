@@ -31,6 +31,16 @@ function salvo() {
     });
 }
 
+function excluidoSucesso() {
+    swal({
+        title: "Excluido",
+        icon: "success",
+        text: "Excluido com sucesso!",
+        timer: 3000,
+        button: "Está Bem!"
+    });
+}
+
 function preencha(campo, id) {
     swal({
         title: "Informação",
@@ -128,4 +138,28 @@ function cancelarEdicao(form){
     });
 }
 
-export {redirect,salvo,preencha, senhasDif, selecionePaciente, continuarAtender, cancelarEdicao, selecioneExame};
+function deletarPrescricao(){
+    return swal({
+        title: "Excluir Prescrição",
+        icon: "error",
+        closeOnClickOutside: false,
+        closeOnEsc: false,
+        text: "Deseja realmente excluir esta Prescrição?",
+        buttons: {
+            cancel: {
+                text: "    Não   ",
+                value: false,
+                visible: true,
+                className: "btn btn-warning"
+            },
+            sim: {
+                text: "  Sim Excluir   ",
+                value: true,
+                visible: true,
+                className: "btn btn-danger"
+            }
+        }
+    });
+}
+
+export {redirect,salvo,preencha, senhasDif, selecionePaciente, continuarAtender, cancelarEdicao, selecioneExame, deletarPrescricao, excluidoSucesso};
